@@ -13,7 +13,7 @@ https://venancio.dev
 ```text
 .
 ├── index.html
-├── styles.css
+├── style.css
 ├── README.md
 ├── LICENSE
 └── .gitignore
