@@ -82,8 +82,28 @@ a:focus-visible {
 
 .site-header {
   display: flex;
-  justify-content: right;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 3rem;
+}
+
+.brand-link {
+  display: inline-grid;
+  width: 3.15rem;
+  height: 3.15rem;
+  place-items: center;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.brand-link:hover {
+  transform: translateY(-1px);
+}
+
+.brand-logo {
+  display: block;
+  width: 3.15rem;
+  height: 3.15rem;
 }
 
 .social-links {
@@ -352,6 +372,20 @@ h2 {
   animation: cardReveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+.reveal-logo {
+  opacity: 0;
+  overflow: hidden;
+  animation: iconReveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 40ms;
+}
+
+.reveal-logo > .brand-logo {
+  opacity: 0;
+  transform: translateY(115%);
+  animation: revealUp 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 140ms;
+}
+
 .cta.reveal {
   opacity: 0;
   animation: ctaReveal 1400ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -422,6 +456,8 @@ h2 {
   .reveal > span,
   .reveal-icon,
   .reveal-icon > span,
+  .reveal-logo,
+  .reveal-logo > .brand-logo,
   .reveal-card,
   .cta.reveal {
     opacity: 1;
