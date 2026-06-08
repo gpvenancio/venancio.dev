@@ -16,7 +16,7 @@
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link
       rel="icon"
-      href="./assets/favicon_32x32.png"
+      href="./assets/favicon_32.png"
       type="image/png"
       sizes="32x32"
     />
@@ -57,13 +57,30 @@
   <body>
     <main class="page">
       <header class="site-header" aria-label="Site header">
-        <a
-          class="brand-link reveal-logo"
-          href="/"
-          aria-label="Gonçalo Venâncio home"
-        >
-          <img src="./assets/logo.svg" alt="" class="brand-logo" />
-        </a>
+        <nav class="site-nav" aria-label="Site navigation">
+          <a
+            class="brand-link reveal-logo"
+            href="/"
+            aria-label="Go to homepage"
+            title="Go to homepage"
+          >
+            <img src="./assets/logo.svg" alt="" class="brand-logo" />
+          </a>
+
+          <a
+            class="nav-pill reveal-icon"
+            href="/atlantico/"
+            aria-label="Go to Atlantico project page"
+            title="Go to Atlantico project page"
+          >
+            <img
+              src="./assets/atlantico/icon.svg"
+              alt=""
+              class="nav-pill-icon"
+            />
+            <span>Atlantico</span>
+          </a>
+        </nav>
 
         <nav class="social-links" aria-label="Social links">
           <a
