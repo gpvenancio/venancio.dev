@@ -12,11 +12,14 @@ https://venancio.dev
 
 ### Atlantico
 
-Atlantico is a calm dark theme for Visual Studio Code, designed for focused development, long coding sessions, and visual comfort.
+Atlantico is a calm theme for Visual Studio Code and compatible editors, designed for focused development, long coding sessions, and visual comfort.
 
-Project page:
+Links:
 
-https://venancio.dev/atlantico/
+- Project page: https://venancio.dev/atlantico/
+- Visual Studio Marketplace: https://marketplace.visualstudio.com/items?itemName=gvenancio.atlantico
+- Open VSX Registry: https://open-vsx.org/extension/gvenancio/atlantico
+- GitHub repository: https://github.com/gpvenancio/atlantico
 
 ## Project structure
 
