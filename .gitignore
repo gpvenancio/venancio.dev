@@ -1,13 +1,48 @@
 # Dependencies
 node_modules/
 
-# Environment files
+# Environment variables
 .env
-.env.local
+.env.*
+!.env.example
 
-# System files
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build outputs
+dist/
+build/
+out/
+public/build/
+
+# Cache
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+.nyc_output/
+
+# Coverage
+coverage/
+
+# Temporary files
+tmp/
+temp/
+
+# Editor directories
+.vscode/
+.idea/
+
+# Editor backup files
+*~
+*.swp
+*.swo
+
+# Operating system files
 .DS_Store
 Thumbs.db
-
-# Editor settings
-.vscode/
+Desktop.ini
