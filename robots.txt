@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://venancio.dev/sitemap.xml
+Sitemap: https://poesiadovenancio.blogspot.com/sitemap.xml

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-PT" data-theme="light">
+<html lang="pt-PT" data-theme="light" data-language="pt">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,6 +12,28 @@
       content="Livro de Gonçalo Venâncio disponível exclusivamente online."
     />
     <link rel="canonical" href="https://venancio.dev/poesia/livro/" />
+
+    <meta property="og:title" content="Livro · Poesia do Venâncio" />
+    <meta
+      property="og:description"
+      content="Livro de Gonçalo Venâncio disponível exclusivamente online."
+    />
+    <meta property="og:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Gonçalo Venâncio, venancio.dev" />
+    <meta property="og:url" content="https://venancio.dev/poesia/livro/" />
+    <meta property="og:site_name" content="Gonçalo Venâncio" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Livro · Poesia do Venâncio" />
+    <meta
+      name="twitter:description"
+      content="Livro de Gonçalo Venâncio disponível exclusivamente online."
+    />
+    <meta name="twitter:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta name="twitter:image:alt" content="Gonçalo Venâncio, venancio.dev" />
 
     <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
     <link
@@ -26,51 +48,76 @@
 
     <script>
       (() => {
-        const saved = localStorage.getItem('poesia-theme');
-        const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
-        document.documentElement.dataset.theme = theme;
+        const savedTheme = localStorage.getItem('venancio-theme') || localStorage.getItem('poesia-theme');
+        const savedLanguage = localStorage.getItem('venancio-language');
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.language = savedLanguage === 'en' ? 'en' : 'pt';
+        document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'pt-PT';
       })();
     </script>
   </head>
 
   <body class="book-page-body">
-    <a class="skip-link" href="#conteudo">Avançar para o conteúdo</a>
+    <a class="skip-link" href="#conteudo" data-i18n="skipContent">
+      Avançar para o conteúdo
+    </a>
 
     <div class="book-page-shell">
-      <header class="book-page-header" data-reveal>
-        <a class="book-back-link" href="../" aria-label="Voltar ao início">
+      <header class="book-page-header">
+        <a
+          class="book-back-link reveal-icon"
+          href="../"
+          aria-label="Voltar ao início"
+          data-i18n-aria-label="backHome"
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m10.53 5.47-1.06-1.06L1.88 12l7.59 7.59 1.06-1.06-5.78-5.78H22v-1.5H4.75z" />
           </svg>
-          <span>Voltar ao início</span>
+          <span data-i18n="backHome">Voltar ao início</span>
         </a>
 
-        <a class="site-name" href="../" aria-label="Voltar ao Poesia do Venâncio">
-          Poesia do Venâncio
+        <a
+          class="site-name reveal-icon"
+          href="../"
+          aria-label="Voltar à Poesia do Venâncio"
+          data-i18n-aria-label="backPoetry"
+        >
+          <span>Poesia do Venâncio</span>
         </a>
 
         <div class="header-actions">
+          <div
+            class="drawer-language-switcher header-language-switcher reveal-icon"
+            aria-label="Idioma"
+            data-i18n-aria-label="language"
+          >
+            <button type="button" data-language="pt" aria-pressed="true">Português</button>
+            <button type="button" data-language="en" aria-pressed="false">English</button>
+          </div>
+
           <button
-            class="icon-button theme-button"
+            class="icon-button theme-button reveal-icon"
             type="button"
-            aria-label="Ativar modo escuro"
-            title="Alternar tema"
+            aria-label="Ativar o modo escuro"
+            title="Ativar o modo escuro"
             data-theme-toggle
           >
             <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M11.25 2h1.5v2.5h-1.5zM11.25 19.5h1.5V22h-1.5zM2 11.25h2.5v1.5H2zM19.5 11.25H22v1.5h-2.5zM4.575 3.515l1.768 1.768-1.06 1.06-1.768-1.768zM17.657 16.597l1.768 1.768-1.06 1.06-1.768-1.768zM3.515 19.425l1.768-1.768 1.06 1.06-1.768 1.768zM16.597 6.343l1.768-1.768 1.06 1.06-1.768 1.768z" />
-              <path d="M12 6.25A5.75 5.75 0 1 0 12 17.75 5.75 5.75 0 0 0 12 6.25Zm0 10A4.25 4.25 0 1 1 12 7.75a4.25 4.25 0 0 1 0 8.5Z" />
+              <circle cx="12" cy="12" r="3.75"></circle>
+              <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"></path>
             </svg>
             <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20.49 14.69A8.5 8.5 0 0 1 9.31 3.51 8.5 8.5 0 1 0 20.49 14.69ZM11.5 20A7 7 0 0 1 7.17 7.5a10 10 0 0 0 9.33 9.33A6.96 6.96 0 0 1 11.5 20Z" />
+              <path d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"></path>
             </svg>
           </button>
 
           <button
-            class="icon-button"
+            class="icon-button reveal-icon"
             type="button"
             aria-label="Partilhar esta página"
             title="Partilhar"
+            data-i18n-aria-label="sharePage"
+            data-i18n-title="share"
             data-share-book
           >
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -81,21 +128,31 @@
       </header>
 
       <main id="conteudo" class="book-page-main" tabindex="-1">
-        <article class="book-card" data-reveal style="--reveal-delay: 90ms">
-          <h1 class="book-title"><span>Livro disponível</span><span>exclusivamente online</span></h1>
-          <p class="book-intro"><span>Escolha onde prefere comprar o livro</span><span>ou apoie diretamente o autor.</span></p>
+        <article class="book-card reveal-card">
+          <h1 class="book-title reveal">
+            <span data-i18n="bookTitleLine1">Livro disponível</span>
+            <span data-i18n="bookTitleLine2">exclusivamente online</span>
+          </h1>
+          <p class="book-intro reveal">
+            <span data-i18n="bookIntroLine1">Escolha onde prefere comprar o livro</span>
+            <span data-i18n="bookIntroLine2">ou apoie diretamente o autor.</span>
+          </p>
 
-          <div class="book-actions" aria-label="Onde comprar o livro">
+          <div
+            class="book-actions"
+            aria-label="Onde comprar o livro"
+            data-i18n-aria-label="whereToBuy"
+          >
             <div class="book-store-grid">
               <a
-                class="book-store-button"
+                class="book-store-button reveal-icon"
                 href="https://www.amazon.es/dp/9403634200/ref=mp_s_a_1_2?sr=8-2"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <span>
                   <strong>Amazon</strong>
-                  <small>Comprar o livro</small>
+                  <small data-i18n="buyBook">Comprar o livro</small>
                 </span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8.47 5.47 9.53 4.4 17.12 12l-7.59 7.59-1.06-1.06 5.78-5.78H2v-1.5h12.25z" />
@@ -103,14 +160,14 @@
               </a>
 
               <a
-                class="book-store-button"
+                class="book-store-button reveal-icon"
                 href="https://pt.selfpub.chiadobooks.com/site/?r=userwebsite/index&amp;id=goncalovenancio/bookdetails/266233"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <span>
                   <strong>Chiado Books</strong>
-                  <small>Comprar na editora</small>
+                  <small data-i18n="buyPublisher">Comprar na editora</small>
                 </span>
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M8.47 5.47 9.53 4.4 17.12 12l-7.59 7.59-1.06-1.06 5.78-5.78H2v-1.5h12.25z" />
@@ -119,13 +176,13 @@
             </div>
 
             <a
-              class="book-store-button book-support-button"
+              class="book-store-button book-support-button reveal-icon"
               href="https://buymeacoffee.com/gvenancio"
               target="_blank"
               rel="noopener noreferrer"
             >
               <span>
-                <strong>Apoiar o meu trabalho</strong>
+                <strong data-i18n="supportWork">Apoiar o meu trabalho</strong>
                 <small>Buy Me a Coffee</small>
               </span>
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -134,49 +191,32 @@
             </a>
           </div>
         </article>
+
       </main>
 
-      <footer class="book-page-footer" data-reveal style="--reveal-delay: 180ms">
+      <footer class="book-page-footer reveal-card">
         <p>Gonçalo Venâncio</p>
-</footer>
+        <a href="mailto:poesia@venancio.dev">poesia@venancio.dev</a>
+        <p class="book-preferences-note" data-i18n="preferencesNote">
+          As preferências de idioma e tema ficam guardadas apenas neste navegador.
+        </p>
+      </footer>
     </div>
-
-    <div class="drawer-backdrop" data-drawer-backdrop hidden></div>
-
-    <aside
-      class="archive-drawer"
-      id="archive-drawer"
-      aria-label="Todos os textos"
-      aria-hidden="true"
-      data-drawer
-    >
-      <div class="drawer-header">
-        <div>
-          <h2>Todos os textos</h2>
-        </div>
-        <button class="icon-button" type="button" aria-label="Fechar menu" data-close-menu>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
-            <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
-          </svg>
-        </button>
-      </div>
-      <nav aria-label="Índice de textos">
-        <ul class="archive-list" data-archive-list>
-          <li><span class="archive-loading">A carregar os títulos…</span></li>
-        </ul>
-      </nav>
-    </aside>
-
 
     <dialog class="share-dialog" data-share-dialog aria-labelledby="share-title">
       <div class="share-dialog-inner">
         <div class="share-heading">
           <div>
-            <p class="eyebrow">Partilhar</p>
-            <h2 id="share-title">Escolha uma opção</h2>
+            <p class="eyebrow" data-i18n="share">Partilhar</p>
+            <h2 id="share-title" data-i18n="chooseOption">Escolher uma opção</h2>
           </div>
-          <button class="icon-button" type="button" aria-label="Fechar opções de partilha" data-close-share>
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Fechar as opções de partilha"
+            data-i18n-aria-label="closeShare"
+            data-close-share
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
               <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
@@ -185,11 +225,17 @@
         </div>
 
         <div class="share-summary">
-          <strong data-share-preview-title>Livro disponível exclusivamente online</strong>
-          <span>Escolha como pretende partilhar esta página.</span>
+          <strong data-share-preview-title data-i18n="bookShareTitle">
+            Livro disponível exclusivamente online
+          </strong>
+          <span data-i18n="shareHow">Escolha como pretende partilhar esta página.</span>
         </div>
 
-        <div class="share-options" aria-label="Opções de partilha">
+        <div
+          class="share-options"
+          aria-label="Opções de partilha"
+          data-i18n-aria-label="shareOptions"
+        >
           <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-whatsapp>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 3.25a8.5 8.5 0 0 0-7.31 12.83L3.5 20.5l4.55-1.13A8.5 8.5 0 1 0 12 3.25Zm0 15.5a6.96 6.96 0 0 1-3.55-.98l-.27-.16-2.54.63.66-2.46-.18-.29A7 7 0 1 1 12 18.75Z" />
@@ -223,14 +269,14 @@
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z" />
             </svg>
-            <span>Mais aplicações</span>
+            <span data-i18n="moreApps">Mais aplicações</span>
           </button>
 
           <button class="share-option share-option-copy" type="button" data-copy-share>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M9.5 7.25h8.25v8.25H15.5V17H19.25V5.75H9.5ZM4.75 9h10.5v10.5H4.75Zm1.5 1.5V18h7.5v-7.5Z" />
             </svg>
-            <span>Copiar ligação</span>
+            <span data-i18n="copyLink">Copiar a ligação</span>
           </button>
         </div>
 

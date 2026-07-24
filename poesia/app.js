@@ -11,6 +11,133 @@ const CONFIG = Object.freeze({
   maxPosts: 500,
 });
 
+const I18N = Object.freeze({
+  pt: {
+    skipContent: 'Avançar para o conteúdo',
+    openAllTexts: 'Abrir todos os textos',
+    allTexts: 'Todos os textos',
+    homepage: 'Página inicial',
+    sharePage: 'Partilhar esta página',
+    share: 'Partilhar',
+    searchTexts: 'Pesquisar textos',
+    search: 'Pesquisar',
+    contactAuthor: 'Contactar o autor',
+    contactSubject: 'Contacto através de Poesia do Venâncio',
+    discoverBook: 'Conhecer o livro',
+    supportWork: 'Apoiar o meu trabalho',
+    loadingTexts: 'A carregar os textos…',
+    closeMenu: 'Fechar o menu',
+    textsIndex: 'Índice de textos',
+    backTop: 'Voltar ao topo',
+    findText: 'Encontrar um texto',
+    closeSearch: 'Fechar a pesquisa',
+    searchByContent: 'Pesquisar por título ou conteúdo',
+    searchPlaceholder: 'Pesquisar por título ou palavras do texto',
+    searchHelp: 'Comece a escrever para pesquisar.',
+    chooseOption: 'Escolher uma opção',
+    closeShare: 'Fechar as opções de partilha',
+    shareHow: 'Escolha como pretende partilhar esta página.',
+    shareOptions: 'Opções de partilha',
+    moreApps: 'Mais aplicações',
+    copyLink: 'Copiar a ligação',
+    noscript: 'Este site precisa de JavaScript para carregar os textos e utilizar a pesquisa.',
+    language: 'Idioma',
+    preferencesNote: 'As preferências de idioma e tema ficam guardadas apenas neste navegador.',
+    themeLight: 'Ativar o modo claro',
+    themeDark: 'Ativar o modo escuro',
+    siteDescription: 'Textos e poesia de Gonçalo Venâncio.',
+    textFallback: 'Texto',
+    readText: 'Ler o texto',
+    textsAria: 'Textos',
+    backHome: 'Voltar ao início',
+    rssFeed: 'RSS',
+    textNavigation: 'Navegação entre textos',
+    previousText: 'Texto anterior',
+    nextText: 'Texto seguinte',
+    shareThisText: 'Partilhar este texto',
+    shareOpinion: 'Partilhar a sua opinião',
+    returnHomepage: 'Voltar à página inicial',
+    opinionSubject: (title) => `Opinião sobre “${title}”`,
+    opinionBody: (title) => `Olá,\n\nGostaria de partilhar a minha opinião sobre o texto “${title}”:\n\n`,
+    notFoundTitle: 'Texto não encontrado',
+    notFoundText: 'O endereço pode estar incompleto ou o texto pode já não estar disponível.',
+    backAllTexts: 'Voltar a todos os textos',
+    loadErrorTitle: 'Não foi possível carregar os textos',
+    retry: 'Tentar novamente',
+    openBlog: 'Abrir o blogue',
+    noSearchResults: 'Não encontrei nenhum texto com esses termos.',
+    copied: 'Ligação copiada.',
+    copyFailed: 'Não foi possível copiar a ligação.',
+    shareFailed: 'Não foi possível abrir as aplicações de partilha.',
+    bloggerTimeout: 'A resposta do Blogger demorou demasiado tempo.',
+    bloggerConnection: 'Não foi possível ligar ao Blogger.',
+    noPosts: 'O blogue não devolveu nenhum texto.',
+    unexpectedError: 'Ocorreu um erro inesperado.',
+  },
+  en: {
+    skipContent: 'Skip to content',
+    openAllTexts: 'Open all texts',
+    allTexts: 'All texts',
+    homepage: 'Homepage',
+    sharePage: 'Share this page',
+    share: 'Share',
+    searchTexts: 'Search texts',
+    search: 'Search',
+    contactAuthor: 'Contact the author',
+    contactSubject: 'Contact through Poesia do Venâncio',
+    discoverBook: 'Discover the book',
+    supportWork: 'Support my work',
+    loadingTexts: 'Loading texts…',
+    closeMenu: 'Close menu',
+    textsIndex: 'Text index',
+    backTop: 'Back to top',
+    findText: 'Find a text',
+    closeSearch: 'Close search',
+    searchByContent: 'Search by title or content',
+    searchPlaceholder: 'Search by title or words in the text',
+    searchHelp: 'Start typing to search.',
+    chooseOption: 'Choose an option',
+    closeShare: 'Close sharing options',
+    shareHow: 'Choose how you would like to share this page.',
+    shareOptions: 'Sharing options',
+    moreApps: 'More apps',
+    copyLink: 'Copy link',
+    noscript: 'This site needs JavaScript to load the texts and use search.',
+    language: 'Language',
+    preferencesNote: 'Language and theme preferences are stored only in this browser.',
+    themeLight: 'Use light mode',
+    themeDark: 'Use dark mode',
+    siteDescription: 'Texts and poetry by Gonçalo Venâncio.',
+    textFallback: 'Text',
+    readText: 'Read text',
+    textsAria: 'Texts',
+    backHome: 'Back to the homepage',
+    rssFeed: 'Subscribe via RSS',
+    textNavigation: 'Text navigation',
+    previousText: 'Previous text',
+    nextText: 'Next text',
+    shareThisText: 'Share this text',
+    shareOpinion: 'Share your thoughts',
+    returnHomepage: 'Return to the homepage',
+    opinionSubject: (title) => `Thoughts on “${title}”`,
+    opinionBody: (title) => `Hello,\n\nI would like to share my thoughts on the text “${title}”:\n\n`,
+    notFoundTitle: 'Text not found',
+    notFoundText: 'The address may be incomplete, or the text may no longer be available.',
+    backAllTexts: 'Return to all texts',
+    loadErrorTitle: 'The texts could not be loaded',
+    retry: 'Try again',
+    openBlog: 'Open the blog',
+    noSearchResults: 'No text matched those terms.',
+    copied: 'Link copied.',
+    copyFailed: 'The link could not be copied.',
+    shareFailed: 'The sharing apps could not be opened.',
+    bloggerTimeout: 'The Blogger response took too long.',
+    bloggerConnection: 'Blogger could not be reached.',
+    noPosts: 'The blog did not return any texts.',
+    unexpectedError: 'An unexpected error occurred.',
+  },
+});
+
 const state = {
   posts: [],
   searchIndex: [],
@@ -24,9 +151,11 @@ const elements = {
   drawerBackdrop: document.querySelector('[data-drawer-backdrop]'),
   closeMenuButton: document.querySelector('[data-close-menu]'),
   themeToggle: document.querySelector('[data-theme-toggle]'),
+  languageButtons: [...document.querySelectorAll('button[data-language]')],
   searchDialog: document.querySelector('[data-search-dialog]'),
   searchInput: document.querySelector('[data-search-input]'),
   searchResults: document.querySelector('[data-search-results]'),
+  searchButtons: [...document.querySelectorAll('[data-open-search]')],
   homeShareButton: document.querySelector('[data-share-home]'),
   shareDialog: document.querySelector('[data-share-dialog]'),
   closeShareButton: document.querySelector('[data-close-share]'),
@@ -39,16 +168,27 @@ const elements = {
   copyShareButton: document.querySelector('[data-copy-share]'),
   shareFeedback: document.querySelector('[data-share-feedback]'),
   backToTopButton: document.querySelector('[data-back-to-top]'),
+  rssLink: document.querySelector('[data-rss-link]'),
+  contactAuthorLink: document.querySelector('[data-contact-author]'),
   themeColor: document.querySelector('meta[name="theme-color"]'),
   canonical: document.querySelector('link[rel="canonical"]'),
   metaDescription: document.querySelector('meta[name="description"]'),
 };
 
+function language() {
+  return document.documentElement.dataset.language === 'en' ? 'en' : 'pt';
+}
+
+function t(key, ...args) {
+  const value = I18N[language()][key];
+  return typeof value === 'function' ? value(...args) : value;
+}
+
 function normalizeText(value = '') {
   return value
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
-    .toLocaleLowerCase('pt-PT')
+    .toLocaleLowerCase(language() === 'pt' ? 'pt-PT' : 'en')
     .replace(/\s+/g, ' ')
     .trim();
 }
@@ -117,7 +257,7 @@ function parseFeed(feed) {
   const entries = feed?.feed?.entry || [];
 
   return entries.map((entry, index) => {
-    const title = entry.title?.$t?.trim() || `Texto ${index + 1}`;
+    const title = entry.title?.$t?.trim() || `${t('textFallback')} ${index + 1}`;
     const originalUrl = getAlternateLink(entry);
     const content = entry.content?.$t || entry.summary?.$t || '';
     const text = htmlToText(content);
@@ -142,7 +282,7 @@ function loadBloggerFeed() {
     const script = document.createElement('script');
     const timeout = window.setTimeout(() => {
       cleanup();
-      reject(new Error('A resposta do Blogger demorou demasiado tempo.'));
+      reject(new Error(t('bloggerTimeout')));
     }, 15000);
 
     function cleanup() {
@@ -162,7 +302,7 @@ function loadBloggerFeed() {
 
     script.onerror = () => {
       cleanup();
-      reject(new Error('Não foi possível ligar ao Blogger.'));
+      reject(new Error(t('bloggerConnection')));
     };
 
     const params = new URLSearchParams({
@@ -217,127 +357,166 @@ function renderArchive() {
 
 function renderHome() {
   document.title = CONFIG.siteTitle;
-  elements.metaDescription?.setAttribute('content', 'Textos e poesia de Gonçalo Venâncio.');
+  elements.metaDescription?.setAttribute('content', t('siteDescription'));
   elements.canonical?.setAttribute('href', CONFIG.baseUrl);
   elements.homeOnly.hidden = false;
   if (elements.homeShareButton) elements.homeShareButton.hidden = false;
-  updateBackToTopVisibility();
+  elements.searchButtons.forEach((button) => { button.hidden = false; });
+  if (elements.rssLink) elements.rssLink.hidden = false;
+  hideBackToTop();
 
   const cards = state.posts
     .map((post, index) => `
-      <article class="post-card" data-reveal style="--reveal-delay: ${Math.min(index * 35, 240)}ms">
+      <article class="post-card reveal-card" style="animation-delay: ${920 + Math.min(index * 70, 420)}ms">
         <h2><a href="${postUrl(post)}">${escapeHtml(post.title)}</a></h2>
         ${post.excerpt ? `<p class="post-excerpt">${escapeHtml(post.excerpt)}</p>` : ''}
-        <span class="read-label">Ler texto</span>
+        <span class="read-label">${t('readText')}</span>
       </article>
     `)
     .join('');
 
-  elements.view.innerHTML = `<section class="posts-grid" aria-label="Textos">${cards}</section>`;
+  elements.view.innerHTML = `<section class="posts-grid" aria-label="${t('textsAria')}">${cards}</section>`;
   setActiveArchiveItem(null);
-  activateRevealAnimations();
+}
+
+function renderArticleNavigation(post) {
+  const currentIndex = state.posts.findIndex((item) => item.slug === post.slug);
+  const previousPost = currentIndex >= 0 ? state.posts[currentIndex + 1] : null;
+  const nextPost = currentIndex > 0 ? state.posts[currentIndex - 1] : null;
+
+  if (!previousPost && !nextPost) return '';
+
+  const previousLink = previousPost
+    ? `
+      <a class="article-navigation-link article-navigation-previous reveal-card" href="${postUrl(previousPost)}" style="animation-delay: 1260ms">
+        <span class="article-navigation-label">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m10.53 5.47-1.06-1.06L1.88 12l7.59 7.59 1.06-1.06-5.78-5.78H22v-1.5H4.75z" />
+          </svg>
+          ${t('previousText')}
+        </span>
+        <strong>${escapeHtml(previousPost.title)}</strong>
+      </a>`
+    : '<span class="article-navigation-spacer" aria-hidden="true"></span>';
+
+  const nextLink = nextPost
+    ? `
+      <a class="article-navigation-link article-navigation-next reveal-card" href="${postUrl(nextPost)}" style="animation-delay: 1340ms">
+        <span class="article-navigation-label">
+          ${t('nextText')}
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m13.47 5.47 1.06-1.06L22.12 12l-7.59 7.59-1.06-1.06 5.78-5.78H2v-1.5h17.25z" />
+          </svg>
+        </span>
+        <strong>${escapeHtml(nextPost.title)}</strong>
+      </a>`
+    : '<span class="article-navigation-spacer" aria-hidden="true"></span>';
+
+  return `
+    <nav class="article-navigation" aria-label="${t('textNavigation')}">
+      ${previousLink}
+      ${nextLink}
+    </nav>
+  `;
 }
 
 function renderArticle(post) {
   document.title = `${post.title} · ${CONFIG.siteTitle}`;
-  elements.metaDescription?.setAttribute('content', post.excerpt || `Texto ${post.title}.`);
+  elements.metaDescription?.setAttribute('content', post.excerpt || `${t('textFallback')} ${post.title}.`);
   elements.canonical?.setAttribute('href', post.originalUrl);
   elements.homeOnly.hidden = true;
   if (elements.homeShareButton) elements.homeShareButton.hidden = true;
+  elements.searchButtons.forEach((button) => { button.hidden = true; });
+  if (elements.rssLink) elements.rssLink.hidden = true;
   hideBackToTop();
+
+  const subject = encodeURIComponent(t('opinionSubject', post.title));
+  const body = encodeURIComponent(t('opinionBody', post.title));
 
   elements.view.innerHTML = `
     <article class="article-view">
-      <div class="article-toolbar" data-reveal>
-        <a class="back-link" href="#/">
+      <div class="article-toolbar reveal-card" style="animation-delay: 320ms">
+        <a class="back-link reveal-icon" href="#/" style="animation-delay: 400ms">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m10.53 5.47-1.06-1.06L1.88 12l7.59 7.59 1.06-1.06-5.78-5.78H22v-1.5H4.75z" />
           </svg>
-          Voltar ao início
+          <span style="animation-delay: 500ms">${t('backHome')}</span>
         </a>
-        <button class="icon-button" type="button" aria-label="Partilhar este texto" data-share>
+        <button class="icon-button reveal-icon" type="button" aria-label="${t('shareThisText')}" data-share style="animation-delay: 460ms">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z" />
           </svg>
         </button>
       </div>
 
-      <div class="article-card" data-reveal style="--reveal-delay: 90ms">
-        <h1 class="article-title">${escapeHtml(post.title)}</h1>
-        <div class="article-body">${post.content}</div>
+      <div class="article-card reveal-card" style="animation-delay: 460ms">
+        <h1 class="article-title reveal"><span style="animation-delay: 600ms">${escapeHtml(post.title)}</span></h1>
+        <div class="article-body reveal-card" style="animation-delay: 740ms">${post.content}</div>
 
         <footer class="article-footer">
           <div class="article-actions">
             <a
-              class="pill secondary-action"
-              href="mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(`Opinião sobre “${post.title}”`)}&body=${encodeURIComponent(`Olá,
-
-Gostaria de partilhar a minha opinião sobre o texto “${post.title}”:
-
-`)}"
+              class="pill secondary-action reveal-icon"
+              href="mailto:${CONFIG.contactEmail}?subject=${subject}&body=${body}"
+              style="animation-delay: 880ms"
             >
-              Partilhe a sua opinião
+              <span style="animation-delay: 980ms">${t('shareOpinion')}</span>
             </a>
-            <a class="pill primary-action article-book-link" href="${CONFIG.bookUrl}">Conhecer o livro</a>
-            <a class="pill secondary-action" href="#/">Voltar à página inicial</a>
+            <a class="pill primary-action article-book-link reveal-icon" href="${CONFIG.bookUrl}" style="animation-delay: 1000ms"><span style="animation-delay: 1100ms">${t('discoverBook')}</span></a>
+            <a class="pill secondary-action reveal-icon" href="#/" style="animation-delay: 1120ms"><span style="animation-delay: 1220ms">${t('returnHomepage')}</span></a>
           </div>
         </footer>
+
+        ${renderArticleNavigation(post)}
       </div>
     </article>
   `;
 
-  elements.view.querySelector('[data-share]')?.addEventListener('click', () => {
-    openShareDialog({
-      title: post.title,
-      text: post.excerpt || `Texto ${post.title}.`,
-      url: window.location.href,
-    });
-  });
   setActiveArchiveItem(post.slug);
-  activateRevealAnimations();
   document.querySelector('#conteudo')?.focus({ preventScroll: true });
   window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  window.requestAnimationFrame(updateBackToTopVisibility);
 }
 
 function renderNotFound() {
   elements.homeOnly.hidden = true;
   if (elements.homeShareButton) elements.homeShareButton.hidden = true;
+  elements.searchButtons.forEach((button) => { button.hidden = true; });
+  if (elements.rssLink) elements.rssLink.hidden = true;
   hideBackToTop();
   elements.view.innerHTML = `
-    <section class="empty-state" data-reveal>
-      <h1>Texto não encontrado</h1>
-      <p>O endereço pode estar incompleto ou o texto pode já não estar disponível.</p>
-      <a class="pill" href="#/">Voltar a todos os textos</a>
+    <section class="empty-state reveal-card" style="animation-delay: 360ms">
+      <h1>${t('notFoundTitle')}</h1>
+      <p>${t('notFoundText')}</p>
+      <a class="pill" href="#/">${t('backAllTexts')}</a>
     </section>
   `;
-  activateRevealAnimations();
 }
 
 function renderError(error) {
   elements.homeOnly.hidden = false;
   if (elements.homeShareButton) elements.homeShareButton.hidden = false;
+  elements.searchButtons.forEach((button) => { button.hidden = false; });
+  if (elements.rssLink) elements.rssLink.hidden = false;
   hideBackToTop();
   elements.view.innerHTML = `
-    <section class="error-card" data-reveal>
-      <h2>Não foi possível carregar os textos</h2>
+    <section class="error-card reveal-card" style="animation-delay: 360ms">
+      <h2>${t('loadErrorTitle')}</h2>
       <p>${escapeHtml(error.message)}</p>
       <div class="hero-actions">
-        <button class="pill" type="button" data-retry>Voltar a tentar</button>
-        <a class="pill" href="${CONFIG.blogHome}" target="_blank" rel="noopener noreferrer">Abrir o blogue</a>
+        <button class="pill" type="button" data-retry>${t('retry')}</button>
+        <a class="pill" href="${CONFIG.blogHome}" target="_blank" rel="noopener noreferrer">${t('openBlog')}</a>
       </div>
     </section>
   `;
   elements.view.querySelector('[data-retry]')?.addEventListener('click', initializePosts);
-  activateRevealAnimations();
 }
 
 function getRoute() {
   const rawHash = window.location.hash || '#/';
   const match = rawHash.match(/^#\/texto\/(.+)$/);
 
-  if (!match) {
-    return { name: 'home', slug: null };
-  }
+  if (!match) return { name: 'home', slug: null };
 
   try {
     return { name: 'article', slug: decodeURIComponent(match[1]) };
@@ -362,11 +541,8 @@ function renderRoute() {
 
   if (route.name === 'article') {
     const post = state.posts.find((item) => item.slug === route.slug);
-    if (post) {
-      renderArticle(post);
-    } else {
-      renderNotFound();
-    }
+    if (post) renderArticle(post);
+    else renderNotFound();
     return;
   }
 
@@ -375,24 +551,29 @@ function renderRoute() {
 
 function setActiveArchiveItem(slug) {
   document.querySelectorAll('.archive-list a').forEach((link) => {
-    const isCurrent = slug && link.getAttribute('href') === `#/texto/${encodeURIComponent(slug)}`;
-    if (isCurrent) {
-      link.setAttribute('aria-current', 'page');
-    } else {
-      link.removeAttribute('aria-current');
-    }
+    const isCurrent = slug && link.getAttribute('href') === postUrl({ slug });
+    if (isCurrent) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
   });
 }
 
 function hideBackToTop() {
-  if (!elements.backToTopButton) return;
-  elements.backToTopButton.hidden = true;
+  if (elements.backToTopButton) elements.backToTopButton.hidden = true;
+}
+
+function articleIsLong() {
+  if (getRoute().name !== 'article') return false;
+  const article = document.querySelector('.article-card');
+  if (!article) return false;
+
+  const remainingDocumentHeight = document.documentElement.scrollHeight - window.innerHeight;
+  return remainingDocumentHeight > 850 && article.scrollHeight > window.innerHeight * 1.15;
 }
 
 function updateBackToTopVisibility() {
   if (!elements.backToTopButton) return;
-  const isHome = getRoute().name === 'home';
-  elements.backToTopButton.hidden = !isHome || window.scrollY < 520;
+  const shouldShow = articleIsLong() && window.scrollY > 560;
+  elements.backToTopButton.hidden = !shouldShow;
 }
 
 function scrollBackToTop() {
@@ -403,39 +584,39 @@ function scrollBackToTop() {
 }
 
 function openMenu() {
-  elements.drawer.classList.add('is-open');
-  elements.drawer.setAttribute('aria-hidden', 'false');
-  elements.drawerBackdrop.hidden = false;
-  requestAnimationFrame(() => elements.drawerBackdrop.classList.add('is-visible'));
+  elements.drawer?.classList.add('is-open');
+  elements.drawer?.setAttribute('aria-hidden', 'false');
+  if (elements.drawerBackdrop) {
+    elements.drawerBackdrop.hidden = false;
+    requestAnimationFrame(() => elements.drawerBackdrop.classList.add('is-visible'));
+  }
   document.body.classList.add('is-locked');
   document.querySelectorAll('[data-open-menu]').forEach((button) => button.setAttribute('aria-expanded', 'true'));
   elements.closeMenuButton?.focus();
 }
 
 function closeMenu() {
-  if (!elements.drawer.classList.contains('is-open')) return;
+  if (!elements.drawer?.classList.contains('is-open')) return;
   elements.drawer.classList.remove('is-open');
   elements.drawer.setAttribute('aria-hidden', 'true');
-  elements.drawerBackdrop.classList.remove('is-visible');
+  elements.drawerBackdrop?.classList.remove('is-visible');
   document.body.classList.remove('is-locked');
   document.querySelectorAll('[data-open-menu]').forEach((button) => button.setAttribute('aria-expanded', 'false'));
   window.setTimeout(() => {
-    elements.drawerBackdrop.hidden = true;
+    if (elements.drawerBackdrop) elements.drawerBackdrop.hidden = true;
   }, 230);
 }
 
 function openSearch() {
-  if (typeof elements.searchDialog.showModal === 'function') {
+  if (typeof elements.searchDialog?.showModal === 'function') {
     elements.searchDialog.showModal();
     document.body.classList.add('is-locked');
-    window.setTimeout(() => elements.searchInput.focus(), 20);
+    window.setTimeout(() => elements.searchInput?.focus(), 20);
   }
 }
 
 function closeSearch() {
-  if (elements.searchDialog.open) {
-    elements.searchDialog.close();
-  }
+  if (elements.searchDialog?.open) elements.searchDialog.close();
   document.body.classList.remove('is-locked');
 }
 
@@ -443,7 +624,7 @@ function renderSearchResults(query) {
   const normalizedQuery = normalizeText(query);
 
   if (!normalizedQuery) {
-    elements.searchResults.innerHTML = '<p class="search-help">Comece a escrever para pesquisar.</p>';
+    elements.searchResults.innerHTML = `<p class="search-help">${t('searchHelp')}</p>`;
     return;
   }
 
@@ -453,7 +634,7 @@ function renderSearchResults(query) {
     .slice(0, 30);
 
   if (!matches.length) {
-    elements.searchResults.innerHTML = '<p class="search-no-results">Não encontrei nenhum texto com esses termos.</p>';
+    elements.searchResults.innerHTML = `<p class="search-no-results">${t('noSearchResults')}</p>`;
     return;
   }
 
@@ -471,18 +652,63 @@ function renderSearchResults(query) {
   `;
 }
 
+function applyStaticTranslations() {
+  const translations = I18N[language()];
+
+  document.documentElement.lang = language() === 'en' ? 'en' : 'pt-PT';
+
+  document.querySelectorAll('[data-i18n]').forEach((element) => {
+    const value = translations[element.dataset.i18n];
+    if (typeof value === 'string') element.textContent = value;
+  });
+
+  document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+    const value = translations[element.dataset.i18nAriaLabel];
+    if (typeof value === 'string') element.setAttribute('aria-label', value);
+  });
+
+  document.querySelectorAll('[data-i18n-title]').forEach((element) => {
+    const value = translations[element.dataset.i18nTitle];
+    if (typeof value === 'string') element.setAttribute('title', value);
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+    const value = translations[element.dataset.i18nPlaceholder];
+    if (typeof value === 'string') element.setAttribute('placeholder', value);
+  });
+
+  elements.languageButtons.forEach((button) => {
+    button.setAttribute('aria-pressed', String(button.dataset.language === language()));
+  });
+
+  if (elements.contactAuthorLink) {
+    elements.contactAuthorLink.href = `mailto:${CONFIG.contactEmail}?subject=${encodeURIComponent(translations.contactSubject)}`;
+  }
+}
+
+function applyLanguage(nextLanguage, persist = true) {
+  document.documentElement.dataset.language = nextLanguage === 'en' ? 'en' : 'pt';
+  applyStaticTranslations();
+  applyTheme(document.documentElement.dataset.theme, false);
+  buildSearchIndex();
+
+  if (state.posts.length) renderRoute();
+  else {
+    const loadingText = document.querySelector('[data-loading] p');
+    if (loadingText) loadingText.textContent = t('loadingTexts');
+  }
+
+  if (persist) localStorage.setItem('venancio-language', language());
+}
+
 function applyTheme(theme, persist = true) {
   const normalized = theme === 'dark' ? 'dark' : 'light';
   document.documentElement.dataset.theme = normalized;
-  elements.themeToggle.setAttribute(
-    'aria-label',
-    normalized === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro',
-  );
+  elements.themeToggle?.setAttribute('aria-label', normalized === 'dark' ? t('themeLight') : t('themeDark'));
+  elements.themeToggle?.setAttribute('title', normalized === 'dark' ? t('themeLight') : t('themeDark'));
   elements.themeColor?.setAttribute('content', normalized === 'dark' ? '#232530' : '#cccccc');
 
-  if (persist) {
-    localStorage.setItem('poesia-theme', normalized);
-  }
+  if (persist) localStorage.setItem('venancio-theme', normalized);
 }
 
 function toggleTheme() {
@@ -494,42 +720,63 @@ function buildShareMessage({ title, text, url }) {
   return cleanText ? `${title}\n\n${cleanText}\n\n${url}` : `${title}\n\n${url}`;
 }
 
-function openShareDialog(shareData) {
+function openDialog(dialog) {
+  if (!dialog) return false;
+  if (dialog.open) return true;
+
+  try {
+    if (typeof dialog.showModal === 'function') dialog.showModal();
+    else dialog.setAttribute('open', '');
+  } catch {
+    dialog.setAttribute('open', '');
+  }
+
+  return dialog.open || dialog.hasAttribute('open');
+}
+
+function openShareDialog(shareData = {}) {
   if (!elements.shareDialog) return;
 
   const title = shareData.title || CONFIG.siteTitle;
-  const text = shareData.text || 'Textos e poesia de Gonçalo Venâncio.';
+  const text = shareData.text || t('siteDescription');
   const url = shareData.url || CONFIG.baseUrl;
   const message = buildShareMessage({ title, text, url });
 
-  elements.sharePreviewTitle.textContent = title;
-  elements.shareFeedback.textContent = '';
+  if (elements.sharePreviewTitle) elements.sharePreviewTitle.textContent = title;
+  if (elements.shareFeedback) elements.shareFeedback.textContent = '';
   elements.shareDialog.dataset.shareUrl = url;
   elements.shareDialog.dataset.shareTitle = title;
   elements.shareDialog.dataset.shareText = text;
 
-  elements.shareWhatsApp.href = `https://wa.me/?text=${encodeURIComponent(message)}`;
-  elements.shareEmail.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(message)}`;
-  elements.shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-  elements.shareTelegram.href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(`${title}\n\n${text}`)}`;
-
-  if (typeof elements.shareDialog.showModal === 'function') {
-    elements.shareDialog.showModal();
-  } else {
-    elements.shareDialog.setAttribute('open', '');
+  if (elements.shareWhatsApp) {
+    elements.shareWhatsApp.href = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  }
+  if (elements.shareEmail) {
+    elements.shareEmail.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(message)}`;
+  }
+  if (elements.shareFacebook) {
+    elements.shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+  }
+  if (elements.shareTelegram) {
+    elements.shareTelegram.href = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(`${title}\n\n${text}`)}`;
   }
 
+  if (!openDialog(elements.shareDialog)) return;
+
   document.body.classList.add('is-locked');
-  elements.closeShareButton?.focus();
+  window.requestAnimationFrame(() => elements.closeShareButton?.focus());
 }
 
 function closeShareDialog() {
-  if (!elements.shareDialog?.open) return;
-  if (typeof elements.shareDialog.close === 'function') {
-    elements.shareDialog.close();
-  } else {
+  if (!elements.shareDialog?.hasAttribute('open')) return;
+
+  try {
+    if (typeof elements.shareDialog.close === 'function') elements.shareDialog.close();
+    else elements.shareDialog.removeAttribute('open');
+  } catch {
     elements.shareDialog.removeAttribute('open');
   }
+
   document.body.classList.remove('is-locked');
 }
 
@@ -548,7 +795,7 @@ async function copyText(value) {
   textArea.select();
   const copied = document.execCommand('copy');
   textArea.remove();
-  if (!copied) throw new Error('Não foi possível copiar a ligação.');
+  if (!copied) throw new Error(t('copyFailed'));
 }
 
 async function openNativeShare() {
@@ -556,15 +803,13 @@ async function openNativeShare() {
 
   const url = elements.shareDialog?.dataset.shareUrl || window.location.href;
   const title = elements.shareDialog?.dataset.shareTitle || CONFIG.siteTitle;
-  const text = elements.shareDialog?.dataset.shareText || 'Textos e poesia de Gonçalo Venâncio.';
+  const text = elements.shareDialog?.dataset.shareText || t('siteDescription');
 
   try {
     await navigator.share({ title, text, url });
     closeShareDialog();
   } catch (error) {
-    if (error?.name !== 'AbortError') {
-      elements.shareFeedback.textContent = 'Não foi possível abrir as aplicações de partilha.';
-    }
+    if (error?.name !== 'AbortError' && elements.shareFeedback) elements.shareFeedback.textContent = t('shareFailed');
   }
 }
 
@@ -572,9 +817,9 @@ async function copyShareLink() {
   const url = elements.shareDialog?.dataset.shareUrl || window.location.href;
   try {
     await copyText(url);
-    elements.shareFeedback.textContent = 'Ligação copiada.';
+    if (elements.shareFeedback) elements.shareFeedback.textContent = t('copied');
   } catch {
-    elements.shareFeedback.textContent = 'Não foi possível copiar a ligação.';
+    if (elements.shareFeedback) elements.shareFeedback.textContent = t('copyFailed');
   }
 }
 
@@ -582,34 +827,11 @@ function prefersReducedMotion() {
   return window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 }
 
-function activateRevealAnimations() {
-  const items = [...document.querySelectorAll('[data-reveal]:not(.is-visible)')];
-  if (!items.length) return;
-
-  if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
-    items.forEach((item) => item.classList.add('is-visible'));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.08, rootMargin: '0px 0px -5% 0px' },
-  );
-
-  items.forEach((item) => observer.observe(item));
-}
-
 async function initializePosts() {
   elements.view.innerHTML = `
     <div class="loading-card" data-loading>
       <span class="loading-dot" aria-hidden="true"></span>
-      <p>A carregar os textos…</p>
+      <p>${t('loadingTexts')}</p>
     </div>
   `;
 
@@ -617,36 +839,62 @@ async function initializePosts() {
     const feed = await loadBloggerFeed();
     state.posts = parseFeed(feed);
 
-    if (!state.posts.length) {
-      throw new Error('O blogue não devolveu nenhum texto.');
-    }
+    if (!state.posts.length) throw new Error(t('noPosts'));
 
     buildSearchIndex();
     renderArchive();
     renderRoute();
   } catch (error) {
     console.error(error);
-    renderError(error instanceof Error ? error : new Error('Ocorreu um erro inesperado.'));
+    renderError(error instanceof Error ? error : new Error(t('unexpectedError')));
   }
 }
 
 function bindEvents() {
   document.addEventListener('click', (event) => {
-    const menuTrigger = event.target.closest('[data-open-menu]');
-    if (menuTrigger) openMenu();
+    const target = event.target instanceof Element ? event.target : null;
+    if (!target) return;
+
+    const menuTrigger = target.closest('[data-open-menu]');
+    if (menuTrigger) {
+      openMenu();
+      return;
+    }
+
+    const homeShareTrigger = target.closest('[data-share-home]');
+    if (homeShareTrigger) {
+      event.preventDefault();
+      openShareDialog({
+        title: CONFIG.siteTitle,
+        text: t('siteDescription'),
+        url: CONFIG.baseUrl,
+      });
+      return;
+    }
+
+    const articleShareTrigger = target.closest('[data-share]');
+    if (articleShareTrigger) {
+      event.preventDefault();
+      const route = getRoute();
+      const post = state.posts.find((item) => item.slug === route.slug);
+      if (!post) return;
+
+      openShareDialog({
+        title: post.title,
+        text: post.excerpt || `${t('textFallback')} ${post.title}.`,
+        url: window.location.href,
+      });
+    }
   });
   elements.closeMenuButton?.addEventListener('click', closeMenu);
   elements.drawerBackdrop?.addEventListener('click', closeMenu);
   elements.themeToggle?.addEventListener('click', toggleTheme);
+  elements.languageButtons.forEach((button) => {
+    button.addEventListener('click', () => applyLanguage(button.dataset.language));
+  });
   elements.backToTopButton?.addEventListener('click', scrollBackToTop);
   window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
-  elements.homeShareButton?.addEventListener('click', () => {
-    openShareDialog({
-      title: CONFIG.siteTitle,
-      text: 'Textos e poesia de Gonçalo Venâncio.',
-      url: CONFIG.baseUrl,
-    });
-  });
+  window.addEventListener('resize', updateBackToTopVisibility, { passive: true });
   elements.closeShareButton?.addEventListener('click', closeShareDialog);
   if (elements.nativeShareButton && navigator.share) {
     elements.nativeShareButton.hidden = false;
@@ -655,7 +903,7 @@ function bindEvents() {
   elements.copyShareButton?.addEventListener('click', copyShareLink);
   elements.shareDialog?.addEventListener('close', () => {
     document.body.classList.remove('is-locked');
-    elements.shareFeedback.textContent = '';
+    if (elements.shareFeedback) elements.shareFeedback.textContent = '';
   });
   elements.shareDialog?.addEventListener('click', (event) => {
     if (event.target === elements.shareDialog) closeShareDialog();
@@ -687,7 +935,11 @@ function bindEvents() {
       closeMenu();
       closeShareDialog();
     }
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+    if (
+      getRoute().name === 'home' &&
+      (event.ctrlKey || event.metaKey) &&
+      event.key.toLowerCase() === 'k'
+    ) {
       event.preventDefault();
       openSearch();
     }
@@ -697,9 +949,9 @@ function bindEvents() {
 }
 
 function start() {
+  applyStaticTranslations();
   applyTheme(document.documentElement.dataset.theme, false);
   bindEvents();
-  activateRevealAnimations();
   initializePosts();
 }
 

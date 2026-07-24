@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-PT" data-theme="light" data-language="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Página não encontrada · venancio.dev</title>
+    <meta name="description" content="A página procurada não foi encontrada em venancio.dev." />
+    <meta name="robots" content="noindex, follow" />
+    <meta name="theme-color" content="#eef1f3" />
+
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem('venancio-theme') || localStorage.getItem('poesia-theme');
+        const savedLanguage = localStorage.getItem('venancio-language');
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.language = savedLanguage === 'en' ? 'en' : 'pt';
+        document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'pt-PT';
+      })();
+    </script>
+
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/assets/favicon_32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/assets/apple_touch_icon.png" />
+
+    <meta property="og:title" content="Gonçalo Venâncio" />
+    <meta property="og:description" content="venancio.dev" />
+    <meta property="og:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Gonçalo Venâncio, venancio.dev" />
+    <meta property="og:site_name" content="Gonçalo Venâncio" />
+  </head>
+
+  <body>
+    <main class="page error-page">
+      <header class="site-header" aria-label="Cabeçalho do site" data-i18n-aria-label="siteHeader">
+        <a class="brand-link reveal-logo" href="/" aria-label="Página inicial" data-i18n-aria-label="homeLabel">
+          <img src="/assets/logo.svg" alt="" class="brand-logo" />
+        </a>
+
+        <div class="header-controls" aria-label="Preferências do site" data-i18n-aria-label="sitePreferences">
+          <div class="language-switcher reveal-icon" aria-label="Idioma" data-i18n-aria-label="languageLabel">
+            <button class="language-button" type="button" data-language="pt" aria-pressed="true">Português</button>
+            <button class="language-button" type="button" data-language="en" aria-pressed="false">English</button>
+          </div>
+
+          <button class="theme-button reveal-icon" type="button" aria-label="Ativar o tema escuro" title="Ativar o tema escuro" data-theme-toggle>
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.75"></circle>
+              <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"></path>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <section class="error-hero" aria-labelledby="error-title">
+        <p class="error-code reveal"><span>404</span></p>
+        <h1 id="error-title" class="reveal"><span data-i18n="title">Página não encontrada</span></h1>
+        <p class="error-description reveal"><span data-i18n="description">O endereço pode estar incorreto ou a página pode ter sido movida. Escolha um dos caminhos abaixo.</span></p>
+      </section>
+
+      <nav class="error-destinations" aria-label="Páginas disponíveis" data-i18n-aria-label="availablePages">
+        <a class="error-destination reveal-card" href="/">
+          <span data-i18n="home">Página inicial</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h12v12h-1.7V7.9L5.6 19.6 4.4 18.4 16.1 6.7H7Z"></path></svg>
+        </a>
+        <a class="error-destination reveal-card" href="/atlantico/">
+          <span>Atlantico</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h12v12h-1.7V7.9L5.6 19.6 4.4 18.4 16.1 6.7H7Z"></path></svg>
+        </a>
+        <a class="error-destination reveal-card" href="/poesia/">
+          <span data-i18n="poetry">Poesia</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h12v12h-1.7V7.9L5.6 19.6 4.4 18.4 16.1 6.7H7Z"></path></svg>
+        </a>
+      </nav>
+
+      <footer class="site-footer error-footer reveal-card">
+        <span>Gonçalo Venâncio · venancio.dev</span>
+      </footer>
+    </main>
+
+    <script src="/404.js" defer></script>
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "64b1e50a37ae41e5be0b62cdf95f32ff"}'></script>
+  </body>
+</html>

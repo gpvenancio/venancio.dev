@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-PT" data-theme="light">
+<html lang="pt-PT" data-theme="light" data-language="pt">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,6 +12,28 @@
       content="Textos e poesia de Gonçalo Venâncio."
     />
     <link rel="canonical" href="https://venancio.dev/poesia/" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Poesia do Venâncio"
+      href="https://poesiadovenancio.blogspot.com/feeds/posts/default?alt=rss"
+    />
+
+    <meta property="og:title" content="Poesia do Venâncio" />
+    <meta property="og:description" content="Textos e poesia de Gonçalo Venâncio." />
+    <meta property="og:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Gonçalo Venâncio, venancio.dev" />
+    <meta property="og:url" content="https://venancio.dev/poesia/" />
+    <meta property="og:site_name" content="Gonçalo Venâncio" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Poesia do Venâncio" />
+    <meta name="twitter:description" content="Textos e poesia de Gonçalo Venâncio." />
+    <meta name="twitter:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta name="twitter:image:alt" content="Gonçalo Venâncio, venancio.dev" />
 
 
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
@@ -27,57 +49,100 @@
 
     <script>
       (() => {
-        const saved = localStorage.getItem('poesia-theme');
-        const theme = saved === 'dark' || saved === 'light' ? saved : 'light';
-        document.documentElement.dataset.theme = theme;
+        const savedTheme = localStorage.getItem('venancio-theme') || localStorage.getItem('poesia-theme');
+        const savedLanguage = localStorage.getItem('venancio-language');
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.language = savedLanguage === 'en' ? 'en' : 'pt';
+        document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'pt-PT';
       })();
     </script>
   </head>
 
   <body>
-    <a class="skip-link" href="#conteudo">Avançar para o conteúdo</a>
+    <a class="skip-link" href="#conteudo" data-i18n="skipContent">Avançar para o conteúdo</a>
 
     <div class="site-shell">
       <div class="page-column">
-        <header class="site-header" data-reveal>
-          <button
-            class="menu-button menu-text-button"
-            type="button"
-            aria-label="Abrir todos os textos"
-            aria-controls="archive-drawer"
-            aria-expanded="false"
-            data-open-menu
-          >
-            Todos os textos
-          </button>
+        <header class="site-header poetry-site-header">
+          <div class="poetry-header-start">
+            <a
+              class="poetry-brand-link reveal-logo"
+              href="/"
+              aria-label="venancio.dev"
+              title="venancio.dev"
+            >
+              <img src="../assets/logo.svg" alt="" class="poetry-brand-logo brand-logo" />
+            </a>
 
-          <a class="site-name" href="#/" aria-label="Página inicial">
-            Poesia do Venâncio
+            <div class="poetry-header-buttons">
+              <button
+                class="menu-button menu-text-button reveal-icon"
+              type="button"
+              aria-label="Abrir todos os textos" data-i18n-aria-label="openAllTexts"
+              aria-controls="archive-drawer"
+              aria-expanded="false"
+              data-open-menu
+            >
+              <span data-i18n="allTexts">Todos os textos</span>
+            </button>
+
+            <a
+              class="rss-link rss-header-link reveal-icon"
+              href="https://poesiadovenancio.blogspot.com/feeds/posts/default?alt=rss"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="RSS"
+              title="RSS"
+              data-i18n-aria-label="rssFeed"
+              data-i18n-title="rssFeed"
+              data-rss-link
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 4.75a14.25 14.25 0 0 1 14.25 14.25h-2A12.25 12.25 0 0 0 5 6.75Zm0 5.25A9 9 0 0 1 14 19h-2A7 7 0 0 0 5 12Zm1.5 6.25A1.75 1.75 0 1 1 6.5 19.75a1.75 1.75 0 0 1 0-3.5Z" />
+              </svg>
+              <span>RSS</span>
+            </a>
+            </div>
+          </div>
+
+          <a class="site-name reveal-icon" href="#/" aria-label="Página inicial" data-i18n-aria-label="homepage">
+            <span>Poesia do Venâncio</span>
           </a>
 
           <div class="header-actions">
+            <div
+              class="drawer-language-switcher header-language-switcher reveal-icon"
+              aria-label="Idioma"
+              data-i18n-aria-label="language"
+            >
+              <button type="button" data-language="pt" aria-pressed="true">Português</button>
+              <button type="button" data-language="en" aria-pressed="false">English</button>
+            </div>
+
             <button
-              class="icon-button theme-button"
+              class="icon-button theme-button reveal-icon"
               type="button"
-              aria-label="Ativar modo escuro"
-              title="Alternar tema"
+              aria-label="Ativar o modo escuro"
+              title="Alterne o tema"
               data-theme-toggle
             >
               <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M11.25 2h1.5v2.5h-1.5zM11.25 19.5h1.5V22h-1.5zM2 11.25h2.5v1.5H2zM19.5 11.25H22v1.5h-2.5zM4.575 3.515l1.768 1.768-1.06 1.06-1.768-1.768zM17.657 16.597l1.768 1.768-1.06 1.06-1.768-1.768zM3.515 19.425l1.768-1.768 1.06 1.06-1.768 1.768zM16.597 6.343l1.768-1.768 1.06 1.06-1.768 1.768z" />
-                <path d="M12 6.25A5.75 5.75 0 1 0 12 17.75 5.75 5.75 0 0 0 12 6.25Zm0 10A4.25 4.25 0 1 1 12 7.75a4.25 4.25 0 0 1 0 8.5Z" />
+                <circle cx="12" cy="12" r="3.75"></circle>
+                <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"></path>
               </svg>
               <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M20.49 14.69A8.5 8.5 0 0 1 9.31 3.51 8.5 8.5 0 1 0 20.49 14.69ZM11.5 20A7 7 0 0 1 7.17 7.5a10 10 0 0 0 9.33 9.33A6.96 6.96 0 0 1 11.5 20Z" />
+                <path d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"></path>
               </svg>
             </button>
 
 
             <button
-              class="icon-button"
+              class="icon-button reveal-icon"
               type="button"
               aria-label="Partilhar esta página"
               title="Partilhar"
+              data-i18n-aria-label="sharePage"
+              data-i18n-title="share"
               data-share-home
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -86,10 +151,12 @@
             </button>
 
             <button
-              class="icon-button"
+              class="icon-button reveal-icon"
               type="button"
               aria-label="Pesquisar textos"
               title="Pesquisar"
+              data-i18n-aria-label="searchTexts"
+              data-i18n-title="search"
               data-open-search
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -101,29 +168,30 @@
 
         <main id="conteudo" tabindex="-1">
           <section class="hero" data-home-only>
-            <h1 class="hero-title" data-reveal>
+            <h1 class="hero-title reveal">
               <span>Poesia do Venâncio</span>
             </h1>
 
-            <div class="hero-actions" data-reveal>
+            <div class="hero-actions">
               <a
-                class="pill secondary-action"
+                class="pill secondary-action reveal-icon"
                 href="mailto:poesia@venancio.dev?subject=Contacto%20atrav%C3%A9s%20de%20Poesia%20do%20Ven%C3%A2ncio"
+                data-contact-author
               >
-                Contacte o autor
+                <span data-i18n="contactAuthor">Contactar o autor</span>
               </a>
 
-              <a class="pill primary-action" href="./livro/">
-                Conhecer o livro
+              <a class="pill primary-action reveal-icon" href="./livro/">
+                <span data-i18n="discoverBook">Conhecer o livro</span>
               </a>
 
               <a
-                class="pill secondary-action"
+                class="pill secondary-action reveal-icon"
                 href="https://buymeacoffee.com/gvenancio"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Apoiar o meu trabalho
+                <span data-i18n="supportWork">Apoiar o meu trabalho</span>
               </a>
             </div>
           </section>
@@ -131,14 +199,14 @@
           <div class="view" data-view aria-live="polite">
             <div class="loading-card" data-loading>
               <span class="loading-dot" aria-hidden="true"></span>
-              <p>A carregar os textos…</p>
+              <p data-i18n="loadingTexts">A carregar os textos…</p>
             </div>
           </div>
         </main>
 
-        <footer class="site-footer" data-reveal>
+        <footer class="site-footer reveal-card">
           <p>Gonçalo Venâncio</p>
-</footer>
+        </footer>
       </div>
     </div>
 
@@ -147,24 +215,35 @@
     <aside
       class="archive-drawer"
       id="archive-drawer"
-      aria-label="Todos os textos"
+      aria-label="Todos os textos" data-i18n-aria-label="allTexts"
       aria-hidden="true"
       data-drawer
     >
       <div class="drawer-header">
         <div>
-          <h2>Todos os textos</h2>
+          <h2 data-i18n="allTexts">Todos os textos</h2>
         </div>
-        <button class="icon-button" type="button" aria-label="Fechar menu" data-close-menu>
+        <button class="icon-button" type="button" aria-label="Fechar o menu" data-i18n-aria-label="closeMenu" data-close-menu>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
             <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
           </svg>
         </button>
       </div>
-      <nav aria-label="Índice de textos">
+      <nav aria-label="Índice de textos" data-i18n-aria-label="textsIndex">
         <ul class="archive-list" data-archive-list></ul>
       </nav>
+
+      <div class="drawer-preferences">
+        <p class="drawer-preferences-title" data-i18n="language">Idioma</p>
+        <div class="drawer-language-switcher" aria-label="Idioma" data-i18n-aria-label="language">
+          <button type="button" data-language="pt" aria-pressed="true">Português</button>
+          <button type="button" data-language="en" aria-pressed="false">English</button>
+        </div>
+        <p class="drawer-preferences-note" data-i18n="preferencesNote">
+          As preferências de idioma e tema ficam guardadas apenas neste navegador.
+        </p>
+      </div>
     </aside>
 
     <button
@@ -172,23 +251,25 @@
       type="button"
       aria-label="Voltar ao topo"
       title="Voltar ao topo"
+      data-i18n-aria-label="backTop"
+      data-i18n-title="backTop"
       data-back-to-top
       hidden
     >
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="m12 4.88 7.59 7.59-1.06 1.06-5.78-5.78V22h-1.5V7.75l-5.78 5.78-1.06-1.06z" />
       </svg>
-      <span>Voltar ao topo</span>
+      <span data-i18n="backTop">Voltar ao topo</span>
     </button>
 
     <dialog class="search-dialog" data-search-dialog aria-labelledby="search-title">
       <form method="dialog" class="search-dialog-inner">
         <div class="search-heading">
           <div>
-            <p class="eyebrow">Pesquisa</p>
-            <h2 id="search-title">Encontrar um texto</h2>
+            <p class="eyebrow" data-i18n="search">Pesquisa</p>
+            <h2 id="search-title" data-i18n="findText">Encontrar um texto</h2>
           </div>
-          <button class="icon-button" value="cancel" aria-label="Fechar pesquisa">
+          <button class="icon-button" value="cancel" aria-label="Fechar a pesquisa" data-i18n-aria-label="closeSearch">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
               <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
@@ -197,7 +278,7 @@
         </div>
 
         <label class="search-field">
-          <span class="visually-hidden">Pesquisar por título ou conteúdo</span>
+          <span class="visually-hidden" data-i18n="searchByContent">Pesquisar por título ou conteúdo</span>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z" />
           </svg>
@@ -205,12 +286,13 @@
             type="search"
             autocomplete="off"
             placeholder="Pesquisar por título ou palavras do texto"
+            data-i18n-placeholder="searchPlaceholder"
             data-search-input
           />
         </label>
 
         <div class="search-results" data-search-results>
-          <p class="search-help">Comece a escrever para pesquisar.</p>
+          <p class="search-help" data-i18n="searchHelp">Comece a escrever para pesquisar.</p>
         </div>
       </form>
     </dialog>
@@ -220,10 +302,10 @@
       <div class="share-dialog-inner">
         <div class="share-heading">
           <div>
-            <p class="eyebrow">Partilhar</p>
-            <h2 id="share-title">Escolha uma opção</h2>
+            <p class="eyebrow" data-i18n="share">Partilhar</p>
+            <h2 id="share-title" data-i18n="chooseOption">Escolher uma opção</h2>
           </div>
-          <button class="icon-button" type="button" aria-label="Fechar opções de partilha" data-close-share>
+          <button class="icon-button" type="button" aria-label="Fechar as opções de partilha" data-i18n-aria-label="closeShare" data-close-share>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
               <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
@@ -233,10 +315,10 @@
 
         <div class="share-summary">
           <strong data-share-preview-title>Poesia do Venâncio</strong>
-          <span>Escolha como pretende partilhar esta página.</span>
+          <span data-i18n="shareHow">Escolha como pretende partilhar esta página.</span>
         </div>
 
-        <div class="share-options" aria-label="Opções de partilha">
+        <div class="share-options" aria-label="Opções de partilha" data-i18n-aria-label="shareOptions">
           <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-whatsapp>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M12 3.25a8.5 8.5 0 0 0-7.31 12.83L3.5 20.5l4.55-1.13A8.5 8.5 0 1 0 12 3.25Zm0 15.5a6.96 6.96 0 0 1-3.55-.98l-.27-.16-2.54.63.66-2.46-.18-.29A7 7 0 1 1 12 18.75Z" />
@@ -270,14 +352,14 @@
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z" />
             </svg>
-            <span>Mais aplicações</span>
+            <span data-i18n="moreApps">Mais aplicações</span>
           </button>
 
           <button class="share-option share-option-copy" type="button" data-copy-share>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M9.5 7.25h8.25v8.25H15.5V17H19.25V5.75H9.5ZM4.75 9h10.5v10.5H4.75Zm1.5 1.5V18h7.5v-7.5Z" />
             </svg>
-            <span>Copiar ligação</span>
+            <span data-i18n="copyLink">Copiar a ligação</span>
           </button>
         </div>
 
@@ -288,7 +370,7 @@
 
     <noscript>
       <div class="noscript-message">
-        Este site precisa de JavaScript para carregar os textos e utilizar a pesquisa.
+        <span data-i18n="noscript">Este site precisa de JavaScript para carregar os textos e utilizar a pesquisa.</span>
       </div>
     </noscript>
 

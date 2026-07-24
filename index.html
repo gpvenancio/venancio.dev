@@ -1,17 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-PT" data-theme="light" data-language="pt">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
 
-    <title>Gonçalo Venâncio · Aspiring Frontend Developer · venancio.dev</title>
-
+    <title>Gonçalo Venâncio · venancio.dev</title>
     <meta
       name="description"
-      content="Gonçalo Venâncio, aspiring frontend developer building thoughtful web experiences and developer tools with a focus on clarity, usability, and visual craft"
+      content="Página pessoal de Gonçalo Venâncio, com acesso aos seus projetos digitais e à sua escrita."
     />
 
-    <link rel="stylesheet" href="style.css" />
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem('venancio-theme') || localStorage.getItem('poesia-theme');
+        const savedLanguage = localStorage.getItem('venancio-language');
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.language = savedLanguage === 'en' ? 'en' : 'pt';
+        document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'pt-PT';
+      })();
+    </script>
+
+    <link rel="stylesheet" href="./style.css" />
 
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
     <link
@@ -23,10 +33,10 @@
     <link rel="apple-touch-icon" href="./assets/apple_touch_icon.png" />
 
     <link rel="canonical" href="https://venancio.dev/" />
-    <meta name="theme-color" content="#232530" />
+    <meta name="theme-color" content="#eef1f3" />
 
     <meta property="og:title" content="Gonçalo Venâncio" />
-    <meta property="og:description" content="Frontend Development" />
+    <meta property="og:description" content="venancio.dev" />
     <meta
       property="og:image"
       content="https://venancio.dev/assets/social_preview.png"
@@ -35,7 +45,7 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Gonçalo Venâncio, Frontend Development, venancio.dev"
+      content="Gonçalo Venâncio, venancio.dev"
     />
     <meta property="og:url" content="https://venancio.dev/" />
     <meta property="og:site_name" content="Gonçalo Venâncio" />
@@ -43,177 +53,154 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Gonçalo Venâncio" />
-    <meta name="twitter:description" content="Frontend Development" />
+    <meta name="twitter:description" content="venancio.dev" />
     <meta
       name="twitter:image"
       content="https://venancio.dev/assets/social_preview.png"
     />
     <meta
       name="twitter:image:alt"
-      content="Gonçalo Venâncio, Frontend Development, venancio.dev"
+      content="Gonçalo Venâncio, venancio.dev"
     />
   </head>
 
   <body>
-    <main class="page">
-      <header class="site-header" aria-label="Site header">
-        <nav class="site-nav" aria-label="Site navigation">
-          <a
-            class="brand-link reveal-logo"
-            href="/"
-            aria-label="Go to homepage"
-            title="Go to homepage"
-          >
-            <img src="./assets/logo.svg" alt="" class="brand-logo" />
-          </a>
+    <main class="page landing-page">
+      <header class="site-header" aria-label="Cabeçalho do site" data-i18n-aria-label="siteHeader">
+        <a
+          class="brand-link reveal-logo"
+          href="/"
+          aria-label="Página inicial"
+          data-i18n-aria-label="homeLabel"
+        >
+          <img src="./assets/logo.svg" alt="" class="brand-logo" />
+        </a>
 
-          <a
-            class="nav-pill reveal-icon"
-            href="/atlantico/"
-            aria-label="Go to Atlantico project page"
-            title="Go to Atlantico project page"
-          >
-            <img
-              src="./assets/atlantico/icon.svg"
-              alt=""
-              class="nav-pill-icon"
-            />
-            <span>Atlantico</span>
-          </a>
-        </nav>
+        <div class="header-controls" aria-label="Preferências do site" data-i18n-aria-label="sitePreferences">
+          <div class="language-switcher reveal-icon" aria-label="Idioma" data-i18n-aria-label="languageLabel">
+            <button
+              class="language-button"
+              type="button"
+              data-language="pt"
+              aria-pressed="true"
+            >
+              Português
+            </button>
+            <button
+              class="language-button"
+              type="button"
+              data-language="en"
+              aria-pressed="false"
+            >
+              English
+            </button>
+          </div>
 
-        <nav class="social-links" aria-label="Social links">
-          <a
-            class="reveal-icon"
-            href="https://github.com/gpvenancio"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Gonçalo Venâncio on GitHub"
+          <button
+            class="theme-button reveal-icon"
+            type="button"
+            aria-label="Ativar o tema escuro"
+            title="Ativar o tema escuro"
+            data-theme-toggle
           >
-            <span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.18-3.37-1.18a2.65 2.65 0 0 0-1.1-1.45c-.9-.62.07-.6.07-.6a2.1 2.1 0 0 1 1.53 1.03 2.13 2.13 0 0 0 2.91.83 2.14 2.14 0 0 1 .64-1.34c-2.22-.25-4.55-1.11-4.55-4.94a3.87 3.87 0 0 1 1.03-2.68 3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.48 9.48 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64a3.86 3.86 0 0 1 1.03 2.68c0 3.84-2.34 4.68-4.57 4.93a2.4 2.4 0 0 1 .68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"
-                />
-              </svg>
-            </span>
-          </a>
-
-          <a
-            class="reveal-icon"
-            href="https://linkedin.com/in/gpvenancio/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Gonçalo Venâncio on LinkedIn"
-          >
-            <span>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M6.94 8.75H3.75v10.5h3.19V8.75ZM5.35 4.75a1.85 1.85 0 1 0 0 3.7 1.85 1.85 0 0 0 0-3.7Zm5.28 4h-3.05v10.5h3.18v-5.52c0-1.46.28-2.87 2.08-2.87 1.78 0 1.8 1.66 1.8 2.96v5.43h3.19v-6.12c0-3-1.6-4.4-3.73-4.4a3.62 3.62 0 0 0-3.29 1.8h-.04l-.14-1.78Z"
-                />
-              </svg>
-            </span>
-          </a>
-        </nav>
+            <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="3.75"></circle>
+              <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"></path>
+            </svg>
+            <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"></path>
+            </svg>
+          </button>
+        </div>
       </header>
 
-      <section class="hero" aria-labelledby="page-title">
+      <section class="hero landing-hero" aria-labelledby="page-title">
         <h1 id="page-title" class="reveal">
-          <span>Gonçalo Venâncio</span>
+          <span data-i18n="name">Gonçalo Venâncio</span>
         </h1>
 
-        <p class="role reveal">
-          <span>Aspiring Frontend Developer</span>
-        </p>
-
         <p class="intro reveal">
-          <span>
-            Building thoughtful web experiences and developer tools with a focus
-            on clarity, usability, and visual craft.
+          <span data-i18n="introduction">
+            Chamo-me Gonçalo Venâncio, nasci em Lisboa em 1988. Este espaço reúne
+            os projetos a que me tenho dedicado, de desenvolvimento a poesia, e
+            irá crescendo à medida que novos caminhos se forem definindo.
+            Explore as secções abaixo.
           </span>
         </p>
-
-        <p class="description reveal">
-          <span>
-            Open to junior frontend opportunities. Currently building practical
-            projects with modern JavaScript, semantic HTML, responsive CSS, and
-            thoughtful user experience.
-          </span>
-        </p>
-
-        <a class="cta reveal" href="mailto:contact@venancio.dev">
-          <span class="cta-content">
-            <span class="cta-label">Get in touch</span>
-            <span class="cta-separator">·</span>
-            <span class="cta-email">contact@venancio.dev</span>
-          </span>
-        </a>
       </section>
 
-      <section class="project reveal-card" aria-labelledby="project-title">
-        <p class="section-label reveal">
-          <span>Featured project</span>
-        </p>
-
-        <h2 id="project-title" class="reveal">
-          <span>Atlantico</span>
-        </h2>
-
-        <p class="reveal">
-          <span>
-            A calm theme for Visual Studio Code and compatible editors, designed
-            for long coding sessions, visual comfort, and clear syntax
-            highlighting across languages.
-          </span>
-        </p>
-
-        <div class="project-actions">
-          <a class="project-link reveal" href="/atlantico/">
-            <span>View project page</span>
-          </a>
-
-          <a
-            class="project-link reveal"
-            href="https://marketplace.visualstudio.com/items?itemName=gvenancio.atlantico"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View Atlantico on the Visual Studio Marketplace"
-          >
-            <span>View on Marketplace</span>
-          </a>
-
-          <a
-            class="project-link reveal"
-            href="https://open-vsx.org/extension/gvenancio/atlantico"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View Atlantico on Open VSX Registry"
-          >
-            <span>View on Open VSX</span>
-          </a>
-
-          <a
-            class="project-link reveal"
-            href="https://github.com/gpvenancio/atlantico"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View Atlantico source code on GitHub"
-          >
-            <span>View on GitHub</span>
-          </a>
-        </div>
-      </section>
-
-      <footer class="site-footer reveal-card" aria-label="Additional navigation">
+      <nav class="destination-grid" aria-label="Páginas principais" data-i18n-aria-label="mainPages">
         <a
-          class="poetry-footer-link"
-          href="/poesia/"
-          aria-label="Visit Poesia do Venâncio"
+          class="destination-card reveal-card"
+          href="/atlantico/"
+          aria-label="Abrir a página do tema Atlantico"
+          data-i18n-aria-label="atlanticoAria"
         >
-          <span>Poesia do Venâncio</span>
+          <div class="destination-card-top">
+            <img
+              class="destination-icon"
+              src="./assets/atlantico/icon.svg"
+              alt=""
+            />
+            <svg class="destination-arrow" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 5h12v12h-1.7V7.9L5.6 19.6 4.4 18.4 16.1 6.7H7Z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2>Atlantico</h2>
+            <p data-i18n="atlanticoDescription">
+              Um tema escuro sereno para Visual Studio Code e editores
+              compatíveis.
+            </p>
+          </div>
         </a>
+
+        <a
+          class="destination-card reveal-card"
+          href="/poesia/"
+          aria-label="Abrir a página Poesia do Venâncio"
+          data-i18n-aria-label="poetryAria"
+        >
+          <div class="destination-card-top">
+            <img class="destination-icon" src="./assets/logo.svg" alt="" />
+            <svg class="destination-arrow" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 5h12v12h-1.7V7.9L5.6 19.6 4.4 18.4 16.1 6.7H7Z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2>Poesia</h2>
+            <p data-i18n="poetryDescription">
+              Poesia, textos e informação sobre o meu livro.
+            </p>
+          </div>
+        </a>
+      </nav>
+
+      <section class="landing-contact reveal-card" aria-labelledby="contact-title">
+        <h2 id="contact-title" data-i18n="contactTitle">Contacto</h2>
+        <p data-i18n="contactLead">
+          Para questões gerais, propostas ou simplesmente para entrar em
+          contacto.
+        </p>
+        <a class="cta" href="mailto:goncalo@venancio.dev">
+          <span class="cta-content">
+            <span class="cta-label" data-i18n="contactLabel">Contactar</span>
+            <span class="cta-separator">·</span>
+            <span class="cta-email">goncalo@venancio.dev</span>
+          </span>
+        </a>
+        <p class="preferences-note" data-i18n="preferencesNote">
+          As preferências de idioma e tema ficam guardadas apenas neste
+          navegador.
+        </p>
+      </section>
+
+      <footer class="site-footer landing-footer reveal-card">
+        <span>Gonçalo Venâncio · venancio.dev</span>
       </footer>
     </main>
+
+    <script src="./script.js" defer></script>
 
     <script
       defer
