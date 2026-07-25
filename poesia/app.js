@@ -40,9 +40,11 @@ const I18N = Object.freeze({
     shareOptions: 'Opções de partilha',
     moreApps: 'Mais aplicações',
     copyLink: 'Copiar a ligação',
-    noscript: 'Este site precisa de JavaScript para carregar os textos e utilizar a pesquisa.',
+    noscript:
+      'Este site precisa de JavaScript para carregar os textos e utilizar a pesquisa.',
     language: 'Idioma',
-    preferencesNote: 'As preferências de idioma e tema ficam guardadas apenas neste navegador.',
+    preferencesNote:
+      'As preferências de idioma e tema ficam guardadas apenas neste navegador.',
     themeLight: 'Ativar o modo claro',
     themeDark: 'Ativar o modo escuro',
     siteDescription: 'Textos e poesia de Gonçalo Venâncio.',
@@ -57,16 +59,19 @@ const I18N = Object.freeze({
     shareThisText: 'Partilhar este texto',
     shareOpinion: 'Partilhar a sua opinião',
     returnHomepage: 'Voltar à página inicial',
-    opinionSubject: (title) => `Opinião sobre “${title}”`,
-    opinionBody: (title) => `Olá,\n\nGostaria de partilhar a minha opinião sobre o texto “${title}”:\n\n`,
+    opinionSubject: title => `Opinião sobre “${title}”`,
+    opinionBody: title =>
+      `Olá,\n\nGostaria de partilhar a minha opinião sobre o texto “${title}”:\n\n`,
     notFoundTitle: 'Texto não encontrado',
-    notFoundText: 'O endereço pode estar incompleto ou o texto pode já não estar disponível.',
+    notFoundText:
+      'O endereço pode estar incompleto ou o texto pode já não estar disponível.',
     backAllTexts: 'Voltar a todos os textos',
     loadErrorTitle: 'Não foi possível carregar os textos',
     retry: 'Tentar novamente',
     openBlog: 'Abrir o blogue',
     noSearchResults: 'Não encontrei nenhum texto com esses termos.',
     copied: 'Ligação copiada.',
+    rssCopied: 'Ligação RSS copiada.',
     copyFailed: 'Não foi possível copiar a ligação.',
     shareFailed: 'Não foi possível abrir as aplicações de partilha.',
     bloggerTimeout: 'A resposta do Blogger demorou demasiado tempo.',
@@ -104,7 +109,8 @@ const I18N = Object.freeze({
     copyLink: 'Copy link',
     noscript: 'This site needs JavaScript to load the texts and use search.',
     language: 'Language',
-    preferencesNote: 'Language and theme preferences are stored only in this browser.',
+    preferencesNote:
+      'Language and theme preferences are stored only in this browser.',
     themeLight: 'Use light mode',
     themeDark: 'Use dark mode',
     siteDescription: 'Texts and poetry by Gonçalo Venâncio.',
@@ -119,16 +125,19 @@ const I18N = Object.freeze({
     shareThisText: 'Share this text',
     shareOpinion: 'Share your thoughts',
     returnHomepage: 'Return to the homepage',
-    opinionSubject: (title) => `Thoughts on “${title}”`,
-    opinionBody: (title) => `Hello,\n\nI would like to share my thoughts on the text “${title}”:\n\n`,
+    opinionSubject: title => `Thoughts on “${title}”`,
+    opinionBody: title =>
+      `Hello,\n\nI would like to share my thoughts on the text “${title}”:\n\n`,
     notFoundTitle: 'Text not found',
-    notFoundText: 'The address may be incomplete, or the text may no longer be available.',
+    notFoundText:
+      'The address may be incomplete, or the text may no longer be available.',
     backAllTexts: 'Return to all texts',
     loadErrorTitle: 'The texts could not be loaded',
     retry: 'Try again',
     openBlog: 'Open the blog',
     noSearchResults: 'No text matched those terms.',
     copied: 'Link copied.',
+    rssCopied: 'RSS feed link copied.',
     copyFailed: 'The link could not be copied.',
     shareFailed: 'The sharing apps could not be opened.',
     bloggerTimeout: 'The Blogger response took too long.',
@@ -166,7 +175,7 @@ const elements = {
   shareTelegram: document.querySelector('[data-share-telegram]'),
   nativeShareButton: document.querySelector('[data-native-share]'),
   copyShareButton: document.querySelector('[data-copy-share]'),
-  shareFeedback: document.querySelector('[data-share-feedback]'),
+  toast: document.querySelector('[data-toast]'),
   backToTopButton: document.querySelector('[data-back-to-top]'),
   rssLink: document.querySelector('[data-rss-link]'),
   contactAuthorLink: document.querySelector('[data-contact-author]'),
@@ -204,9 +213,11 @@ function htmlToText(html = '') {
 function sanitizePostHtml(html = '') {
   const parsed = new DOMParser().parseFromString(html, 'text/html');
 
-  parsed.querySelectorAll('script, style, iframe, object, embed, link, meta').forEach((node) => node.remove());
-  parsed.querySelectorAll('*').forEach((node) => {
-    [...node.attributes].forEach((attribute) => {
+  parsed
+    .querySelectorAll('script, style, iframe, object, embed, link, meta')
+    .forEach(node => node.remove());
+  parsed.querySelectorAll('*').forEach(node => {
+    [...node.attributes].forEach(attribute => {
       const name = attribute.name.toLowerCase();
       const value = attribute.value.trim().toLowerCase();
       if (name.startsWith('on') || value.startsWith('javascript:')) {
@@ -215,14 +226,14 @@ function sanitizePostHtml(html = '') {
     });
   });
 
-  parsed.querySelectorAll('img').forEach((image) => {
+  parsed.querySelectorAll('img').forEach(image => {
     image.loading = 'lazy';
     image.decoding = 'async';
     image.removeAttribute('width');
     image.removeAttribute('height');
   });
 
-  parsed.querySelectorAll('a').forEach((link) => {
+  parsed.querySelectorAll('a').forEach(link => {
     const url = link.getAttribute('href');
     if (!url) return;
     try {
@@ -240,7 +251,9 @@ function sanitizePostHtml(html = '') {
 }
 
 function getAlternateLink(entry) {
-  return entry.link?.find((link) => link.rel === 'alternate')?.href || CONFIG.blogHome;
+  return (
+    entry.link?.find(link => link.rel === 'alternate')?.href || CONFIG.blogHome
+  );
 }
 
 function getSlug(url, fallback) {
@@ -257,7 +270,8 @@ function parseFeed(feed) {
   const entries = feed?.feed?.entry || [];
 
   return entries.map((entry, index) => {
-    const title = entry.title?.$t?.trim() || `${t('textFallback')} ${index + 1}`;
+    const title =
+      entry.title?.$t?.trim() || `${t('textFallback')} ${index + 1}`;
     const originalUrl = getAlternateLink(entry);
     const content = entry.content?.$t || entry.summary?.$t || '';
     const text = htmlToText(content);
@@ -295,7 +309,7 @@ function loadBloggerFeed() {
       }
     }
 
-    window[callbackName] = (data) => {
+    window[callbackName] = data => {
       cleanup();
       resolve(data);
     };
@@ -318,7 +332,7 @@ function loadBloggerFeed() {
 }
 
 function buildSearchIndex() {
-  state.searchIndex = state.posts.map((post) => ({
+  state.searchIndex = state.posts.map(post => ({
     post,
     haystack: normalizeText(`${post.title} ${post.text}`),
   }));
@@ -340,17 +354,19 @@ function postUrl(post) {
 function renderArchive() {
   const currentSlug = getRoute().slug;
   const markup = state.posts
-    .map((post) => `
+    .map(
+      post => `
       <li>
         <a
           href="${postUrl(post)}"
           ${post.slug === currentSlug ? 'aria-current="page"' : ''}
         >${escapeHtml(post.title)}</a>
       </li>
-    `)
+    `,
+    )
     .join('');
 
-  elements.archiveLists.forEach((list) => {
+  elements.archiveLists.forEach(list => {
     list.innerHTML = markup;
   });
 }
@@ -361,18 +377,22 @@ function renderHome() {
   elements.canonical?.setAttribute('href', CONFIG.baseUrl);
   elements.homeOnly.hidden = false;
   if (elements.homeShareButton) elements.homeShareButton.hidden = false;
-  elements.searchButtons.forEach((button) => { button.hidden = false; });
+  elements.searchButtons.forEach(button => {
+    button.hidden = false;
+  });
   if (elements.rssLink) elements.rssLink.hidden = false;
   hideBackToTop();
 
   const cards = state.posts
-    .map((post, index) => `
+    .map(
+      (post, index) => `
       <article class="post-card reveal-card" style="animation-delay: ${920 + Math.min(index * 70, 420)}ms">
         <h2><a href="${postUrl(post)}">${escapeHtml(post.title)}</a></h2>
         ${post.excerpt ? `<p class="post-excerpt">${escapeHtml(post.excerpt)}</p>` : ''}
         <span class="read-label">${t('readText')}</span>
       </article>
-    `)
+    `,
+    )
     .join('');
 
   elements.view.innerHTML = `<section class="posts-grid" aria-label="${t('textsAria')}">${cards}</section>`;
@@ -380,7 +400,7 @@ function renderHome() {
 }
 
 function renderArticleNavigation(post) {
-  const currentIndex = state.posts.findIndex((item) => item.slug === post.slug);
+  const currentIndex = state.posts.findIndex(item => item.slug === post.slug);
   const previousPost = currentIndex >= 0 ? state.posts[currentIndex + 1] : null;
   const nextPost = currentIndex > 0 ? state.posts[currentIndex - 1] : null;
 
@@ -422,11 +442,16 @@ function renderArticleNavigation(post) {
 
 function renderArticle(post) {
   document.title = `${post.title} · ${CONFIG.siteTitle}`;
-  elements.metaDescription?.setAttribute('content', post.excerpt || `${t('textFallback')} ${post.title}.`);
+  elements.metaDescription?.setAttribute(
+    'content',
+    post.excerpt || `${t('textFallback')} ${post.title}.`,
+  );
   elements.canonical?.setAttribute('href', post.originalUrl);
   elements.homeOnly.hidden = true;
   if (elements.homeShareButton) elements.homeShareButton.hidden = true;
-  elements.searchButtons.forEach((button) => { button.hidden = true; });
+  elements.searchButtons.forEach(button => {
+    button.hidden = true;
+  });
   if (elements.rssLink) elements.rssLink.hidden = true;
   hideBackToTop();
 
@@ -474,14 +499,19 @@ function renderArticle(post) {
 
   setActiveArchiveItem(post.slug);
   document.querySelector('#conteudo')?.focus({ preventScroll: true });
-  window.scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
+  window.scrollTo({
+    top: 0,
+    behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+  });
   window.requestAnimationFrame(updateBackToTopVisibility);
 }
 
 function renderNotFound() {
   elements.homeOnly.hidden = true;
   if (elements.homeShareButton) elements.homeShareButton.hidden = true;
-  elements.searchButtons.forEach((button) => { button.hidden = true; });
+  elements.searchButtons.forEach(button => {
+    button.hidden = true;
+  });
   if (elements.rssLink) elements.rssLink.hidden = true;
   hideBackToTop();
   elements.view.innerHTML = `
@@ -496,7 +526,9 @@ function renderNotFound() {
 function renderError(error) {
   elements.homeOnly.hidden = false;
   if (elements.homeShareButton) elements.homeShareButton.hidden = false;
-  elements.searchButtons.forEach((button) => { button.hidden = false; });
+  elements.searchButtons.forEach(button => {
+    button.hidden = false;
+  });
   if (elements.rssLink) elements.rssLink.hidden = false;
   hideBackToTop();
   elements.view.innerHTML = `
@@ -509,7 +541,9 @@ function renderError(error) {
       </div>
     </section>
   `;
-  elements.view.querySelector('[data-retry]')?.addEventListener('click', initializePosts);
+  elements.view
+    .querySelector('[data-retry]')
+    ?.addEventListener('click', initializePosts);
 }
 
 function getRoute() {
@@ -540,7 +574,7 @@ function renderRoute() {
   }
 
   if (route.name === 'article') {
-    const post = state.posts.find((item) => item.slug === route.slug);
+    const post = state.posts.find(item => item.slug === route.slug);
     if (post) renderArticle(post);
     else renderNotFound();
     return;
@@ -550,7 +584,7 @@ function renderRoute() {
 }
 
 function setActiveArchiveItem(slug) {
-  document.querySelectorAll('.archive-list a').forEach((link) => {
+  document.querySelectorAll('.archive-list a').forEach(link => {
     const isCurrent = slug && link.getAttribute('href') === postUrl({ slug });
     if (isCurrent) link.setAttribute('aria-current', 'page');
     else link.removeAttribute('aria-current');
@@ -566,8 +600,12 @@ function articleIsLong() {
   const article = document.querySelector('.article-card');
   if (!article) return false;
 
-  const remainingDocumentHeight = document.documentElement.scrollHeight - window.innerHeight;
-  return remainingDocumentHeight > 850 && article.scrollHeight > window.innerHeight * 1.15;
+  const remainingDocumentHeight =
+    document.documentElement.scrollHeight - window.innerHeight;
+  return (
+    remainingDocumentHeight > 850 &&
+    article.scrollHeight > window.innerHeight * 1.15
+  );
 }
 
 function updateBackToTopVisibility() {
@@ -588,10 +626,14 @@ function openMenu() {
   elements.drawer?.setAttribute('aria-hidden', 'false');
   if (elements.drawerBackdrop) {
     elements.drawerBackdrop.hidden = false;
-    requestAnimationFrame(() => elements.drawerBackdrop.classList.add('is-visible'));
+    requestAnimationFrame(() =>
+      elements.drawerBackdrop.classList.add('is-visible'),
+    );
   }
   document.body.classList.add('is-locked');
-  document.querySelectorAll('[data-open-menu]').forEach((button) => button.setAttribute('aria-expanded', 'true'));
+  document
+    .querySelectorAll('[data-open-menu]')
+    .forEach(button => button.setAttribute('aria-expanded', 'true'));
   elements.closeMenuButton?.focus();
 }
 
@@ -601,7 +643,9 @@ function closeMenu() {
   elements.drawer.setAttribute('aria-hidden', 'true');
   elements.drawerBackdrop?.classList.remove('is-visible');
   document.body.classList.remove('is-locked');
-  document.querySelectorAll('[data-open-menu]').forEach((button) => button.setAttribute('aria-expanded', 'false'));
+  document
+    .querySelectorAll('[data-open-menu]')
+    .forEach(button => button.setAttribute('aria-expanded', 'false'));
   window.setTimeout(() => {
     if (elements.drawerBackdrop) elements.drawerBackdrop.hidden = true;
   }, 230);
@@ -630,7 +674,7 @@ function renderSearchResults(query) {
 
   const terms = normalizedQuery.split(' ').filter(Boolean);
   const matches = state.searchIndex
-    .filter(({ haystack }) => terms.every((term) => haystack.includes(term)))
+    .filter(({ haystack }) => terms.every(term => haystack.includes(term)))
     .slice(0, 30);
 
   if (!matches.length) {
@@ -640,14 +684,18 @@ function renderSearchResults(query) {
 
   elements.searchResults.innerHTML = `
     <ul class="search-result-list">
-      ${matches.map(({ post }) => `
+      ${matches
+        .map(
+          ({ post }) => `
         <li>
           <a class="search-result-link" href="${postUrl(post)}">
             <strong>${escapeHtml(post.title)}</strong>
             <span>${escapeHtml(post.excerpt.slice(0, 150))}</span>
           </a>
         </li>
-      `).join('')}
+      `,
+        )
+        .join('')}
     </ul>
   `;
 }
@@ -657,28 +705,31 @@ function applyStaticTranslations() {
 
   document.documentElement.lang = language() === 'en' ? 'en' : 'pt-PT';
 
-  document.querySelectorAll('[data-i18n]').forEach((element) => {
+  document.querySelectorAll('[data-i18n]').forEach(element => {
     const value = translations[element.dataset.i18n];
     if (typeof value === 'string') element.textContent = value;
   });
 
-  document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+  document.querySelectorAll('[data-i18n-aria-label]').forEach(element => {
     const value = translations[element.dataset.i18nAriaLabel];
     if (typeof value === 'string') element.setAttribute('aria-label', value);
   });
 
-  document.querySelectorAll('[data-i18n-title]').forEach((element) => {
+  document.querySelectorAll('[data-i18n-title]').forEach(element => {
     const value = translations[element.dataset.i18nTitle];
     if (typeof value === 'string') element.setAttribute('title', value);
   });
 
-  document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
     const value = translations[element.dataset.i18nPlaceholder];
     if (typeof value === 'string') element.setAttribute('placeholder', value);
   });
 
-  elements.languageButtons.forEach((button) => {
-    button.setAttribute('aria-pressed', String(button.dataset.language === language()));
+  elements.languageButtons.forEach(button => {
+    button.setAttribute(
+      'aria-pressed',
+      String(button.dataset.language === language()),
+    );
   });
 
   if (elements.contactAuthorLink) {
@@ -687,7 +738,8 @@ function applyStaticTranslations() {
 }
 
 function applyLanguage(nextLanguage, persist = true) {
-  document.documentElement.dataset.language = nextLanguage === 'en' ? 'en' : 'pt';
+  document.documentElement.dataset.language =
+    nextLanguage === 'en' ? 'en' : 'pt';
   applyStaticTranslations();
   applyTheme(document.documentElement.dataset.theme, false);
   buildSearchIndex();
@@ -704,20 +756,33 @@ function applyLanguage(nextLanguage, persist = true) {
 function applyTheme(theme, persist = true) {
   const normalized = theme === 'dark' ? 'dark' : 'light';
   document.documentElement.dataset.theme = normalized;
-  elements.themeToggle?.setAttribute('aria-label', normalized === 'dark' ? t('themeLight') : t('themeDark'));
-  elements.themeToggle?.setAttribute('title', normalized === 'dark' ? t('themeLight') : t('themeDark'));
-  elements.themeColor?.setAttribute('content', normalized === 'dark' ? '#232530' : '#cccccc');
+  elements.themeToggle?.setAttribute(
+    'aria-label',
+    normalized === 'dark' ? t('themeLight') : t('themeDark'),
+  );
+  elements.themeToggle?.setAttribute(
+    'title',
+    normalized === 'dark' ? t('themeLight') : t('themeDark'),
+  );
+  elements.themeColor?.setAttribute(
+    'content',
+    normalized === 'dark' ? '#232530' : '#cccccc',
+  );
 
   if (persist) localStorage.setItem('venancio-theme', normalized);
 }
 
 function toggleTheme() {
-  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+  applyTheme(
+    document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark',
+  );
 }
 
 function buildShareMessage({ title, text, url }) {
   const cleanText = text?.trim();
-  return cleanText ? `${title}\n\n${cleanText}\n\n${url}` : `${title}\n\n${url}`;
+  return cleanText
+    ? `${title}\n\n${cleanText}\n\n${url}`
+    : `${title}\n\n${url}`;
 }
 
 function openDialog(dialog) {
@@ -742,7 +807,8 @@ function openShareDialog(shareData = {}) {
   const url = shareData.url || CONFIG.baseUrl;
   const message = buildShareMessage({ title, text, url });
 
-  if (elements.sharePreviewTitle) elements.sharePreviewTitle.textContent = title;
+  if (elements.sharePreviewTitle)
+    elements.sharePreviewTitle.textContent = title;
   if (elements.shareFeedback) elements.shareFeedback.textContent = '';
   elements.shareDialog.dataset.shareUrl = url;
   elements.shareDialog.dataset.shareTitle = title;
@@ -771,7 +837,8 @@ function closeShareDialog() {
   if (!elements.shareDialog?.hasAttribute('open')) return;
 
   try {
-    if (typeof elements.shareDialog.close === 'function') elements.shareDialog.close();
+    if (typeof elements.shareDialog.close === 'function')
+      elements.shareDialog.close();
     else elements.shareDialog.removeAttribute('open');
   } catch {
     elements.shareDialog.removeAttribute('open');
@@ -798,6 +865,33 @@ async function copyText(value) {
   if (!copied) throw new Error(t('copyFailed'));
 }
 
+let toastTimer;
+
+function showToast(message) {
+  if (!elements.toast) return;
+
+  clearTimeout(toastTimer);
+
+  elements.toast.textContent = message;
+  elements.toast.hidden = false;
+
+  requestAnimationFrame(() => {
+    elements.toast.classList.add('show');
+  });
+
+  toastTimer = setTimeout(() => {
+    elements.toast.classList.remove('show');
+
+    setTimeout(() => {
+      elements.toast.hidden = true;
+    }, 220);
+  }, 2200);
+}
+
+function toast(key, ...args) {
+  showToast(t(key, ...args));
+}
+
 async function openNativeShare() {
   if (!navigator.share) return;
 
@@ -809,7 +903,7 @@ async function openNativeShare() {
     await navigator.share({ title, text, url });
     closeShareDialog();
   } catch (error) {
-    if (error?.name !== 'AbortError' && elements.shareFeedback) elements.shareFeedback.textContent = t('shareFailed');
+    if (error?.name !== 'AbortError') toast('shareFailed');
   }
 }
 
@@ -817,9 +911,10 @@ async function copyShareLink() {
   const url = elements.shareDialog?.dataset.shareUrl || window.location.href;
   try {
     await copyText(url);
-    if (elements.shareFeedback) elements.shareFeedback.textContent = t('copied');
+    toast('copied');
+    closeShareDialog();
   } catch {
-    if (elements.shareFeedback) elements.shareFeedback.textContent = t('copyFailed');
+    toast('copyFailed');
   }
 }
 
@@ -846,12 +941,14 @@ async function initializePosts() {
     renderRoute();
   } catch (error) {
     console.error(error);
-    renderError(error instanceof Error ? error : new Error(t('unexpectedError')));
+    renderError(
+      error instanceof Error ? error : new Error(t('unexpectedError')),
+    );
   }
 }
 
 function bindEvents() {
-  document.addEventListener('click', (event) => {
+  document.addEventListener('click', event => {
     const target = event.target instanceof Element ? event.target : null;
     if (!target) return;
 
@@ -876,7 +973,7 @@ function bindEvents() {
     if (articleShareTrigger) {
       event.preventDefault();
       const route = getRoute();
-      const post = state.posts.find((item) => item.slug === route.slug);
+      const post = state.posts.find(item => item.slug === route.slug);
       if (!post) return;
 
       openShareDialog({
@@ -889,30 +986,49 @@ function bindEvents() {
   elements.closeMenuButton?.addEventListener('click', closeMenu);
   elements.drawerBackdrop?.addEventListener('click', closeMenu);
   elements.themeToggle?.addEventListener('click', toggleTheme);
-  elements.languageButtons.forEach((button) => {
-    button.addEventListener('click', () => applyLanguage(button.dataset.language));
+  elements.languageButtons.forEach(button => {
+    button.addEventListener('click', () =>
+      applyLanguage(button.dataset.language),
+    );
   });
   elements.backToTopButton?.addEventListener('click', scrollBackToTop);
-  window.addEventListener('scroll', updateBackToTopVisibility, { passive: true });
-  window.addEventListener('resize', updateBackToTopVisibility, { passive: true });
+  window.addEventListener('scroll', updateBackToTopVisibility, {
+    passive: true,
+  });
+  window.addEventListener('resize', updateBackToTopVisibility, {
+    passive: true,
+  });
   elements.closeShareButton?.addEventListener('click', closeShareDialog);
   if (elements.nativeShareButton && navigator.share) {
     elements.nativeShareButton.hidden = false;
     elements.nativeShareButton.addEventListener('click', openNativeShare);
   }
   elements.copyShareButton?.addEventListener('click', copyShareLink);
+  elements.rssLink?.addEventListener('click', async event => {
+    event.preventDefault();
+
+    try {
+      await copyText(`${CONFIG.feedUrl}?alt=rss`);
+
+      toast('rssCopied');
+    } catch {
+      window.open(`${CONFIG.feedUrl}?alt=rss`, '_blank');
+    }
+  });
   elements.shareDialog?.addEventListener('close', () => {
     document.body.classList.remove('is-locked');
     if (elements.shareFeedback) elements.shareFeedback.textContent = '';
   });
-  elements.shareDialog?.addEventListener('click', (event) => {
+  elements.shareDialog?.addEventListener('click', event => {
     if (event.target === elements.shareDialog) closeShareDialog();
   });
-  elements.shareDialog?.querySelectorAll('a.share-option').forEach((link) => {
-    link.addEventListener('click', () => window.setTimeout(closeShareDialog, 80));
+  elements.shareDialog?.querySelectorAll('a.share-option').forEach(link => {
+    link.addEventListener('click', () =>
+      window.setTimeout(closeShareDialog, 80),
+    );
   });
 
-  document.querySelectorAll('[data-open-search]').forEach((button) => {
+  document.querySelectorAll('[data-open-search]').forEach(button => {
     button.addEventListener('click', openSearch);
   });
 
@@ -922,15 +1038,15 @@ function bindEvents() {
     renderSearchResults('');
   });
 
-  elements.searchInput?.addEventListener('input', (event) => {
+  elements.searchInput?.addEventListener('input', event => {
     renderSearchResults(event.currentTarget.value);
   });
 
-  elements.searchResults?.addEventListener('click', (event) => {
+  elements.searchResults?.addEventListener('click', event => {
     if (event.target.closest('a')) closeSearch();
   });
 
-  document.addEventListener('keydown', (event) => {
+  document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
       closeMenu();
       closeShareDialog();

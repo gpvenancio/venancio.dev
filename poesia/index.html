@@ -7,10 +7,7 @@
     <meta name="theme-color" content="#cccccc" />
 
     <title>Poesia do Venâncio</title>
-    <meta
-      name="description"
-      content="Textos e poesia de Gonçalo Venâncio."
-    />
+    <meta name="description" content="Textos e poesia de Gonçalo Venâncio." />
     <link rel="canonical" href="https://venancio.dev/poesia/" />
     <link
       rel="alternate"
@@ -20,8 +17,14 @@
     />
 
     <meta property="og:title" content="Poesia do Venâncio" />
-    <meta property="og:description" content="Textos e poesia de Gonçalo Venâncio." />
-    <meta property="og:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta
+      property="og:description"
+      content="Textos e poesia de Gonçalo Venâncio."
+    />
+    <meta
+      property="og:image"
+      content="https://venancio.dev/assets/social_preview.png"
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Gonçalo Venâncio, venancio.dev" />
@@ -31,10 +34,15 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Poesia do Venâncio" />
-    <meta name="twitter:description" content="Textos e poesia de Gonçalo Venâncio." />
-    <meta name="twitter:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta
+      name="twitter:description"
+      content="Textos e poesia de Gonçalo Venâncio."
+    />
+    <meta
+      name="twitter:image"
+      content="https://venancio.dev/assets/social_preview.png"
+    />
     <meta name="twitter:image:alt" content="Gonçalo Venâncio, venancio.dev" />
-
 
     <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
     <link
@@ -49,17 +57,23 @@
 
     <script>
       (() => {
-        const savedTheme = localStorage.getItem('venancio-theme') || localStorage.getItem('poesia-theme');
+        const savedTheme =
+          localStorage.getItem('venancio-theme') ||
+          localStorage.getItem('poesia-theme');
         const savedLanguage = localStorage.getItem('venancio-language');
-        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
-        document.documentElement.dataset.language = savedLanguage === 'en' ? 'en' : 'pt';
+        document.documentElement.dataset.theme =
+          savedTheme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.language =
+          savedLanguage === 'en' ? 'en' : 'pt';
         document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'pt-PT';
       })();
     </script>
   </head>
 
   <body>
-    <a class="skip-link" href="#conteudo" data-i18n="skipContent">Avançar para o conteúdo</a>
+    <a class="skip-link" href="#conteudo" data-i18n="skipContent"
+      >Avançar para o conteúdo</a
+    >
 
     <div class="site-shell">
       <div class="page-column">
@@ -71,41 +85,53 @@
               aria-label="venancio.dev"
               title="venancio.dev"
             >
-              <img src="../assets/logo.svg" alt="" class="poetry-brand-logo brand-logo" />
+              <img
+                src="../assets/logo.svg"
+                alt=""
+                class="poetry-brand-logo brand-logo"
+              />
             </a>
 
             <div class="poetry-header-buttons">
               <button
                 class="menu-button menu-text-button reveal-icon"
-              type="button"
-              aria-label="Abrir todos os textos" data-i18n-aria-label="openAllTexts"
-              aria-controls="archive-drawer"
-              aria-expanded="false"
-              data-open-menu
-            >
-              <span data-i18n="allTexts">Todos os textos</span>
-            </button>
+                type="button"
+                aria-label="Abrir todos os textos"
+                data-i18n-aria-label="openAllTexts"
+                aria-controls="archive-drawer"
+                aria-expanded="false"
+                data-open-menu
+              >
+                <span data-i18n="allTexts">Todos os textos</span>
+              </button>
 
-            <a
-              class="rss-link rss-header-link reveal-icon"
-              href="https://poesiadovenancio.blogspot.com/feeds/posts/default?alt=rss"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="RSS"
-              title="RSS"
-              data-i18n-aria-label="rssFeed"
-              data-i18n-title="rssFeed"
-              data-rss-link
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 4.75a14.25 14.25 0 0 1 14.25 14.25h-2A12.25 12.25 0 0 0 5 6.75Zm0 5.25A9 9 0 0 1 14 19h-2A7 7 0 0 0 5 12Zm1.5 6.25A1.75 1.75 0 1 1 6.5 19.75a1.75 1.75 0 0 1 0-3.5Z" />
-              </svg>
-              <span>RSS</span>
-            </a>
+              <a
+                class="rss-link rss-header-link reveal-icon"
+                href="https://poesiadovenancio.blogspot.com/feeds/posts/default?alt=rss"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="RSS"
+                title="RSS"
+                data-i18n-aria-label="rssFeed"
+                data-i18n-title="rssFeed"
+                data-rss-link
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M5 4.75a14.25 14.25 0 0 1 14.25 14.25h-2A12.25 12.25 0 0 0 5 6.75Zm0 5.25A9 9 0 0 1 14 19h-2A7 7 0 0 0 5 12Zm1.5 6.25A1.75 1.75 0 1 1 6.5 19.75a1.75 1.75 0 0 1 0-3.5Z"
+                  />
+                </svg>
+                <span>RSS</span>
+              </a>
             </div>
           </div>
 
-          <a class="site-name reveal-icon" href="#/" aria-label="Página inicial" data-i18n-aria-label="homepage">
+          <a
+            class="site-name reveal-icon"
+            href="#/"
+            aria-label="Página inicial"
+            data-i18n-aria-label="homepage"
+          >
             <span>Poesia do Venâncio</span>
           </a>
 
@@ -115,8 +141,12 @@
               aria-label="Idioma"
               data-i18n-aria-label="language"
             >
-              <button type="button" data-language="pt" aria-pressed="true">Português</button>
-              <button type="button" data-language="en" aria-pressed="false">English</button>
+              <button type="button" data-language="pt" aria-pressed="true">
+                Português
+              </button>
+              <button type="button" data-language="en" aria-pressed="false">
+                English
+              </button>
             </div>
 
             <button
@@ -126,15 +156,26 @@
               title="Alterne o tema"
               data-theme-toggle
             >
-              <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <svg
+                class="theme-icon theme-icon-sun"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
                 <circle cx="12" cy="12" r="3.75"></circle>
-                <path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"></path>
+                <path
+                  d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"
+                ></path>
               </svg>
-              <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"></path>
+              <svg
+                class="theme-icon theme-icon-moon"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"
+                ></path>
               </svg>
             </button>
-
 
             <button
               class="icon-button reveal-icon"
@@ -146,7 +187,9 @@
               data-share-home
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z" />
+                <path
+                  d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z"
+                />
               </svg>
             </button>
 
@@ -160,7 +203,9 @@
               data-open-search
             >
               <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z" />
+                <path
+                  d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z"
+                />
               </svg>
             </button>
           </div>
@@ -215,7 +260,8 @@
     <aside
       class="archive-drawer"
       id="archive-drawer"
-      aria-label="Todos os textos" data-i18n-aria-label="allTexts"
+      aria-label="Todos os textos"
+      data-i18n-aria-label="allTexts"
       aria-hidden="true"
       data-drawer
     >
@@ -223,7 +269,13 @@
         <div>
           <h2 data-i18n="allTexts">Todos os textos</h2>
         </div>
-        <button class="icon-button" type="button" aria-label="Fechar o menu" data-i18n-aria-label="closeMenu" data-close-menu>
+        <button
+          class="icon-button"
+          type="button"
+          aria-label="Fechar o menu"
+          data-i18n-aria-label="closeMenu"
+          data-close-menu
+        >
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
             <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
@@ -236,12 +288,21 @@
 
       <div class="drawer-preferences">
         <p class="drawer-preferences-title" data-i18n="language">Idioma</p>
-        <div class="drawer-language-switcher" aria-label="Idioma" data-i18n-aria-label="language">
-          <button type="button" data-language="pt" aria-pressed="true">Português</button>
-          <button type="button" data-language="en" aria-pressed="false">English</button>
+        <div
+          class="drawer-language-switcher"
+          aria-label="Idioma"
+          data-i18n-aria-label="language"
+        >
+          <button type="button" data-language="pt" aria-pressed="true">
+            Português
+          </button>
+          <button type="button" data-language="en" aria-pressed="false">
+            English
+          </button>
         </div>
         <p class="drawer-preferences-note" data-i18n="preferencesNote">
-          As preferências de idioma e tema ficam guardadas apenas neste navegador.
+          As preferências de idioma e tema ficam guardadas apenas neste
+          navegador.
         </p>
       </div>
     </aside>
@@ -257,19 +318,30 @@
       hidden
     >
       <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="m12 4.88 7.59 7.59-1.06 1.06-5.78-5.78V22h-1.5V7.75l-5.78 5.78-1.06-1.06z" />
+        <path
+          d="m12 4.88 7.59 7.59-1.06 1.06-5.78-5.78V22h-1.5V7.75l-5.78 5.78-1.06-1.06z"
+        />
       </svg>
       <span data-i18n="backTop">Voltar ao topo</span>
     </button>
 
-    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-title">
+    <dialog
+      class="search-dialog"
+      data-search-dialog
+      aria-labelledby="search-title"
+    >
       <form method="dialog" class="search-dialog-inner">
         <div class="search-heading">
           <div>
             <p class="eyebrow" data-i18n="search">Pesquisa</p>
             <h2 id="search-title" data-i18n="findText">Encontrar um texto</h2>
           </div>
-          <button class="icon-button" value="cancel" aria-label="Fechar a pesquisa" data-i18n-aria-label="closeSearch">
+          <button
+            class="icon-button"
+            value="cancel"
+            aria-label="Fechar a pesquisa"
+            data-i18n-aria-label="closeSearch"
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
               <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
@@ -278,9 +350,13 @@
         </div>
 
         <label class="search-field">
-          <span class="visually-hidden" data-i18n="searchByContent">Pesquisar por título ou conteúdo</span>
+          <span class="visually-hidden" data-i18n="searchByContent"
+            >Pesquisar por título ou conteúdo</span
+          >
           <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z" />
+            <path
+              d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z"
+            />
           </svg>
           <input
             type="search"
@@ -292,20 +368,33 @@
         </label>
 
         <div class="search-results" data-search-results>
-          <p class="search-help" data-i18n="searchHelp">Comece a escrever para pesquisar.</p>
+          <p class="search-help" data-i18n="searchHelp">
+            Comece a escrever para pesquisar.
+          </p>
         </div>
       </form>
     </dialog>
 
-
-    <dialog class="share-dialog" data-share-dialog aria-labelledby="share-title">
+    <dialog
+      class="share-dialog"
+      data-share-dialog
+      aria-labelledby="share-title"
+    >
       <div class="share-dialog-inner">
         <div class="share-heading">
           <div>
             <p class="eyebrow" data-i18n="share">Partilhar</p>
-            <h2 id="share-title" data-i18n="chooseOption">Escolher uma opção</h2>
+            <h2 id="share-title" data-i18n="chooseOption">
+              Escolher uma opção
+            </h2>
           </div>
-          <button class="icon-button" type="button" aria-label="Fechar as opções de partilha" data-i18n-aria-label="closeShare" data-close-share>
+          <button
+            class="icon-button"
+            type="button"
+            aria-label="Fechar as opções de partilha"
+            data-i18n-aria-label="closeShare"
+            data-close-share
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" />
               <path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" />
@@ -315,65 +404,115 @@
 
         <div class="share-summary">
           <strong data-share-preview-title>Poesia do Venâncio</strong>
-          <span data-i18n="shareHow">Escolha como pretende partilhar esta página.</span>
+          <span data-i18n="shareHow"
+            >Escolha como pretende partilhar esta página.</span
+          >
         </div>
 
-        <div class="share-options" aria-label="Opções de partilha" data-i18n-aria-label="shareOptions">
-          <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-whatsapp>
+        <div
+          class="share-options"
+          aria-label="Opções de partilha"
+          data-i18n-aria-label="shareOptions"
+        >
+          <a
+            class="share-option"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-share-whatsapp
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3.25a8.5 8.5 0 0 0-7.31 12.83L3.5 20.5l4.55-1.13A8.5 8.5 0 1 0 12 3.25Zm0 15.5a6.96 6.96 0 0 1-3.55-.98l-.27-.16-2.54.63.66-2.46-.18-.29A7 7 0 1 1 12 18.75Z" />
-              <path d="M9.13 8.08c.16-.36.33-.37.49-.38h.42c.14 0 .36.05.55.47.19.43.65 1.58.71 1.7.06.11.1.25.02.4-.08.16-.12.25-.24.39-.12.14-.25.31-.36.42-.12.12-.24.25-.1.49.14.24.62 1.02 1.34 1.65.92.82 1.7 1.08 1.94 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.78.24.12.4.18.46.28.06.1.06.58-.14 1.13-.2.55-1.17 1.05-1.61 1.11-.41.06-.94.09-1.52-.09-.35-.11-.8-.26-1.38-.51-.61-.27-2.67-.99-4.54-3.45-.52-.69-.87-1.46-.97-1.7-.1-.24-.01-.37.08-.49.08-.1.18-.24.27-.36.09-.12.12-.2.18-.34.06-.14.03-.26-.01-.36-.04-.1-.37-.99-.52-1.36Z" />
+              <path
+                d="M12 3.25a8.5 8.5 0 0 0-7.31 12.83L3.5 20.5l4.55-1.13A8.5 8.5 0 1 0 12 3.25Zm0 15.5a6.96 6.96 0 0 1-3.55-.98l-.27-.16-2.54.63.66-2.46-.18-.29A7 7 0 1 1 12 18.75Z"
+              />
+              <path
+                d="M9.13 8.08c.16-.36.33-.37.49-.38h.42c.14 0 .36.05.55.47.19.43.65 1.58.71 1.7.06.11.1.25.02.4-.08.16-.12.25-.24.39-.12.14-.25.31-.36.42-.12.12-.24.25-.1.49.14.24.62 1.02 1.34 1.65.92.82 1.7 1.08 1.94 1.2.24.12.38.1.52-.06.14-.16.6-.7.76-.94.16-.24.32-.2.54-.12.22.08 1.39.66 1.63.78.24.12.4.18.46.28.06.1.06.58-.14 1.13-.2.55-1.17 1.05-1.61 1.11-.41.06-.94.09-1.52-.09-.35-.11-.8-.26-1.38-.51-.61-.27-2.67-.99-4.54-3.45-.52-.69-.87-1.46-.97-1.7-.1-.24-.01-.37.08-.49.08-.1.18-.24.27-.36.09-.12.12-.2.18-.34.06-.14.03-.26-.01-.36-.04-.1-.37-.99-.52-1.36Z"
+              />
             </svg>
             <span>WhatsApp</span>
           </a>
 
           <a class="share-option" href="#" data-share-email>
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M3.25 5.25h17.5v13.5H3.25Zm1.5 2.04v9.96h14.5V7.29L12 12.38Zm13.44-.54H5.81L12 10.83Z" />
+              <path
+                d="M3.25 5.25h17.5v13.5H3.25Zm1.5 2.04v9.96h14.5V7.29L12 12.38Zm13.44-.54H5.81L12 10.83Z"
+              />
             </svg>
             <span>Email</span>
           </a>
 
-          <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-facebook>
+          <a
+            class="share-option"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-share-facebook
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M13.7 21v-8h2.75l.41-3.2H13.7V7.76c0-.93.26-1.56 1.59-1.56h1.7V3.34a22.6 22.6 0 0 0-2.47-.13c-2.44 0-4.12 1.49-4.12 4.23V9.8H7.64V13h2.76v8Z" />
+              <path
+                d="M13.7 21v-8h2.75l.41-3.2H13.7V7.76c0-.93.26-1.56 1.59-1.56h1.7V3.34a22.6 22.6 0 0 0-2.47-.13c-2.44 0-4.12 1.49-4.12 4.23V9.8H7.64V13h2.76v8Z"
+              />
             </svg>
             <span>Facebook</span>
           </a>
 
-          <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-telegram>
+          <a
+            class="share-option"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-share-telegram
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="m21.1 4.16-3.04 14.33c-.23 1.01-.83 1.26-1.68.78l-4.63-3.41-2.24 2.15c-.25.25-.46.46-.94.46l.33-4.71 8.58-7.75c.37-.33-.08-.52-.58-.19L6.3 12.5l-4.56-1.43c-.99-.31-1.01-.99.21-1.47l17.83-6.87c.83-.3 1.55.2 1.32 1.43Z" />
+              <path
+                d="m21.1 4.16-3.04 14.33c-.23 1.01-.83 1.26-1.68.78l-4.63-3.41-2.24 2.15c-.25.25-.46.46-.94.46l.33-4.71 8.58-7.75c.37-.33-.08-.52-.58-.19L6.3 12.5l-4.56-1.43c-.99-.31-1.01-.99.21-1.47l17.83-6.87c.83-.3 1.55.2 1.32 1.43Z"
+              />
             </svg>
             <span>Telegram</span>
           </a>
 
           <button class="share-option" type="button" data-native-share hidden>
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z" />
+              <path
+                d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z"
+              />
             </svg>
             <span data-i18n="moreApps">Mais aplicações</span>
           </button>
 
-          <button class="share-option share-option-copy" type="button" data-copy-share>
+          <button
+            class="share-option share-option-copy"
+            type="button"
+            data-copy-share
+          >
             <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9.5 7.25h8.25v8.25H15.5V17H19.25V5.75H9.5ZM4.75 9h10.5v10.5H4.75Zm1.5 1.5V18h7.5v-7.5Z" />
+              <path
+                d="M9.5 7.25h8.25v8.25H15.5V17H19.25V5.75H9.5ZM4.75 9h10.5v10.5H4.75Zm1.5 1.5V18h7.5v-7.5Z"
+              />
             </svg>
             <span data-i18n="copyLink">Copiar a ligação</span>
           </button>
         </div>
-
-        <p class="share-feedback" data-share-feedback aria-live="polite"></p>
       </div>
     </dialog>
 
-
     <noscript>
       <div class="noscript-message">
-        <span data-i18n="noscript">Este site precisa de JavaScript para carregar os textos e utilizar a pesquisa.</span>
+        <span data-i18n="noscript"
+          >Este site precisa de JavaScript para carregar os textos e utilizar a
+          pesquisa.</span
+        >
       </div>
     </noscript>
 
     <script src="./app.js" defer></script>
+
+    <div
+      class="toast"
+      data-toast
+      aria-live="polite"
+      aria-atomic="true"
+      hidden
+    ></div>
   </body>
 </html>
