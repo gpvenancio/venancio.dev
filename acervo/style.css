@@ -2512,6 +2512,21 @@ html[data-theme='dark'] .theme-icon-moon {
 }
 
 
+/* Destaques preservados do documento original */
+:root {
+  --article-highlight-surface: #edf2f4;
+  --article-scripture-surface: #f2f0e9;
+  --article-accent: #1f3b4d;
+  --article-scripture-accent: #8a6d1d;
+}
+
+html[data-theme='dark'] {
+  --article-highlight-surface: #252c34;
+  --article-scripture-surface: #302f2a;
+  --article-accent: #a9c7d8;
+  --article-scripture-accent: #d1b56a;
+}
+
 /* Ajustes finais da leitura das publicações */
 :root {
   --article-surface: #ffffff;
@@ -2581,27 +2596,115 @@ html[data-theme='dark'] {
   color: inherit;
 }
 
-.article-body .acervo-preserved-block {
-  margin: 1.5rem 0;
-  padding: 0.95rem 1.15rem;
-  border-left: 3px solid var(--focus);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  background: var(--surface-muted);
-  color: var(--text);
-}
+function sanitizePostHtml(html='') {
+  const parsed=new DOMParser().parseFromString(html,'text/html');
+  parsed.querySelectorAll('script,style,object,embed,link,meta').forEach(node=>node.remove());
 
-.article-body .acervo-preserved-block * {
-  color: inherit;
-}
+  // O Word introduz elementos EOP que servem apenas para edição e seleção.
+  // Não fazem parte da mensagem e podem criar marcas visuais no Blogger.
+  parsed.querySelectorAll('span.EOP, span[class~="EOP"]').forEach(node=>node.remove());
 
-.article-body .acervo-scripture,
-.article-body .acervo-highlight,
-.article-body .acervo-note {
-  color: var(--text);
-}
+  const normalizeColor=value=>value.trim().toLowerCase().replace(/\s+/g,'');
+  const isWhiteBackground=value=>{
+    const v=normalizeColor(value);
+    return v==='transparent' || v==='white' || v==='#fff' || v==='#ffffff' || v==='rgb(255,255,255)' || v==='rgba(255,255,255,1)';
+  };
+  const isEopGray=value=>{
+    const v=normalizeColor(value);
+    return v==='#c6c6c6' || v==='rgb(198,198,198)' || v==='rgba(198,198,198,1)';
+  };
 
-.article-body strong {
-  color: inherit;
+  parsed.querySelectorAll('*').forEach(node=>{
+    [...node.attributes].forEach(attribute=>{
+      const name=attribute.name.toLowerCase();
+      const value=attribute.value.trim().toLowerCase();
+      if(name.startsWith('on') || value.startsWith('javascript:')) node.removeAttribute(attribute.name);
+    });
+
+    const style=node.getAttribute('style');
+    if(!style) return;
+
+    const bgMatch=style.match(/(?:^|;)\s*background(?:-color)?\s*:\s*([^;]+)/i);
+    const colorMatch=style.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
+    const bg=bgMatch?.[1]?.trim() || '';
+    const color=colorMatch?.[1]?.trim() || '';
+
+    // Mantemos os destaques que fazem parte do design da mensagem,
+    // mas removemos o fundo branco/transparente que o Word coloca em quase
+    // todos os parágrafos.
+    if(bg && !isWhiteBackground(bg) && !isEopGray(bg)) {
+      const normalizedBg=normalizeColor(bg);
+      if(normalizedBg==='#edf2f4' || normalizedBg==='rgb(237,242,244)') {
+        node.classList.add('acervo-highlight');
+      } else if(normalizedBg==='#f2f0e9' || normalizedBg==='rgb(242,240,233)') {
+        node.classList.add('acervo-scripture');
+      } else {
+        node.classList.add('acervo-preserved-block');
+      }
+    }
+
+    // Mantemos as cores de destaque do documento, mas cores de texto normais
+    // como #222222/windowtext passam a seguir o tema claro/escuro do Acervo.
+    if(color) {
+      const normalizedColor=normalizeColor(color);
+      if(normalizedColor==='#1f3b4d' || normalizedColor==='rgb(31,59,77)') {
+        node.classList.add('acervo-accent-text');
+      } else if(normalizedColor==='#8a6d1d' || normalizedColor==='rgb(138,109,29)') {
+        node.classList.add('acervo-scripture-label');
+      }
+    }
+
+    let cleaned=style
+      .replace(/(?:^|;)\s*-webkit-[^:]+\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*background(?:-color)?\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*color\s*:\s*[^;]*/gi,'')
+      .replace(/(?:^|;)\s*font-family\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*font-size\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*line-height\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*font-kerning\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*font-variant-ligatures\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*user-select\s*:[^;]*/gi,'')
+      .replace(/(?:^|;)\s*cursor\s*:[^;]*/gi,'')
+      .replace(/;;+/g,';')
+      .replace(/^\s*;|;\s*$/g,'')
+      .trim();
+
+    // Cores normais do Word não devem ficar fixas, porque ficam ilegíveis no
+    // tema escuro. As classes acima preservam apenas as cores de destaque.
+    if(color && /^(windowtext|black|#000|#000000|#222|#222222|rgb\(34,34,34\))$/i.test(normalizeColor(color))) {
+      cleaned=cleaned.replace(/(?:^|;)\s*color\s*:\s*[^;]*/gi,'');
+    }
+
+    if(cleaned) node.setAttribute('style',cleaned);
+    else node.removeAttribute('style');
+  });
+
+  parsed.querySelectorAll('img').forEach(image=>{
+    image.loading='lazy';
+    image.decoding='async';
+    image.removeAttribute('width');
+    image.removeAttribute('height');
+  });
+
+  parsed.querySelectorAll('a').forEach(link=>{
+    const url=link.getAttribute('href');
+    if(!url) return;
+    try {
+      const u=new URL(url,CONFIG.blogHome||window.location.href);
+      if(u.origin!==window.location.origin){link.target='_blank';link.rel='noopener noreferrer';}
+    } catch { link.removeAttribute('href'); }
+  });
+
+  parsed.querySelectorAll('iframe').forEach(frame=>{
+    try {
+      const u=new URL(frame.getAttribute('src')||'',window.location.href);
+      const allowed=['drive.google.com','docs.google.com','www.google.com'].includes(u.hostname);
+      if(!allowed) frame.remove();
+      else {frame.loading='lazy';frame.referrerPolicy='no-referrer';}
+    } catch { frame.remove(); }
+  });
+
+  return parsed.body.innerHTML;
 }
 
 @media (min-width: 701px) {
