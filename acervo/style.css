@@ -2528,7 +2528,8 @@ html[data-theme='dark'] .theme-icon-moon {
 
 
 /* Destaques preservados do documento original */
-.article-body .acervo-highlight-group {
+.article-body .acervo-highlight-group,
+.article-body .acervo-preserved-block-group {
   margin: 1.75rem 0;
   padding: 1.15rem 1.25rem;
   border: 1px solid var(--border);
@@ -2538,18 +2539,36 @@ html[data-theme='dark'] .theme-icon-moon {
   font-family: var(--sans);
   font-weight: 700;
   line-height: 1.55;
+  overflow: hidden;
 }
 
-.article-body .acervo-highlight-group > .acervo-highlight {
+.article-body .acervo-highlight-group > .acervo-highlight,
+.article-body .acervo-preserved-block-group > .acervo-preserved-block,
+.article-body .acervo-highlight-group > .acervo-preserved-block,
+.article-body .acervo-preserved-block-group > .acervo-highlight {
   margin: 0;
   padding: 0;
-  border: 0;
+  border: 0 !important;
   border-radius: 0;
-  background: transparent;
+  background: transparent !important;
   color: inherit;
 }
 
-.article-body .acervo-highlight-group > .acervo-highlight + .acervo-highlight {
+/* O Enter usado pelo autor para separar visualmente as linhas não cria
+   novas caixas. Todas as linhas do mesmo destaque ficam dentro da mesma caixa. */
+.article-body .acervo-highlight-group > *,
+.article-body .acervo-preserved-block-group > * {
+  border-top: 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+  border-left: 0 !important;
+  background: transparent !important;
+}
+
+.article-body .acervo-highlight-group > .acervo-highlight + .acervo-highlight,
+.article-body .acervo-highlight-group > .acervo-preserved-block + .acervo-highlight,
+.article-body .acervo-highlight-group > .acervo-highlight + .acervo-preserved-block,
+.article-body .acervo-highlight-group > .acervo-preserved-block + .acervo-preserved-block {
   margin-top: 0;
 }
 
@@ -2564,23 +2583,6 @@ html[data-theme='dark'] .theme-icon-moon {
 }
 
 .article-body .acervo-scripture-group > .acervo-scripture {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-}
-
-.article-body .acervo-preserved-block-group {
-  margin: 1.75rem 0;
-  padding: 1.15rem 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--surface-muted);
-  color: var(--text);
-}
-
-.article-body .acervo-preserved-block-group > .acervo-preserved-block {
   margin: 0;
   padding: 0;
   border: 0;
@@ -2671,115 +2673,11 @@ html[data-theme='dark'] {
   color: inherit;
 }
 
-function sanitizePostHtml(html='') {
-  const parsed=new DOMParser().parseFromString(html,'text/html');
-  parsed.querySelectorAll('script,style,object,embed,link,meta').forEach(node=>node.remove());
-
-  // O Word introduz elementos EOP que servem apenas para edição e seleção.
-  // Não fazem parte da mensagem e podem criar marcas visuais no Blogger.
-  parsed.querySelectorAll('span.EOP, span[class~="EOP"]').forEach(node=>node.remove());
-
-  const normalizeColor=value=>value.trim().toLowerCase().replace(/\s+/g,'');
-  const isWhiteBackground=value=>{
-    const v=normalizeColor(value);
-    return v==='transparent' || v==='white' || v==='#fff' || v==='#ffffff' || v==='rgb(255,255,255)' || v==='rgba(255,255,255,1)';
-  };
-  const isEopGray=value=>{
-    const v=normalizeColor(value);
-    return v==='#c6c6c6' || v==='rgb(198,198,198)' || v==='rgba(198,198,198,1)';
-  };
-
-  parsed.querySelectorAll('*').forEach(node=>{
-    [...node.attributes].forEach(attribute=>{
-      const name=attribute.name.toLowerCase();
-      const value=attribute.value.trim().toLowerCase();
-      if(name.startsWith('on') || value.startsWith('javascript:')) node.removeAttribute(attribute.name);
-    });
-
-    const style=node.getAttribute('style');
-    if(!style) return;
-
-    const bgMatch=style.match(/(?:^|;)\s*background(?:-color)?\s*:\s*([^;]+)/i);
-    const colorMatch=style.match(/(?:^|;)\s*color\s*:\s*([^;]+)/i);
-    const bg=bgMatch?.[1]?.trim() || '';
-    const color=colorMatch?.[1]?.trim() || '';
-
-    // Mantemos os destaques que fazem parte do design da mensagem,
-    // mas removemos o fundo branco/transparente que o Word coloca em quase
-    // todos os parágrafos.
-    if(bg && !isWhiteBackground(bg) && !isEopGray(bg)) {
-      const normalizedBg=normalizeColor(bg);
-      if(normalizedBg==='#edf2f4' || normalizedBg==='rgb(237,242,244)') {
-        node.classList.add('acervo-highlight');
-      } else if(normalizedBg==='#f2f0e9' || normalizedBg==='rgb(242,240,233)') {
-        node.classList.add('acervo-scripture');
-      } else {
-        node.classList.add('acervo-preserved-block');
-      }
-    }
-
-    // Mantemos as cores de destaque do documento, mas cores de texto normais
-    // como #222222/windowtext passam a seguir o tema claro/escuro do Acervo.
-    if(color) {
-      const normalizedColor=normalizeColor(color);
-      if(normalizedColor==='#1f3b4d' || normalizedColor==='rgb(31,59,77)') {
-        node.classList.add('acervo-accent-text');
-      } else if(normalizedColor==='#8a6d1d' || normalizedColor==='rgb(138,109,29)') {
-        node.classList.add('acervo-scripture-label');
-      }
-    }
-
-    let cleaned=style
-      .replace(/(?:^|;)\s*-webkit-[^:]+\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*background(?:-color)?\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*color\s*:\s*[^;]*/gi,'')
-      .replace(/(?:^|;)\s*font-family\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*font-size\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*line-height\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*font-kerning\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*font-variant-ligatures\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*user-select\s*:[^;]*/gi,'')
-      .replace(/(?:^|;)\s*cursor\s*:[^;]*/gi,'')
-      .replace(/;;+/g,';')
-      .replace(/^\s*;|;\s*$/g,'')
-      .trim();
-
-    // Cores normais do Word não devem ficar fixas, porque ficam ilegíveis no
-    // tema escuro. As classes acima preservam apenas as cores de destaque.
-    if(color && /^(windowtext|black|#000|#000000|#222|#222222|rgb\(34,34,34\))$/i.test(normalizeColor(color))) {
-      cleaned=cleaned.replace(/(?:^|;)\s*color\s*:\s*[^;]*/gi,'');
-    }
-
-    if(cleaned) node.setAttribute('style',cleaned);
-    else node.removeAttribute('style');
-  });
-
-  parsed.querySelectorAll('img').forEach(image=>{
-    image.loading='lazy';
-    image.decoding='async';
-    image.removeAttribute('width');
-    image.removeAttribute('height');
-  });
-
-  parsed.querySelectorAll('a').forEach(link=>{
-    const url=link.getAttribute('href');
-    if(!url) return;
-    try {
-      const u=new URL(url,CONFIG.blogHome||window.location.href);
-      if(u.origin!==window.location.origin){link.target='_blank';link.rel='noopener noreferrer';}
-    } catch { link.removeAttribute('href'); }
-  });
-
-  parsed.querySelectorAll('iframe').forEach(frame=>{
-    try {
-      const u=new URL(frame.getAttribute('src')||'',window.location.href);
-      const allowed=['drive.google.com','docs.google.com','www.google.com'].includes(u.hostname);
-      if(!allowed) frame.remove();
-      else {frame.loading='lazy';frame.referrerPolicy='no-referrer';}
-    } catch { frame.remove(); }
-  });
-
-  return parsed.body.innerHTML;
+/* O fundo da caixa pertence ao grupo do destaque, não aos parágrafos internos. */
+.article-body .acervo-highlight-group,
+.article-body .acervo-preserved-block-group {
+  background: var(--article-highlight-surface);
+  color: var(--text);
 }
 
 @media (min-width: 701px) {

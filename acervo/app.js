@@ -94,7 +94,10 @@ function sanitizePostHtml(html='') {
       } else if(normalizedBg==='#f2f0e9' || normalizedBg==='rgb(242,240,233)') {
         node.classList.add('acervo-scripture');
       } else {
-        node.classList.add('acervo-preserved-block');
+        // Qualquer outro fundo não branco usado pelo Word para um destaque
+        // pertence ao mesmo género visual de destaque. A aparência final
+        // deve ser uniforme, independentemente da cor de fundo original.
+        node.classList.add('acervo-highlight');
       }
     }
 
@@ -134,6 +137,13 @@ function sanitizePostHtml(html='') {
     else node.removeAttribute('style');
   });
 
+  // Versões anteriores do sanitizador podiam ter criado esta classe.
+  // Normalizamos tudo para o mesmo tipo de destaque antes de agrupar.
+  parsed.querySelectorAll('.acervo-preserved-block').forEach(node=>{
+    node.classList.remove('acervo-preserved-block');
+    node.classList.add('acervo-highlight');
+  });
+
   parsed.querySelectorAll('img').forEach(image=>{
     image.loading='lazy';
     image.decoding='async';
@@ -144,10 +154,11 @@ function sanitizePostHtml(html='') {
   // No HTML colado a partir do Word, cada Enter pode chegar ao Blogger como
   // um <p> destacado dentro do seu próprio <div>. Por isso, dois destaques
   // visualmente consecutivos nem sempre são irmãos diretos no DOM.
-  // Aqui agrupamos os parágrafos consecutivos, retirando apenas o wrapper
-  // técnico criado pelo Word/Blogger. As quebras de linha continuam dentro
-  // do mesmo bloco visual.
-  ['acervo-highlight', 'acervo-scripture', 'acervo-preserved-block'].forEach(className=>{
+  // Aqui agrupamos os parágrafos consecutivos do mesmo género, retirando
+  // apenas o wrapper técnico criado pelo Word/Blogger. Um Enter usado pelo
+  // autor para dar impacto visual continua como uma nova linha dentro da
+  // mesma caixa, e não como uma nova caixa.
+  ['acervo-highlight', 'acervo-scripture'].forEach(className=>{
     const groupClass=`${className}-group`;
     const nodes=[...parsed.body.querySelectorAll(`.${className}`)];
 
