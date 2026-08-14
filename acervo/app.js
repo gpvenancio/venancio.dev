@@ -144,6 +144,18 @@ function sanitizePostHtml(html='') {
     node.classList.add('acervo-highlight');
   });
 
+  // Alguns textos bíblicos colados a partir do Word têm o fundo aplicado
+  // ao wrapper que envolve a passagem, e não ao próprio parágrafo. Quando
+  // encontramos uma referência bíblica, o elemento imediatamente seguinte
+  // pertence à passagem e deve receber o mesmo tratamento das restantes.
+  const scriptureReference=/^(?:[1-3]\s*)?(?:Génesis|Genesis|Êxodo|Exodus|Levítico|Leviticus|Números|Numbers|Deuteronómio|Deuteronomy|Josué|Joshua|Juízes|Judges|Rute|Ruth|1 Samuel|2 Samuel|1 Reis|2 Reis|1 Kings|2 Kings|1 Crónicas|2 Crónicas|1 Chronicles|2 Chronicles|Esdras|Ezra|Neemias|Nehemiah|Ester|Esther|Job|Salmos?|Psalms?|Provérbios|Proverbs|Eclesiastes|Ecclesiastes|Cantares|Song of Songs|Isaías|Isaiah|Jeremias|Jeremiah|Lamentações|Lamentations|Ezequiel|Ezekiel|Daniel|Oseias|Hosea|Joel|Amós|Amos|Obadias|Obadiah|Jonas|Jonah|Miqueias|Micah|Naum|Nahum|Habacuque|Habakkuk|Sofonias|Zephaniah|Ageu|Haggai|Zacarias|Zechariah|Malaquias|Malachi|Mateus|Matthew|Marcos|Mark|Lucas|Luke|João|John|Atos|Acts|Romanos|Romans|1 Coríntios|2 Coríntios|1 Corinthians|2 Corinthians|Gálatas|Galatians|Efésios|Ephesians|Filipenses|Philippians|Colossenses|Colossians|1 Tessalonicenses|2 Tessalonicenses|1 Thessalonians|2 Thessalonians|1 Timóteo|2 Timóteo|1 Timothy|2 Timothy|Tito|Titus|Filemom|Philemon|Hebreus|Hebrews|Tiago|James|1 Pedro|2 Pedro|1 Peter|2 Peter|1 João|2 João|3 João|1 John|2 John|3 John|Judas|Jude|Apocalipse|Revelation)\s+\d+(?::|\.|-)\d+[\w:.,-]*\s+(?:ARC|NET)\b/i;
+  [...parsed.body.querySelectorAll('*')].forEach(node=>{
+    const directText=(node.textContent||'').replace(/\s+/g,' ').trim();
+    if(!scriptureReference.test(directText) || node.children.length>0) return;
+    const next=node.nextElementSibling || node.parentElement?.nextElementSibling;
+    if(next && next.textContent?.trim()) next.classList.add('acervo-scripture');
+  });
+
   parsed.querySelectorAll('img').forEach(image=>{
     image.loading='lazy';
     image.decoding='async';
@@ -195,7 +207,7 @@ function sanitizePostHtml(html='') {
         j++;
       }
 
-      if(block.length>1){
+      if(block.length>=1){
         const firstContainerForGroup=getContainer(block[0]);
         const parent=firstContainerForGroup.parentElement;
         const group=document.createElement('div');
@@ -215,6 +227,41 @@ function sanitizePostHtml(html='') {
 
       i=j;
     }
+  });
+
+  // O tipo visual de um destaque é determinado pelo alinhamento do texto,
+  // e não pelo número de linhas nem pela cor que o Word lhe atribuiu.
+  // Assim, uma pergunta centrada e uma pergunta centrada com várias linhas
+  // continuam a ser exatamente o mesmo tipo de caixa.
+  const hasCenteredText=node=>{
+    const candidates=[node,...node.querySelectorAll('*')];
+    return candidates.some(item=>{
+      const align=item.getAttribute('align') || item.style?.textAlign || '';
+      return /^(center|middle)$/i.test(align.trim());
+    });
+  };
+  parsed.querySelectorAll('.acervo-highlight-group').forEach(group=>{
+    group.classList.toggle('acervo-highlight-centered',hasCenteredText(group));
+    group.classList.toggle('acervo-highlight-bar',!hasCenteredText(group));
+  });
+  parsed.querySelectorAll('.acervo-highlight:not(.acervo-highlight-group)').forEach(node=>{
+    node.classList.toggle('acervo-highlight-centered',hasCenteredText(node));
+    node.classList.toggle('acervo-highlight-bar',!hasCenteredText(node));
+  });
+
+  // Uma passagem bíblica deve ter sempre a mesma apresentação. Removemos
+  // fundos, bordas e caixas herdadas do Word dos elementos internos, deixando
+  // apenas a caixa tipográfica única do Acervo.
+  parsed.querySelectorAll('.acervo-scripture-group, .acervo-scripture').forEach(node=>{
+    node.querySelectorAll('*').forEach(child=>{
+      child.style.removeProperty('background');
+      child.style.removeProperty('background-color');
+      child.style.removeProperty('border');
+      child.style.removeProperty('border-left');
+      child.style.removeProperty('border-right');
+      child.style.removeProperty('border-top');
+      child.style.removeProperty('border-bottom');
+    });
   });
 
   parsed.querySelectorAll('a').forEach(link=>{

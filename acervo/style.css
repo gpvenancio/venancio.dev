@@ -2691,3 +2691,86 @@ html[data-theme='dark'] {
     text-wrap: balance;
   }
 }
+
+/* Uniformização final dos destaques: o alinhamento define o tipo, não o número de linhas. */
+.article-body .acervo-highlight-group {
+  margin: 1.75rem 0;
+  padding: 1rem 1.15rem;
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 700;
+  line-height: 1.55;
+  overflow: hidden;
+}
+
+.article-body .acervo-highlight-group.acervo-highlight-centered {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--article-highlight-surface);
+  text-align: center;
+}
+
+.article-body .acervo-highlight-group.acervo-highlight-bar {
+  border: 0;
+  border-left: 3px solid var(--article-accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--surface-muted);
+  text-align: left;
+}
+
+.article-body .acervo-highlight-group > .acervo-highlight {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  text-align: inherit;
+}
+
+.article-body .acervo-highlight-group > * {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit;
+  text-align: inherit;
+}
+
+.article-body .acervo-highlight-group > * + * {
+  margin-top: 0 !important;
+}
+
+/* Todas as passagens bíblicas usam a mesma caixa tipográfica do Salmo 62. */
+.article-body .acervo-scripture-group {
+  margin: 1.75rem 0;
+  padding: 0 0 0 1.15rem;
+  border: 0 !important;
+  border-left: 3px solid var(--article-scripture-accent) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.7;
+  overflow: visible;
+}
+
+.article-body .acervo-scripture-group > .acervo-scripture,
+.article-body .acervo-scripture-group > *,
+.article-body .acervo-scripture {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit;
+}
+
+.article-body .acervo-scripture-group table,
+.article-body .acervo-scripture-group tbody,
+.article-body .acervo-scripture-group tr,
+.article-body .acervo-scripture-group td,
+.article-body .acervo-scripture-group div,
+.article-body .acervo-scripture-group p {
+  background: transparent !important;
+  border: 0 !important;
+}
