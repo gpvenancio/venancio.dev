@@ -462,6 +462,21 @@ html[data-theme='dark'] .theme-icon-moon {
   margin: 0 0 1.15em;
 }
 
+/* O Blogger pode receber parágrafos do Word como divs.
+   Mantemos a separação entre esses blocos para não perder o espaçamento
+   definido visualmente no documento original. */
+.article-body > div:not(.acervo-highlight):not(.acervo-scripture):not(.acervo-preserved-block),
+.article-body > div > div:not(.acervo-highlight):not(.acervo-scripture):not(.acervo-preserved-block) {
+  margin-bottom: 1.15em;
+}
+
+.article-body span.EOP {
+  display: inline;
+  background: transparent !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
 .article-body blockquote {
   padding-left: 1.2rem;
   border-left: 3px solid var(--border-strong);

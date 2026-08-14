@@ -55,9 +55,9 @@ function sanitizePostHtml(html='') {
   const parsed=new DOMParser().parseFromString(html,'text/html');
   parsed.querySelectorAll('script,style,object,embed,link,meta').forEach(node=>node.remove());
 
-  // O Word introduz elementos EOP que servem apenas para edição e seleção.
-  // Não fazem parte da mensagem e podem criar marcas visuais no Blogger.
-  parsed.querySelectorAll('span.EOP, span[class~="EOP"]').forEach(node=>node.remove());
+  // Mantemos os marcadores EOP do Word no DOM. Em alguns conteúdos exportados pelo Word,
+  // estes marcadores fazem parte da estrutura que preserva a separação visual entre parágrafos.
+  // O CSS do Acervo trata a sua apresentação, sem os deixar visíveis.
 
   const normalizeColor=value=>value.trim().toLowerCase().replace(/\s+/g,'');
   const isWhiteBackground=value=>{
