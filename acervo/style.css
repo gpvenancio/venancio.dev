@@ -2528,6 +2528,66 @@ html[data-theme='dark'] .theme-icon-moon {
 
 
 /* Destaques preservados do documento original */
+.article-body .acervo-highlight-group {
+  margin: 1.75rem 0;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--article-highlight-surface);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.article-body .acervo-highlight-group > .acervo-highlight {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.article-body .acervo-highlight-group > .acervo-highlight + .acervo-highlight {
+  margin-top: 0;
+}
+
+.article-body .acervo-scripture-group {
+  margin: 1.75rem 0;
+  padding: 1.2rem 1.25rem;
+  border-left: 3px solid var(--border-strong);
+  background: var(--article-scripture-surface);
+  color: var(--text);
+  font-family: var(--serif);
+  line-height: 1.7;
+}
+
+.article-body .acervo-scripture-group > .acervo-scripture {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.article-body .acervo-preserved-block-group {
+  margin: 1.75rem 0;
+  padding: 1.15rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.article-body .acervo-preserved-block-group > .acervo-preserved-block {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
 :root {
   --article-highlight-surface: #edf2f4;
   --article-scripture-surface: #f2f0e9;

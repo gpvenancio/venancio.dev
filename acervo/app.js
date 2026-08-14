@@ -141,6 +141,71 @@ function sanitizePostHtml(html='') {
     image.removeAttribute('height');
   });
 
+  // No HTML colado a partir do Word, cada Enter pode chegar ao Blogger como
+  // um <p> destacado dentro do seu próprio <div>. Por isso, dois destaques
+  // visualmente consecutivos nem sempre são irmãos diretos no DOM.
+  // Aqui agrupamos os parágrafos consecutivos, retirando apenas o wrapper
+  // técnico criado pelo Word/Blogger. As quebras de linha continuam dentro
+  // do mesmo bloco visual.
+  ['acervo-highlight', 'acervo-scripture', 'acervo-preserved-block'].forEach(className=>{
+    const groupClass=`${className}-group`;
+    const nodes=[...parsed.body.querySelectorAll(`.${className}`)];
+
+    const getContainer=node=>{
+      const parent=node.parentElement;
+      if(!parent) return null;
+      if(parent.tagName==='DIV' && parent.children.length===1 && parent.firstElementChild===node) return parent;
+      return node;
+    };
+
+    let i=0;
+    while(i<nodes.length){
+      const first=nodes[i];
+      const firstContainer=getContainer(first);
+      const block=[first];
+      let j=i+1;
+
+      while(j<nodes.length){
+        const previous=nodes[j-1];
+        const current=nodes[j];
+        const previousContainer=getContainer(previous);
+        const currentContainer=getContainer(current);
+        if(!previousContainer || !currentContainer) break;
+
+        // Os parágrafos do Word estão normalmente em divs consecutivos.
+        // Também aceitamos irmãos diretos, caso o Blogger já tenha removido
+        // os wrappers.
+        if(currentContainer.parentElement!==previousContainer.parentElement ||
+           currentContainer.previousElementSibling!==previousContainer){
+          break;
+        }
+
+        block.push(current);
+        j++;
+      }
+
+      if(block.length>1){
+        const firstContainerForGroup=getContainer(block[0]);
+        const parent=firstContainerForGroup.parentElement;
+        const group=document.createElement('div');
+        group.className=groupClass;
+        parent.insertBefore(group,firstContainerForGroup);
+
+        block.forEach(node=>{
+          const container=getContainer(node);
+          if(container!==node){
+            group.appendChild(node);
+            container.remove();
+          } else {
+            group.appendChild(node);
+          }
+        });
+      }
+
+      i=j;
+    }
+  });
+
   parsed.querySelectorAll('a').forEach(link=>{
     const url=link.getAttribute('href');
     if(!url) return;
