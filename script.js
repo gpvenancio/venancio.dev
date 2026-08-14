@@ -23,6 +23,7 @@ const PAGE_TRANSLATIONS = Object.freeze({
     atlanticoDescription:
       'Um tema escuro sereno para Visual Studio Code e editores compatíveis.',
     poetryDescription: 'Poesia, textos e informação sobre o meu livro.',
+    acervoDescription: 'Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão.',
     contactLead: 'Para questões gerais, propostas ou simplesmente para entrar em contacto.',
     contactTitle: 'Contacto',
     contactLabel: 'Contactar',
@@ -30,6 +31,7 @@ const PAGE_TRANSLATIONS = Object.freeze({
       'As preferências de idioma e tema ficam guardadas apenas neste navegador.',
     atlanticoAria: 'Abrir a página do tema Atlantico',
     poetryAria: 'Abrir a página Poesia do Venâncio',
+    acervoAria: 'Abrir o Acervo de Fé',
   },
   en: {
     documentTitle: 'Gonçalo Venâncio · venancio.dev',
@@ -48,6 +50,7 @@ const PAGE_TRANSLATIONS = Object.freeze({
     atlanticoDescription:
       'A calm dark theme for Visual Studio Code and compatible editors.',
     poetryDescription: 'Poetry, texts, and information about my book.',
+    acervoDescription: 'Sermons, messages, reflections, and articles about Christian faith and the different aspects of Christian life.',
     contactLead: 'For general enquiries, proposals, or simply to get in touch.',
     contactTitle: 'Contact',
     contactLabel: 'Contact me',
@@ -55,6 +58,7 @@ const PAGE_TRANSLATIONS = Object.freeze({
       'Language and theme preferences are stored only in this browser.',
     atlanticoAria: 'Open the Atlantico theme page',
     poetryAria: 'Open the Poesia do Venâncio page',
+    acervoAria: 'Open the Acervo de Fé',
   },
 });
 

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-PT" data-theme="light" data-language="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#cccccc" />
+
+    <title>Acervo de Fé · Gonçalo Venâncio</title>
+    <meta name="description" content="Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão." />
+    <link rel="canonical" href="https://venancio.dev/acervo/" />
+    <link rel="alternate" type="application/rss+xml" title="Acervo de Fé" href="https://acervodefeven.blogspot.com/feeds/posts/default" data-rss-link />
+
+    <meta property="og:title" content="Acervo de Fé" />
+    <meta property="og:description" content="Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão." />
+    <meta property="og:image" content="https://venancio.dev/assets/social_preview.png" />
+    <meta property="og:url" content="https://venancio.dev/acervo/" />
+    <meta property="og:site_name" content="Gonçalo Venâncio" />
+    <meta property="og:type" content="website" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Acervo de Fé" />
+    <meta name="twitter:description" content="Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão." />
+    <meta name="twitter:image" content="https://venancio.dev/assets/social_preview.png" />
+
+    <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="../assets/favicon_32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="../assets/apple_touch_icon.png" />
+    <link rel="stylesheet" href="./style.css" />
+
+    <script>
+      (() => {
+        const savedTheme = localStorage.getItem('venancio-theme') || localStorage.getItem('poesia-theme');
+        const savedLanguage = localStorage.getItem('venancio-language');
+        document.documentElement.dataset.theme = savedTheme === 'dark' ? 'dark' : 'light';
+        document.documentElement.dataset.language = savedLanguage === 'en' ? 'en' : 'pt';
+        document.documentElement.lang = savedLanguage === 'en' ? 'en' : 'pt-PT';
+      })();
+    </script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#conteudo" data-i18n="skipContent">Avançar para o conteúdo</a>
+
+    <div class="site-shell">
+      <div class="page-column">
+        <header class="site-header poetry-site-header">
+          <div class="poetry-header-start">
+            <a class="poetry-brand-link reveal-logo" href="/" aria-label="venancio.dev" title="venancio.dev">
+              <img src="../assets/logo.svg" alt="" class="poetry-brand-logo brand-logo" />
+            </a>
+
+            <div class="poetry-header-buttons">
+              <button class="menu-button menu-text-button reveal-icon" type="button" aria-label="Abrir todos os textos" data-i18n-aria-label="openAllTexts" aria-controls="archive-drawer" aria-expanded="false" data-open-menu>
+                <span data-i18n="allTexts">Todos os textos</span>
+              </button>
+              <a class="rss-link rss-header-link reveal-icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="RSS" title="RSS" data-i18n-aria-label="rssFeed" data-i18n-title="rssFeed" data-rss-link>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.75a14.25 14.25 0 0 1 14.25 14.25h-2A12.25 12.25 0 0 0 5 6.75Zm0 5.25A9 9 0 0 1 14 19h-2A7 7 0 0 0 5 12Zm1.5 6.25A1.75 1.75 0 1 1 6.5 19.75a1.75 1.75 0 0 1 0-3.5Z" /></svg>
+                <span>RSS</span>
+              </a>
+            </div>
+          </div>
+
+          <a class="site-name reveal-icon" href="/acervo/" aria-label="Página inicial" data-i18n-aria-label="homepage"><span data-i18n="siteTitle">Acervo de Fé</span></a>
+
+          <div class="header-actions">
+            <div class="drawer-language-switcher header-language-switcher reveal-icon" aria-label="Idioma" data-i18n-aria-label="language">
+              <button type="button" data-language="pt" aria-pressed="true">Português</button>
+              <button type="button" data-language="en" aria-pressed="false">English</button>
+            </div>
+            <button class="icon-button theme-button reveal-icon" type="button" aria-label="Ativar o modo escuro" title="Alterne o tema" data-theme-toggle>
+              <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.75"></circle><path d="M12 2.75v2M12 19.25v2M2.75 12h2M19.25 12h2M5.46 5.46l1.42 1.42M17.12 17.12l1.42 1.42M5.46 18.54l1.42-1.42M17.12 6.88l1.42-1.42"></path></svg>
+              <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.1 15.2A7.6 7.6 0 0 1 8.8 4.9a7.75 7.75 0 1 0 10.3 10.3Z"></path></svg>
+            </button>
+            <button class="icon-button reveal-icon" type="button" aria-label="Partilhar esta página" title="Partilhar" data-i18n-aria-label="sharePage" data-i18n-title="share" data-share-home>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.25a3.24 3.24 0 0 0-2.55 1.24l-7.09-4.1a3.38 3.38 0 0 0 0-2.78l7.09-4.1A3.25 3.25 0 1 0 14.75 4c0 .35.06.69.16 1L7.8 9.11A3.25 3.25 0 1 0 7.8 14.9L14.91 19c-.1.31-.16.65-.16 1A3.25 3.25 0 1 0 18 16.25Z" /></svg>
+            </button>
+            <button class="icon-button reveal-icon" type="button" aria-label="Pesquisar textos" title="Pesquisar" data-i18n-aria-label="searchTexts" data-i18n-title="search" data-open-search>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z" /></svg>
+            </button>
+          </div>
+        </header>
+
+        <main id="conteudo" tabindex="-1">
+          <section class="hero acervo-hero" data-home-only aria-labelledby="page-title">
+            <h1 id="page-title" class="hero-title reveal"><span data-i18n="siteTitle">Acervo de Fé</span></h1>
+            <p class="acervo-intro reveal"><span data-i18n="siteIntro">Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão.</span></p>
+            <div class="acervo-filters" data-filter-list aria-label="Categorias"></div>
+          </section>
+
+          <div class="view" data-view aria-live="polite">
+            <div class="loading-card" data-loading>
+              <span class="loading-dot" aria-hidden="true"></span>
+              <p data-i18n="loadingTexts">A carregar o acervo…</p>
+            </div>
+          </div>
+        </main>
+
+        <footer class="site-footer reveal-card"><p>Gonçalo Venâncio</p></footer>
+      </div>
+    </div>
+
+    <div class="drawer-backdrop" data-drawer-backdrop hidden></div>
+    <aside class="archive-drawer" id="archive-drawer" aria-label="Todos os textos" data-i18n-aria-label="allTexts" aria-hidden="true" data-drawer>
+      <div class="drawer-header">
+        <div><h2 data-i18n="allTexts">Todos os textos</h2></div>
+        <button class="icon-button" type="button" aria-label="Fechar o menu" data-i18n-aria-label="closeMenu" data-close-menu><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" /><path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" /></svg></button>
+      </div>
+      <nav aria-label="Índice de textos" data-i18n-aria-label="textsIndex">
+        <section class="drawer-section" aria-labelledby="drawer-categories-title">
+          <h3 id="drawer-categories-title" class="drawer-section-title" data-i18n="categories">Categorias</h3>
+          <ul class="archive-list" data-category-list></ul>
+        </section>
+        <section class="drawer-section" aria-labelledby="drawer-authors-title">
+          <h3 id="drawer-authors-title" class="drawer-section-title" data-i18n="authors">Autores</h3>
+          <ul class="archive-list" data-author-list></ul>
+        </section>
+        <section class="drawer-section" aria-labelledby="drawer-texts-title">
+          <h3 id="drawer-texts-title" class="drawer-section-title" data-i18n="allTexts">Todos os textos</h3>
+          <ul class="archive-list" data-archive-list></ul>
+        </section>
+      </nav>
+      <div class="drawer-preferences">
+        <p class="drawer-preferences-title" data-i18n="language">Idioma</p>
+        <div class="drawer-language-switcher" aria-label="Idioma" data-i18n-aria-label="language"><button type="button" data-language="pt" aria-pressed="true">Português</button><button type="button" data-language="en" aria-pressed="false">English</button></div>
+        <p class="drawer-preferences-note" data-i18n="preferencesNote">As preferências de idioma e tema ficam guardadas apenas neste navegador.</p>
+      </div>
+    </aside>
+
+    <button class="back-to-top" type="button" aria-label="Voltar ao topo" title="Voltar ao topo" data-i18n-aria-label="backTop" data-i18n-title="backTop" data-back-to-top hidden>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 4.88 7.59 7.59-1.06 1.06-5.78-5.78V22h-1.5V7.75l-5.78 5.78-1.06-1.06z" /></svg><span data-i18n="backTop">Voltar ao topo</span>
+    </button>
+
+    <dialog class="search-dialog" data-search-dialog aria-labelledby="search-title">
+      <form method="dialog" class="search-dialog-inner">
+        <div class="search-heading"><div><p class="eyebrow" data-i18n="search">Pesquisa</p><h2 id="search-title" data-i18n="findText">Encontrar um texto</h2></div><button class="icon-button" value="cancel" aria-label="Fechar a pesquisa" data-i18n-aria-label="closeSearch"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" /><path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" /></svg></button></div>
+        <label class="search-field"><span class="visually-hidden" data-i18n="searchByContent">Pesquisar por título ou conteúdo</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m20.53 19.47-4.69-4.69a7.25 7.25 0 1 0-1.06 1.06l4.69 4.69zM5.5 10.25a5.75 5.75 0 1 1 11.5 0 5.75 5.75 0 0 1-11.5 0Z" /></svg><input type="search" autocomplete="off" placeholder="Pesquisar por título ou palavras do texto" data-i18n-placeholder="searchPlaceholder" data-search-input /></label>
+        <div class="search-results" data-search-results><p class="search-help" data-i18n="searchHelp">Comece a escrever para pesquisar.</p></div>
+      </form>
+    </dialog>
+
+    <dialog class="share-dialog" data-share-dialog aria-labelledby="share-title">
+      <div class="share-dialog-inner">
+        <div class="share-heading"><div><p class="eyebrow" data-i18n="share">Partilhar</p><h2 id="share-title" data-i18n="chooseOption">Escolher uma opção</h2></div><button class="icon-button" type="button" aria-label="Fechar as opções de partilha" data-i18n-aria-label="closeShare" data-close-share><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6.47 5.41 12.12 12.12-1.06 1.06L5.41 6.47z" /><path d="M17.53 5.41 5.41 17.53l1.06 1.06L18.59 6.47z" /></svg></button></div>
+        <div class="share-summary"><strong data-share-preview-title>Acervo de Fé</strong><span data-i18n="shareHow">Escolha como pretende partilhar esta página.</span></div>
+        <div class="share-options" aria-label="Opções de partilha" data-i18n-aria-label="shareOptions">
+          <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-whatsapp><span>WhatsApp</span></a>
+          <a class="share-option" href="#" data-share-email><span>Email</span></a>
+          <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-facebook><span>Facebook</span></a>
+          <a class="share-option" href="#" target="_blank" rel="noopener noreferrer" data-share-telegram><span>Telegram</span></a>
+          <button class="share-option" type="button" data-native-share hidden><span>Mais aplicações</span></button>
+          <button class="share-option" type="button" data-copy-share><span data-i18n="copyLink">Copiar a ligação</span></button>
+        </div>
+        <p class="share-status" data-toast aria-live="polite"></p>
+      </div>
+    </dialog>
+
+    <div class="toast" data-rss-toast aria-live="polite" aria-atomic="true" hidden></div>
+
+    <script src="./app.js" defer></script>
+  </body>
+</html>

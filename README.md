@@ -22,6 +22,10 @@ Atlantico is a calm dark theme for Visual Studio Code and compatible editors, de
 
 A Portuguese poetry website that loads published texts from Blogger and includes a dedicated book page.
 
+### Acervo de Fé
+
+The Acervo de Fé is a Christian writing archive designed to load published content from Blogger while preserving the visual identity of the site.
+
 ### Development
 
 An English development profile and project page. It is linked from the Atlantico page rather than from the main landing page.
@@ -47,6 +51,10 @@ The landing page, poetry pages, and book page support Portuguese and English. La
 ├── development/
 │   └── index.html
 ├── poesia/
+├── acervo/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
 │   ├── index.html
 │   ├── style.css
 │   ├── app.js
@@ -58,3 +66,7 @@ The landing page, poetry pages, and book page support Portuguese and English. La
 ├── LICENSE
 └── .gitignore
 ```
+
+### Acervo de Fé
+
+O Acervo usa o mesmo sistema visual de navegação da Poesia, mas os conteúdos das mensagens não são reconstruídos como HTML. As publicações apontam para o PDF original preparado no Word, preservando a estrutura e o tema do documento. O Blogger funciona como catálogo e sistema de publicação.

@@ -381,7 +381,7 @@ function renderHome() {
     button.hidden = false;
   });
   if (elements.rssLink) elements.rssLink.hidden = false;
-  hideBackToTop();
+  requestAnimationFrame(updateBackToTopVisibility);
 
   const cards = state.posts
     .map(
@@ -453,7 +453,7 @@ function renderArticle(post) {
     button.hidden = true;
   });
   if (elements.rssLink) elements.rssLink.hidden = true;
-  hideBackToTop();
+  requestAnimationFrame(updateBackToTopVisibility);
 
   const subject = encodeURIComponent(t('opinionSubject', post.title));
   const body = encodeURIComponent(t('opinionBody', post.title));
@@ -513,7 +513,7 @@ function renderNotFound() {
     button.hidden = true;
   });
   if (elements.rssLink) elements.rssLink.hidden = true;
-  hideBackToTop();
+  requestAnimationFrame(updateBackToTopVisibility);
   elements.view.innerHTML = `
     <section class="empty-state reveal-card" style="animation-delay: 360ms">
       <h1>${t('notFoundTitle')}</h1>
@@ -530,7 +530,7 @@ function renderError(error) {
     button.hidden = false;
   });
   if (elements.rssLink) elements.rssLink.hidden = false;
-  hideBackToTop();
+  requestAnimationFrame(updateBackToTopVisibility);
   elements.view.innerHTML = `
     <section class="error-card reveal-card" style="animation-delay: 360ms">
       <h2>${t('loadErrorTitle')}</h2>
@@ -595,22 +595,10 @@ function hideBackToTop() {
   if (elements.backToTopButton) elements.backToTopButton.hidden = true;
 }
 
-function articleIsLong() {
-  if (getRoute().name !== 'article') return false;
-  const article = document.querySelector('.article-card');
-  if (!article) return false;
-
-  const remainingDocumentHeight =
-    document.documentElement.scrollHeight - window.innerHeight;
-  return (
-    remainingDocumentHeight > 850 &&
-    article.scrollHeight > window.innerHeight * 1.15
-  );
-}
-
 function updateBackToTopVisibility() {
   if (!elements.backToTopButton) return;
-  const shouldShow = articleIsLong() && window.scrollY > 560;
+  const pageIsScrollable = document.documentElement.scrollHeight > window.innerHeight + 160;
+  const shouldShow = pageIsScrollable && window.scrollY > 420;
   elements.backToTopButton.hidden = !shouldShow;
 }
 

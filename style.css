@@ -497,6 +497,10 @@ h2 {
   gap: 1.25rem;
 }
 
+.destination-card:nth-child(1) {
+  grid-column: 1 / -1;
+}
+
 .destination-card {
   position: relative;
   display: grid;
@@ -548,8 +552,16 @@ h2 {
   font-size: clamp(2rem, 5vw, 3.2rem);
 }
 
+.destination-card:nth-child(1) h2 {
+  font-size: clamp(2.45rem, 5.8vw, 4rem);
+}
+
+.destination-card:nth-child(1) p {
+  max-width: 100%;
+}
+
 .destination-card p {
-  max-width: 36ch;
+  max-width: 68ch;
   margin: 0.8rem 0 0;
   color: var(--color-text-muted);
   line-height: 1.6;
@@ -894,8 +906,12 @@ h2 {
   animation-delay: 960ms;
 }
 
+.destination-card:nth-child(3) {
+  animation-delay: 1100ms;
+}
+
 .landing-contact {
-  animation-delay: 1120ms;
+  animation-delay: 1260ms;
 }
 
 @media (prefers-reduced-motion: reduce) {

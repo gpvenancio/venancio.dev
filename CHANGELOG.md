@@ -1,3 +1,14 @@
+## Acervo, integração final
+
+* Acervo da homepage ocupa a largura total no topo, com Atlantico e Poesia abaixo.
+* Título da homepage do projeto passa a ser “Acervo de Fé”.
+* Descrição atualizada para abranger os diversos aspectos da vida do cristão.
+* Sequência de animação corrigida para Acervo, Atlantico, Poesia e Contacto.
+* Feed do Blogger ligado a `acervodefeven.blogspot.com`.
+* RSS do Acervo ligado ao feed do Blogger.
+* Reconhecimento de etiquetas de categorias tanto no singular como no plural.
+* Limpeza automática dos marcadores EOP provenientes do Word.
+
 ## 2026-07-24 — Navegação e descoberta
 
 - Uniformizadas as chamadas à ação em português, com verbos no infinitivo.
@@ -49,3 +60,18 @@ This project follows the principles of Keep a Changelog where appropriate.
 - Added the Atlantico project as a featured project.
 - Added contact links and basic project presentation.
 - Added the dedicated Atlantico page.
+## 2026-08-13
+
+### Acervo
+
+* Removidos automaticamente, apenas na apresentação do Acervo, os elementos `EOP` introduzidos pelo Word ao copiar conteúdo para o Blogger. A formatação original da mensagem continua a ser preservada.
+
+
+## Acervo, integração Blogger
+
+• Homepage com Acervo em largura total no topo.
+• Subtítulo do Acervo com a mesma animação dos restantes elementos.
+• Painel lateral simplificado e organizado por Categorias, Autores e Todos os textos.
+• Cartões com título, categoria, autor e sinopse.
+• Publicações apresentadas diretamente a partir do HTML do Blogger, preservando a formatação do Word.
+• Limpeza automática dos marcadores EOP introduzidos pela colagem do Word.
