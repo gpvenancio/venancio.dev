@@ -2358,7 +2358,14 @@ html[data-theme='dark'] .theme-icon-moon {
   border-color: var(--border-strong);
   background: var(--surface);
   color: var(--text);
+}
+
+.acervo-filter:hover {
   transform: translateY(-1px);
+}
+
+.acervo-filter[aria-current='page'] {
+  transform: none;
 }
 
 .post-meta {
@@ -2773,4 +2780,12 @@ html[data-theme='dark'] {
 .article-body .acervo-scripture-group p {
   background: transparent !important;
   border: 0 !important;
+}
+
+
+/* Correção final dos filtros do Acervo no telemóvel */
+@media (max-width: 700px) {
+  .acervo-filter[aria-current='page'] {
+    transform: none;
+  }
 }
