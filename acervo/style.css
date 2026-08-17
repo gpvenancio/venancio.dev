@@ -2395,11 +2395,6 @@ html[data-theme='dark'] .theme-icon-moon {
   font-weight: 720;
 }
 
-.article-meta span + span::before {
-  content: '·';
-  margin-right: 0.8rem;
-}
-
 .pdf-card {
   margin-top: clamp(2rem, 5vw, 3.5rem);
   overflow: hidden;
@@ -2634,10 +2629,9 @@ html[data-theme='dark'] {
   align-items: center;
 }
 
-.article-meta > * + *::before {
-  content: '·';
-  margin-right: 0.8rem;
+.article-meta-separator {
   color: var(--text-muted);
+  user-select: none;
 }
 
 .article-meta-link {

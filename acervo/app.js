@@ -526,9 +526,11 @@ function renderArticle(post){
     <div class="article-card reveal-card">
       <h1 class="article-title reveal"><span>${escapeHtml(post.title)}</span></h1>
       <div class="article-meta">
-        ${post.categories[0]?`<a class="article-meta-link" href="${categoryUrl(post.categories[0])}">${escapeHtml(categoryPlural(post.categories[0]))}</a>`:''}
-        ${post.author?`<a class="article-meta-link" href="${authorUrl(post.author)}">${escapeHtml(post.author)}</a>`:''}
-        ${post.firstPublished?`<span class="article-meta-date">${escapeHtml(t('date'))}: ${escapeHtml(formatDate(post.firstPublished))}</span>`:''}
+        ${[
+          post.categories[0]?`<a class="article-meta-link" href="${categoryUrl(post.categories[0])}">${escapeHtml(categoryPlural(post.categories[0]))}</a>`:'',
+          post.author?`<a class="article-meta-link" href="${authorUrl(post.author)}">${escapeHtml(post.author)}</a>`:'',
+          post.firstPublished?`<span class="article-meta-date">${escapeHtml(t('date'))}: ${escapeHtml(formatDate(post.firstPublished))}</span>`:''
+        ].filter(Boolean).join('<span class="article-meta-separator" aria-hidden="true">·</span>')}
       </div>
       ${post.synopsis?`<p class="article-synopsis">${escapeHtml(post.synopsis)}</p>`:''}
       ${documentContent}
