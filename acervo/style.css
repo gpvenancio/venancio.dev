@@ -493,6 +493,18 @@ html[data-theme='dark'] .theme-icon-moon {
   border-radius: var(--radius-sm);
 }
 
+.article-body iframe.acervo-video {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  margin: 2rem auto;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: #000;
+}
+
 .article-body a {
   color: var(--text);
 }

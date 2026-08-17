@@ -276,9 +276,18 @@ function sanitizePostHtml(html='') {
   parsed.querySelectorAll('iframe').forEach(frame=>{
     try {
       const u=new URL(frame.getAttribute('src')||'',window.location.href);
-      const allowed=['drive.google.com','docs.google.com','www.google.com'].includes(u.hostname);
+      const isYoutube=['www.youtube.com','youtube.com','www.youtube-nocookie.com','youtube-nocookie.com'].includes(u.hostname);
+      const allowed=['drive.google.com','docs.google.com','www.google.com'].includes(u.hostname) || isYoutube;
       if(!allowed) frame.remove();
-      else {frame.loading='lazy';frame.referrerPolicy='no-referrer';}
+      else {
+        frame.loading='lazy';
+        if(isYoutube){
+          frame.referrerPolicy='strict-origin-when-cross-origin';
+          frame.classList.add('acervo-video');
+        } else {
+          frame.referrerPolicy='no-referrer';
+        }
+      }
     } catch { frame.remove(); }
   });
 
