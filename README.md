@@ -1,3 +1,10 @@
+
+## Acervo local
+
+As publicações do Acervo são carregadas a partir de `acervo/content/index.json`.
+Os caminhos `translations.*.content` são relativos à pasta `acervo/content/`.
+O estado de uma publicação é sempre `published`; o Publicador não oferece estado de rascunho.
+
 # venancio.dev
 
 Personal website for Gonçalo Venâncio.
@@ -70,3 +77,11 @@ The landing page, poetry pages, and book page support Portuguese and English. La
 ### Acervo de Fé
 
 O Acervo usa o mesmo sistema visual de navegação da Poesia, mas os conteúdos das mensagens não são reconstruídos como HTML. As publicações apontam para o PDF original preparado no Word, preservando a estrutura e o tema do documento. O Blogger funciona como catálogo e sistema de publicação.
+
+### Publicador do Acervo
+
+A conversão DOCX preserva a formatação direta do Word, incluindo negrito, itálico,
+sublinhado, tamanhos e cores de texto, alinhamento e espaçamento, além dos estilos
+editoriais definidos para o Acervo. A primeira página, usada para título e sinopse,
+não é publicada. Sequências de parágrafos vazios são limitadas a dois.
+

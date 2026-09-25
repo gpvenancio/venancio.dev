@@ -3,10 +3,7 @@
 const CONFIG = Object.freeze({
   siteTitle: 'Acervo de Fé',
   baseUrl: 'https://venancio.dev/acervo/',
-  // Depois de criares o Blogger do Acervo, coloca aqui o endereço do blogue.
-  // Exemplo: https://acervodefe.blogspot.com/
-  blogHome: 'https://acervodefeven.blogspot.com/',
-  feedUrl: 'https://acervodefeven.blogspot.com/feeds/posts/default',
+  contentIndex: './content/index.json',
   contactEmail: 'goncalo@venancio.dev',
   maxPosts: 500,
   categories: ['Pregação', 'Mensagem', 'Artigo', 'Reflexão'],
@@ -29,11 +26,11 @@ function categoryFromLabel(label='') {
 const I18N = Object.freeze({
   pt: {
     siteTitle: 'Acervo de Fé',
-    skipContent: 'Avançar para o conteúdo', openAllTexts: 'Abrir todos os textos', allTexts: 'Todos os textos', homepage: 'Página inicial', sharePage: 'Partilhar esta página', share: 'Partilhar', searchTexts: 'Pesquisar textos', search: 'Pesquisar', loadingTexts: 'A carregar o acervo…', closeMenu: 'Fechar o menu', textsIndex: 'Índice de textos', backTop: 'Voltar ao topo', findText: 'Encontrar um texto', closeSearch: 'Fechar a pesquisa', searchByContent: 'Pesquisar por título ou conteúdo', searchPlaceholder: 'Pesquisar por título, conteúdo ou autor', searchHelp: 'Comece a escrever para pesquisar.', chooseOption: 'Escolher uma opção', closeShare: 'Fechar as opções de partilha', shareHow: 'Escolha como pretende partilhar esta página.', shareOptions: 'Opções de partilha', copyLink: 'Copiar a ligação', language: 'Idioma', preferencesNote: 'As preferências de idioma e tema ficam guardadas apenas neste navegador.', themeLight: 'Ativar o modo claro', themeDark: 'Ativar o modo escuro', siteDescription: 'Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão.', siteIntro: 'Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão.', textFallback: 'Texto', readText: 'Abrir', backHome: 'Voltar ao Acervo', backAllTexts: 'Voltar a todos os textos', previousText: 'Texto anterior', nextText: 'Texto seguinte', textNavigation: 'Navegação entre textos', notFoundTitle: 'Texto não encontrado', notFoundText: 'O endereço pode estar incompleto ou o texto pode já não estar disponível.', loadErrorTitle: 'Não foi possível carregar o Acervo', retry: 'Tentar novamente', openBlog: 'Abrir o blogue', noSearchResults: 'Não encontrei nenhum texto com esses termos.', bloggerTimeout: 'A resposta do Blogger demorou demasiado tempo.', bloggerConnection: 'Não foi possível ligar ao Blogger.', noPosts: 'Ainda não existem textos publicados no Acervo.', notConfigured: 'O Acervo está criado, mas ainda falta ligá-lo ao Blogger.', openPdf: 'Abrir PDF', pdfLabel: 'Mensagem em PDF', noPdf: 'Esta publicação ainda não tem um PDF associado.', author: 'Autor', date: 'Primeira publicação', category: 'Categoria', allCategories: 'Todos os textos', categoryLabel: 'Categoria', categories: 'Categorias', authors: 'Autores', opinion: 'Contactar o autor', opinionSubject: title => `Sobre “${title}”`, opinionBody: title => `Olá,\n\nGostaria de entrar em contacto acerca do texto “${title}”.\n\n`, copied: 'Ligação copiada.', rssCopied: 'Ligação RSS copiada.', copyFailed: 'Não foi possível copiar a ligação.'
+    skipContent: 'Avançar para o conteúdo', openAllTexts: 'Abrir todos os textos', allTexts: 'Todos os textos', homepage: 'Página inicial', sharePage: 'Partilhar esta página', share: 'Partilhar', searchTexts: 'Pesquisar textos', search: 'Pesquisar', loadingTexts: 'A carregar o acervo…', closeMenu: 'Fechar o menu', textsIndex: 'Índice de textos', backTop: 'Voltar ao topo', findText: 'Encontrar um texto', closeSearch: 'Fechar a pesquisa', searchByContent: 'Pesquisar por título ou conteúdo', searchPlaceholder: 'Pesquisar por título, conteúdo ou autor', searchHelp: 'Comece a escrever para pesquisar.', chooseOption: 'Escolher uma opção', closeShare: 'Fechar as opções de partilha', shareHow: 'Escolha como pretende partilhar esta página.', shareOptions: 'Opções de partilha', copyLink: 'Copiar a ligação', language: 'Idioma', preferencesNote: 'As preferências de idioma e tema ficam guardadas apenas neste navegador.', themeLight: 'Ativar o modo claro', themeDark: 'Ativar o modo escuro', siteDescription: 'Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão.', siteIntro: 'Pregações, mensagens, reflexões e artigos sobre a fé cristã e os diversos aspectos da vida do cristão.', textFallback: 'Texto', readText: 'Abrir', backHome: 'Voltar ao Acervo', backAllTexts: 'Voltar a todos os textos', previousText: 'Texto anterior', nextText: 'Texto seguinte', textNavigation: 'Navegação entre textos', notFoundTitle: 'Texto não encontrado', notFoundText: 'O endereço pode estar incompleto ou o texto pode já não estar disponível.', loadErrorTitle: 'Não foi possível carregar o Acervo', retry: 'Tentar novamente', openBlog: 'Abrir o blogue', noSearchResults: 'Não encontrei nenhum texto com esses termos.', bloggerTimeout: 'A resposta do Blogger demorou demasiado tempo.', bloggerConnection: 'Não foi possível ligar ao Blogger.', noPosts: 'Ainda não existem textos publicados no Acervo.', notConfigured: 'O Acervo está criado, mas ainda falta ligá-lo ao Blogger.', openPdf: 'Abrir PDF', pdfLabel: 'Mensagem em PDF', noPdf: 'Esta publicação ainda não tem um PDF associado.', author: 'Autor', date: 'Atualizado em', category: 'Categoria', allCategories: 'Todos os textos', categoryLabel: 'Categoria', categories: 'Categorias', authors: 'Autores', opinion: 'Contactar o autor', opinionSubject: title => `Sobre “${title}”`, opinionBody: title => `Olá,\n\nGostaria de entrar em contacto acerca do texto “${title}”.\n\n`, copied: 'Ligação copiada.', rssCopied: 'Ligação RSS copiada.', copyFailed: 'Não foi possível copiar a ligação.'
   },
   en: {
     siteTitle: 'Faith Archive',
-    skipContent: 'Skip to content', openAllTexts: 'Open all texts', allTexts: 'All texts', homepage: 'Homepage', sharePage: 'Share this page', share: 'Share', searchTexts: 'Search texts', search: 'Search', loadingTexts: 'Loading the archive…', closeMenu: 'Close menu', textsIndex: 'Text index', backTop: 'Back to top', findText: 'Find a text', closeSearch: 'Close search', searchByContent: 'Search by title or content', searchPlaceholder: 'Search by title, content or author', searchHelp: 'Start typing to search.', chooseOption: 'Choose an option', closeShare: 'Close sharing options', shareHow: 'Choose how you would like to share this page.', shareOptions: 'Sharing options', copyLink: 'Copy link', language: 'Language', preferencesNote: 'Language and theme preferences are stored only in this browser.', themeLight: 'Use light mode', themeDark: 'Use dark mode', siteDescription: 'Sermons, messages, reflections and articles about Christian faith and the different aspects of Christian life.', siteIntro: 'Sermons, messages, reflections and articles about Christian faith and the different aspects of Christian life.', textFallback: 'Text', readText: 'Open', backHome: 'Back to the archive', backAllTexts: 'Back to all texts', previousText: 'Previous text', nextText: 'Next text', textNavigation: 'Text navigation', notFoundTitle: 'Text not found', notFoundText: 'The address may be incomplete, or the text may no longer be available.', loadErrorTitle: 'The archive could not be loaded', retry: 'Try again', openBlog: 'Open the blog', noSearchResults: 'No text matched those terms.', bloggerTimeout: 'The Blogger response took too long.', bloggerConnection: 'Blogger could not be reached.', noPosts: 'There are no published texts in the archive yet.', notConfigured: 'The archive is ready, but it is not connected to Blogger yet.', openPdf: 'Open PDF', pdfLabel: 'Message in PDF', noPdf: 'This publication does not have an associated PDF yet.', author: 'Author', date: 'First published', category: 'Category', allCategories: 'All texts', categoryLabel: 'Category', categories: 'Categories', authors: 'Authors', opinion: 'Contact the author', opinionSubject: title => `About “${title}”`, opinionBody: title => `Hello,\n\nI would like to get in touch about the text “${title}”.\n\n`, copied: 'Link copied.', rssCopied: 'RSS feed link copied.', copyFailed: 'The link could not be copied.'
+    skipContent: 'Skip to content', openAllTexts: 'Open all texts', allTexts: 'All texts', homepage: 'Homepage', sharePage: 'Share this page', share: 'Share', searchTexts: 'Search texts', search: 'Search', loadingTexts: 'Loading the archive…', closeMenu: 'Close menu', textsIndex: 'Text index', backTop: 'Back to top', findText: 'Find a text', closeSearch: 'Close search', searchByContent: 'Search by title or content', searchPlaceholder: 'Search by title, content or author', searchHelp: 'Start typing to search.', chooseOption: 'Choose an option', closeShare: 'Close sharing options', shareHow: 'Choose how you would like to share this page.', shareOptions: 'Sharing options', copyLink: 'Copy link', language: 'Language', preferencesNote: 'Language and theme preferences are stored only in this browser.', themeLight: 'Use light mode', themeDark: 'Use dark mode', siteDescription: 'Sermons, messages, reflections and articles about Christian faith and the different aspects of Christian life.', siteIntro: 'Sermons, messages, reflections and articles about Christian faith and the different aspects of Christian life.', textFallback: 'Text', readText: 'Open', backHome: 'Back to the archive', backAllTexts: 'Back to all texts', previousText: 'Previous text', nextText: 'Next text', textNavigation: 'Text navigation', notFoundTitle: 'Text not found', notFoundText: 'The address may be incomplete, or the text may no longer be available.', loadErrorTitle: 'The archive could not be loaded', retry: 'Try again', openBlog: 'Open the blog', noSearchResults: 'No text matched those terms.', bloggerTimeout: 'The Blogger response took too long.', bloggerConnection: 'Blogger could not be reached.', noPosts: 'There are no published texts in the archive yet.', notConfigured: 'The archive is ready, but it is not connected to Blogger yet.', openPdf: 'Open PDF', pdfLabel: 'Message in PDF', noPdf: 'This publication does not have an associated PDF yet.', author: 'Author', date: 'Updated', category: 'Category', allCategories: 'All texts', categoryLabel: 'Category', categories: 'Categories', authors: 'Authors', opinion: 'Contact the author', opinionSubject: title => `About “${title}”`, opinionBody: title => `Hello,\n\nI would like to get in touch about the text “${title}”.\n\n`, copied: 'Link copied.', rssCopied: 'RSS feed link copied.', copyFailed: 'The link could not be copied.'
   },
 });
 
@@ -294,6 +291,25 @@ function sanitizePostHtml(html='') {
   return parsed.body.innerHTML;
 }
 
+function sanitizeLocalPublicationHtml(html='') {
+  const parsed = new DOMParser().parseFromString(html, 'text/html');
+  parsed.querySelectorAll('script,style,object,embed,link,meta,iframe').forEach(node => node.remove());
+  parsed.querySelectorAll('*').forEach(node => {
+    [...node.attributes].forEach(attribute => {
+      const name = attribute.name.toLowerCase();
+      const value = attribute.value.trim().toLowerCase();
+      if (name.startsWith('on') || value.startsWith('javascript:')) {
+        node.removeAttribute(attribute.name);
+      }
+    });
+  });
+  parsed.querySelectorAll('a[href]').forEach(link => {
+    const value = link.getAttribute('href') || '';
+    if (/^javascript:/i.test(value)) link.removeAttribute('href');
+  });
+  return parsed.body.innerHTML;
+}
+
 function parsePdfUrl(content) {
   const parsed=new DOMParser().parseFromString(content,'text/html');
   const links=[...parsed.querySelectorAll('a[href]')];
@@ -334,7 +350,7 @@ function parseFeed(feed) {
       slug,
       groupId,
       language:postLanguage,
-      content:sanitizePostHtml(content),
+      content:sanitizeLocalPublicationHtml(content),
       text,
       excerpt,
       synopsis,
@@ -366,29 +382,50 @@ function parseFeed(feed) {
   return posts;
 }
 
-function loadBloggerFeed() {
-  if(!CONFIG.feedUrl) return Promise.reject(new Error(t('notConfigured')));
-  return new Promise((resolve,reject)=>{
-    const callbackName=`acervoFeed_${Date.now()}_${Math.random().toString(36).slice(2)}`; const script=document.createElement('script');
-    const timeout=window.setTimeout(()=>{cleanup();reject(new Error(t('bloggerTimeout')))},15000);
-    function cleanup(){window.clearTimeout(timeout);script.remove();try{delete window[callbackName]}catch{window[callbackName]=undefined}}
-    window[callbackName]=data=>{cleanup();resolve(data)}; script.onerror=()=>{cleanup();reject(new Error(t('bloggerConnection')))};
-    const params=new URLSearchParams({alt:'json-in-script','max-results':String(CONFIG.maxPosts),orderby:'published',callback:callbackName}); script.src=`${CONFIG.feedUrl}?${params.toString()}`; document.head.append(script);
-  });
+async function loadLocalPublications() {
+  const response = await fetch(CONFIG.contentIndex, {cache:'no-store'});
+  if (!response.ok) throw new Error('Não foi possível carregar as publicações.');
+  return response.json();
+}
+
+async function parseLocalPublications(data) {
+  const publications = Array.isArray(data) ? data : (data.publications || []);
+  const posts = [];
+  for (const publication of publications) {
+    if (publication.status && publication.status !== 'published') continue;
+    for (const [lang, translation] of Object.entries(publication.translations || {})) {
+      if (!translation?.content) continue;
+      const contentUrl = new URL(translation.content, new URL(CONFIG.contentIndex, window.location.href)).href;
+      const response = await fetch(contentUrl, {cache:'no-store'});
+      if (!response.ok) continue;
+      const content = await response.text();
+      const category = ({sermon:'Pregação',message:'Mensagem',article:'Artigo',reflection:'Reflexão'})[publication.type] || 'Artigo';
+      const text = htmlToText(content);
+      posts.push({id:`${publication.id}-${lang}`,title:translation.title||'',slug:publication.slug||slugify(translation.title||publication.id),groupId:publication.id,language:lang,content:sanitizeLocalPublicationHtml(content),text,excerpt:text.slice(0,307),synopsis:translation.synopsis||'',originalUrl:'',published:publication.updatedAt||publication.createdAt||'',firstPublished:publication.updatedAt||publication.createdAt||'',updatedAt:publication.updatedAt||publication.createdAt||'',author:publication.author?.name||'Gonçalo Venâncio',categories:[category],labels:[],pdf:null});
+    }
+  }
+  posts.sort((a,b)=>new Date(b.updatedAt)-new Date(a.updatedAt));
+  return posts;
+}
+
+function slugify(value='') {
+  return value.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
 }
 
 function postUrl(post){return `${CONFIG.baseUrl}#texto=${encodeURIComponent(post.slug)}`;}
 function categoryUrl(category){return `${CONFIG.baseUrl}#categoria=${encodeURIComponent(category)}`;}
 function authorUrl(author){return `${CONFIG.baseUrl}#autor=${encodeURIComponent(author)}`;}
 function getRoute(){
-  const path=window.location.pathname.replace(/\/+$/,'/');
-  const base=new URL(CONFIG.baseUrl).pathname;
+  let path=window.location.pathname;
+  if(path.endsWith('/index.html')) path=path.slice(0,-10);
+  path=path.replace(/\/+$/,'/');
+  const base=new URL(CONFIG.baseUrl).pathname.replace(/\/+$/,'/');
   const hashParams=new URLSearchParams(window.location.hash.replace(/^#/, ''));
   const hashPost=hashParams.get('texto');
   const hashCategory=hashParams.get('categoria');
   const hashAuthor=hashParams.get('autor');
 
-  if(path===base||path===base.slice(0,-1)) {
+  if(path===base || path===base.slice(0,-1)) {
     if(hashPost) return {name:'article',slug:hashPost,filter:null,filterType:null};
     if(hashCategory) return {name:'home',slug:null,filter:hashCategory,filterType:'category'};
     if(hashAuthor) return {name:'home',slug:null,filter:hashAuthor,filterType:'author'};
@@ -562,7 +599,7 @@ function renderArticle(post){
 }
 
 function renderNotFound(){elements.homeOnly.hidden=true;elements.homeShareButton.hidden=true;elements.searchButtons.forEach(b=>b.hidden=true);elements.view.innerHTML=`<section class="empty-state reveal-card"><h1>${t('notFoundTitle')}</h1><p>${t('notFoundText')}</p><a class="pill" href="${CONFIG.baseUrl}">${t('backAllTexts')}</a></section>`;}
-function renderError(error){elements.homeOnly.hidden=false;elements.homeShareButton.hidden=false;elements.searchButtons.forEach(b=>b.hidden=false); elements.view.innerHTML=`<section class="error-card reveal-card"><h2>${t('loadErrorTitle')}</h2><p>${escapeHtml(error.message)}</p><div class="hero-actions"><button class="pill" type="button" data-retry>${t('retry')}</button>${CONFIG.blogHome?`<a class="pill" href="${CONFIG.blogHome}" target="_blank" rel="noopener noreferrer">${t('openBlog')}</a>`:''}</div></section>`;elements.view.querySelector('[data-retry]')?.addEventListener('click',initializePosts);}
+function renderError(error){elements.homeOnly.hidden=false;elements.homeShareButton.hidden=false;elements.searchButtons.forEach(b=>b.hidden=false); elements.view.innerHTML=`<section class="error-card reveal-card"><h2>${t('loadErrorTitle')}</h2><p>${escapeHtml(error.message)}</p><div class="hero-actions"><button class="pill" type="button" data-retry>${t('retry')}</button></div></section>`;elements.view.querySelector('[data-retry]')?.addEventListener('click',initializePosts);}
 function renderRoute(){
   const route=getRoute();
   closeMenu();
@@ -590,7 +627,7 @@ function applyStaticTranslations(){const tr=I18N[language()];document.documentEl
 function applyLanguage(next,persist=true){document.documentElement.dataset.language=next==='en'?'en':'pt';applyStaticTranslations();applyTheme(document.documentElement.dataset.theme,false);buildSearchIndex();if(state.posts.length)renderRoute();if(persist)localStorage.setItem('venancio-language',language());}
 function applyTheme(theme,persist=true){const normalized=theme==='dark'?'dark':'light';document.documentElement.dataset.theme=normalized;elements.themeToggle?.setAttribute('aria-label',normalized==='dark'?t('themeLight'):t('themeDark'));elements.themeToggle?.setAttribute('title',normalized==='dark'?t('themeLight'):t('themeDark'));document.querySelector('meta[name="theme-color"]')?.setAttribute('content',normalized==='dark'?'#232530':'#cccccc');if(persist)localStorage.setItem('venancio-theme',normalized);}
 async function openShare(title){const url=window.location.href;const text=title||CONFIG.siteTitle;elements.sharePreviewTitle.textContent=text;elements.shareWhatsApp.href=`https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`;elements.shareEmail.href=`mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(url)}`;elements.shareFacebook.href=`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;elements.shareTelegram.href=`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;elements.nativeShareButton.hidden=!navigator.share;elements.copyShareButton.onclick=async()=>{try{await navigator.clipboard.writeText(url);elements.toast.textContent=t('copied')}catch{elements.toast.textContent=t('copyFailed')}};if(typeof elements.shareDialog?.showModal==='function')elements.shareDialog.showModal();}
-async function setRssLinks(){elements.rssLinks.forEach(link=>{link.href=`${CONFIG.blogHome}feeds/posts/default`;});}
+async function setRssLinks(){elements.rssLinks.forEach(link=>{link.removeAttribute('href');});}
 async function copyText(value){
   if(navigator.clipboard?.writeText && window.isSecureContext){await navigator.clipboard.writeText(value);return;}
   const textArea=document.createElement('textarea');textArea.value=value;textArea.setAttribute('readonly','');textArea.style.position='fixed';textArea.style.opacity='0';document.body.append(textArea);textArea.select();const copied=document.execCommand('copy');textArea.remove();if(!copied)throw new Error(t('copyFailed'));
@@ -601,7 +638,7 @@ function showRssToast(message){
   clearTimeout(rssToastTimer);toast.textContent=message;toast.hidden=false;requestAnimationFrame(()=>toast.classList.add('show'));
   rssToastTimer=setTimeout(()=>{toast.classList.remove('show');setTimeout(()=>{toast.hidden=true;},220);},2200);
 }
-async function initializePosts(){setRssLinks();elements.view.innerHTML=`<div class="loading-card"><span class="loading-dot" aria-hidden="true"></span><p>${t('loadingTexts')}</p></div>`;try{const feed=await loadBloggerFeed();state.posts=parseFeed(feed);buildSearchIndex();renderRoute();}catch(error){renderError(error);}}
+async function initializePosts(){elements.view.innerHTML=`<div class="loading-card"><span class="loading-dot" aria-hidden="true"></span><p>${t('loadingTexts')}</p></div>`;try{const data=await loadLocalPublications();state.posts=await parseLocalPublications(data);buildSearchIndex();renderRoute();}catch(error){renderError(error);}}
 
 elements.themeToggle?.addEventListener('click',()=>applyTheme(document.documentElement.dataset.theme==='dark'?'light':'dark'));
 elements.languageButtons.forEach(button=>button.addEventListener('click',()=>applyLanguage(button.dataset.language)));
@@ -609,11 +646,7 @@ document.querySelectorAll('[data-open-menu]').forEach(button=>button.addEventLis
 document.querySelectorAll('[data-open-search]').forEach(button=>button.addEventListener('click',openSearch)); elements.searchInput?.addEventListener('input',event=>renderSearchResults(event.target.value)); elements.searchDialog?.addEventListener('close',()=>document.body.classList.remove('is-locked'));
 elements.homeShareButton?.addEventListener('click',()=>openShare(CONFIG.siteTitle)); elements.closeShareButton?.addEventListener('click',()=>elements.shareDialog?.close()); elements.nativeShareButton?.addEventListener('click',async()=>{try{await navigator.share({title:elements.sharePreviewTitle.textContent,url:window.location.href})}catch{}}); elements.shareDialog?.addEventListener('click',event=>{if(event.target===elements.shareDialog)elements.shareDialog.close();});
 elements.backToTopButton?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-elements.rssLinks.forEach(link=>link.addEventListener('click',async event=>{
-  event.preventDefault();
-  const rssUrl=`${CONFIG.blogHome}feeds/posts/default?alt=rss`;
-  try{await copyText(rssUrl);showRssToast(t('rssCopied'));}catch{window.open(rssUrl,'_blank','noopener,noreferrer');}
-})); window.addEventListener('scroll',updateBackToTopVisibility,{passive:true}); window.addEventListener('popstate',renderRoute); window.addEventListener('hashchange',()=>{if(state.posts.length){renderRoute();window.scrollTo({top:0,behavior:'smooth'});}});
+elements.rssLinks.forEach(link=>link.addEventListener('click',event=>{event.preventDefault();showRssToast('RSS será adicionado numa etapa posterior.');})); window.addEventListener('scroll',updateBackToTopVisibility,{passive:true}); window.addEventListener('popstate',renderRoute); window.addEventListener('hashchange',()=>{if(state.posts.length){renderRoute();window.scrollTo({top:0,behavior:'smooth'});}});
 document.addEventListener('click',event=>{const link=event.target.closest('a[href]');if(!link)return;const href=link.getAttribute('href');if(!href||href.startsWith('#')||href.startsWith('mailto:')||href.startsWith('https://')||href.startsWith('http://')||link.target==='_blank')return;try{const url=new URL(href,window.location.href);const base=new URL(CONFIG.baseUrl);if(url.origin===base.origin&&url.pathname.startsWith(base.pathname)){event.preventDefault();history.pushState({},'',url.pathname);renderRoute();window.scrollTo({top:0,behavior:'smooth'});}}catch{}});
 
 applyStaticTranslations(); applyTheme(document.documentElement.dataset.theme||'light',false); initializePosts();

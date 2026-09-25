@@ -2795,3 +2795,107 @@ html[data-theme='dark'] {
     transform: none;
   }
 }
+
+/* Conteúdo editorial do novo publicador do Acervo */
+.article-body .acervo-section-heading{margin:2.2rem 0 1rem;font-family:var(--sans);font-size:1.15rem;line-height:1.35;font-weight:700;}
+.article-body .acervo-spacer{min-height:.9rem;margin:0;}
+.article-body .acervo-highlight-bar,.article-body .acervo-highlight-centered{margin:1.75rem 0;}
+.article-body .acervo-scripture-reference{margin:1.75rem 0 .5rem;font-family:var(--sans);font-weight:700;color:var(--article-scripture-accent);}
+
+
+/* Word editorial styles used by the Acervo publisher. */
+.article-body .word-normal {
+  font-family: Calibri, Arial, sans-serif;
+}
+
+.article-body .word-normal-apresentacao {
+  font-family: Calibri, Arial, sans-serif;
+  font-size: 18pt;
+  color: #222222;
+  text-align: justify;
+}
+
+.article-body .word-destaque-pregacao {
+  box-sizing: border-box;
+  background: #EDF2F4;
+  border-left: 3pt solid #1F3B4D;
+  color: #1F3B4D;
+  font-family: Calibri, Arial, sans-serif;
+  font-size: 18pt;
+  font-weight: 700;
+}
+
+.article-body .word-referencia-biblica {
+  color: #8A6D1D;
+  font-family: Calibri, Arial, sans-serif;
+  font-size: 16pt;
+  font-weight: 700;
+}
+
+.article-body .word-passagem-biblica {
+  box-sizing: border-box;
+  background: #F2F0E9;
+  border-left: 3pt solid #8A6D1D;
+  color: #222222;
+  font-family: Calibri, Arial, sans-serif;
+  font-size: 16pt;
+  text-align: justify;
+}
+
+.article-body .word-destaque-2 {
+  box-sizing: border-box;
+  background: #EDF2F4;
+  border-top: .75pt solid #1F3B4D;
+  border-bottom: .75pt solid #1F3B4D;
+  color: #1F3B4D;
+  font-family: Calibri, Arial, sans-serif;
+  font-size: 18pt;
+  font-weight: 700;
+  text-align: center;
+}
+
+.article-body .word-heading {
+  color: #1F3B4D;
+  font-family: Calibri, Arial, sans-serif;
+}
+
+.article-body .word-empty {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+/* Conteúdo convertido diretamente do Word: listas e blocos editoriais. */
+.article-body .word-list {
+  margin-top: 0;
+  margin-bottom: 1.15em;
+  padding-left: 36pt;
+}
+
+.article-body .word-list > li {
+  margin: 0;
+  padding: 0;
+}
+
+.article-body .word-list > li > p,
+.article-body .word-list > li > h2,
+.article-body .word-list > li > div {
+  margin-left: 0;
+}
+
+.article-body .word-destaque-pregacao-group,
+.article-body .word-passagem-biblica-group,
+.article-body .word-destaque-2-group {
+  display: block;
+  margin: 0 0 1.15em;
+  overflow: hidden;
+}
+
+.article-body .word-destaque-pregacao-group > *,
+.article-body .word-passagem-biblica-group > *,
+.article-body .word-destaque-2-group > * {
+  background: transparent !important;
+  border: 0 !important;
+}
