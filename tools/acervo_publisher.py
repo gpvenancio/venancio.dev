@@ -10,17 +10,20 @@ from __future__ import annotations
 import html
 import json
 import re
+import sys
 import unicodedata
 from datetime import date
 from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, filedialog, messagebox
-
 from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 
+if getattr(sys, "frozen", False):
+    ROOT = Path(sys.executable).resolve().parents[1]
+else:
+    ROOT = Path(__file__).resolve().parents[1]
 
-ROOT = Path(__file__).resolve().parents[1]
 CONTENT = ROOT / "acervo" / "content"
 INDEX = CONTENT / "index.json"
 
