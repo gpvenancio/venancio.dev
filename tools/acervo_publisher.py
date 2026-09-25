@@ -579,36 +579,101 @@ def token_store_key(config):
     return f"{config['owner']}/{config['repo']}"
 
 
-def store_tokens(config, access_token, access_expires_at, refresh_token, refresh_expires_at):
-    if keyring is None:
-        raise RuntimeError(
-            "O armazenamento seguro de credenciais não está disponível."
-        )
-    key = token_store_key(config)
-    payload = {
+TOKEN_FALLBACK_FILE = CONFIG_DIR / "tokens.json"
+
+
+def _token_payload(access_token, access_expires_at, refresh_token, refresh_expires_at):
+    return {
         "access_token": access_token,
         "access_expires_at": access_expires_at,
         "refresh_token": refresh_token,
         "refresh_expires_at": refresh_expires_at,
     }
-    keyring.set_password(KEYRING_SERVICE, key, json.dumps(payload))
 
 
-def load_tokens(config):
-    if keyring is None:
-        return None
+def _save_token_fallback(config, payload):
+    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    data = {}
     try:
-        value = keyring.get_password(KEYRING_SERVICE, token_store_key(config))
-        return json.loads(value) if value else None
+        if TOKEN_FALLBACK_FILE.exists():
+            data = json.loads(TOKEN_FALLBACK_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        data = {}
+    data[token_store_key(config)] = payload
+    TOKEN_FALLBACK_FILE.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    if sys.platform != "win32":
+        try:
+            TOKEN_FALLBACK_FILE.chmod(0o600)
+        except OSError:
+            pass
+
+
+def _load_token_fallback(config):
+    try:
+        if not TOKEN_FALLBACK_FILE.exists():
+            return None
+        data = json.loads(TOKEN_FALLBACK_FILE.read_text(encoding="utf-8"))
+        return data.get(token_store_key(config))
     except Exception:
         return None
 
 
+def store_tokens(config, access_token, access_expires_at, refresh_token, refresh_expires_at):
+    payload = _token_payload(
+        access_token, access_expires_at, refresh_token, refresh_expires_at
+    )
+    stored_in_keyring = False
+    if keyring is not None:
+        try:
+            keyring.set_password(
+                KEYRING_SERVICE,
+                token_store_key(config),
+                json.dumps(payload),
+            )
+            stored_in_keyring = True
+        except Exception:
+            pass
+
+    # Mantemos uma cópia local protegida como recurso de persistência, caso
+    # o backend do keyring não esteja disponível ou não seja persistente.
+    _save_token_fallback(config, payload)
+    return stored_in_keyring
+
+
+def load_tokens(config):
+    if keyring is not None:
+        try:
+            value = keyring.get_password(
+                KEYRING_SERVICE, token_store_key(config)
+            )
+            if value:
+                tokens = json.loads(value)
+                if tokens.get("refresh_token") or tokens.get("access_token"):
+                    return tokens
+        except Exception:
+            pass
+    return _load_token_fallback(config)
+
+
 def clear_tokens(config):
-    if keyring is None:
-        return
+    if keyring is not None:
+        try:
+            keyring.delete_password(KEYRING_SERVICE, token_store_key(config))
+        except Exception:
+            pass
     try:
-        keyring.delete_password(KEYRING_SERVICE, token_store_key(config))
+        if TOKEN_FALLBACK_FILE.exists():
+            data = json.loads(TOKEN_FALLBACK_FILE.read_text(encoding="utf-8"))
+            data.pop(token_store_key(config), None)
+            TOKEN_FALLBACK_FILE.write_text(
+                json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+                encoding="utf-8",
+            )
+            if sys.platform != "win32":
+                TOKEN_FALLBACK_FILE.chmod(0o600)
     except Exception:
         pass
 
@@ -935,6 +1000,121 @@ class GitHubClient:
 
         return commit_result
 
+    def delete_publication(self, publication):
+        """Remove uma publicação e todos os ficheiros das suas traduções."""
+        token = self.ensure_token()
+        owner = urllib.parse.quote(self.config["owner"], safe="")
+        repo = urllib.parse.quote(self.config["repo"], safe="")
+        branch = self.config["branch"]
+
+        ref = self._request(
+            "GET",
+            f"{GITHUB_API}/repos/{owner}/{repo}/git/ref/heads/"
+            f"{urllib.parse.quote(branch, safe='')}",
+            token=token,
+        )
+        parent_sha = ref["object"]["sha"]
+
+        commit = self._request(
+            "GET",
+            f"{GITHUB_API}/repos/{owner}/{repo}/git/commits/{parent_sha}",
+            token=token,
+        )
+        base_tree = commit["tree"]["sha"]
+
+        # O GitHub devolve GitRPC::BadObjectState se tentarmos apagar
+        # um ficheiro que não existe na árvore base. Como o index pode
+        # conter uma referência antiga, consultamos a árvore recursiva
+        # antes de construir a operação de eliminação.
+        tree_data = self._request(
+            "GET",
+            f"{GITHUB_API}/repos/{owner}/{repo}/git/trees/{base_tree}",
+            {"recursive": "1"},
+            token=token,
+        )
+        existing_paths = {
+            entry.get("path")
+            for entry in tree_data.get("tree", [])
+            if entry.get("type") == "blob"
+        }
+
+        current_data = self.get_index()
+        remaining = [
+            item
+            for item in current_data
+            if item.get("id") != publication.get("id")
+        ]
+
+        tree_entries = [
+            {
+                "path": "acervo/content/index.json",
+                "mode": "100644",
+                "type": "blob",
+                "content": json.dumps(
+                    remaining, ensure_ascii=False, indent=2
+                ) + "\n",
+            }
+        ]
+
+        for translation in publication.get("translations", {}).values():
+            content_path = translation.get("content")
+            if content_path and content_path in existing_paths:
+                tree_entries.append(
+                    {
+                        "path": content_path,
+                        "mode": "100644",
+                        "type": "blob",
+                        "sha": None,
+                    }
+                )
+
+        tree = self._request(
+            "POST",
+            f"{GITHUB_API}/repos/{owner}/{repo}/git/trees",
+            {
+                "base_tree": base_tree,
+                "tree": tree_entries,
+            },
+            token=token,
+        )
+
+        translations = publication.get("translations", {})
+        title = next(
+            (
+                translation.get("title")
+                for translation in translations.values()
+                if translation.get("title")
+            ),
+            publication.get("slug", publication.get("id", "")),
+        )
+        commit_result = self._request(
+            "POST",
+            f"{GITHUB_API}/repos/{owner}/{repo}/git/commits",
+            {
+                "message": f'Delete publication "{title}" [{publication.get("id", "")}]',
+                "tree": tree["sha"],
+                "parents": [parent_sha],
+            },
+            token=token,
+        )
+
+        try:
+            self._request(
+                "PATCH",
+                f"{GITHUB_API}/repos/{owner}/{repo}/git/refs/heads/"
+                f"{urllib.parse.quote(branch, safe='')}",
+                {"sha": commit_result["sha"], "force": False},
+                token=token,
+            )
+        except Exception as error:
+            raise RuntimeError(
+                "A eliminação foi preparada no GitHub, mas a branch mudou "
+                "antes de poder ser atualizada. Atualiza a lista e verifica "
+                "o estado da publicação antes de tentar novamente."
+            ) from error
+
+        return commit_result
+
 
 def next_publication_id(data):
     year = date.today().year
@@ -1240,12 +1420,23 @@ class App(tk.Tk):
             wraplength=740,
         ).grid(row=12, column=0, columnspan=2, sticky="w", pady=5)
 
+        action_frame = ttk.Frame(frame)
+        action_frame.grid(row=13, column=1, sticky="e", pady=20)
+
+        self.delete_button = ttk.Button(
+            action_frame,
+            text="Apagar publicação",
+            command=self.delete_selected_publication,
+            state="disabled",
+        )
+        self.delete_button.pack(side="left", padx=(0, 8))
+
         self.publish_button = ttk.Button(
-            frame,
+            action_frame,
             text="Publicar",
             command=self.do_publish,
         )
-        self.publish_button.grid(row=13, column=1, sticky="e", pady=20)
+        self.publish_button.pack(side="left")
 
         self.set_connection_status()
         if self.github.is_authenticated():
@@ -1288,16 +1479,81 @@ class App(tk.Tk):
         def worker():
             try:
                 def progress(code, uri):
-                    self.after(
-                        0,
-                        lambda: messagebox.showinfo(
-                            "Autorizar no GitHub",
-                            f"Foi aberto o GitHub no navegador.\n\n"
-                            f"Código de autorização:\n\n{code}\n\n"
-                            f"Se o navegador não abrir, usa:\n{uri}",
-                            parent=self,
-                        ),
-                    )
+                    def show_authorization_dialog():
+                        dialog = tk.Toplevel(self)
+                        dialog.title("Autorizar no GitHub")
+                        dialog.transient(self)
+                        dialog.grab_set()
+                        dialog.resizable(False, False)
+
+                        frame = ttk.Frame(dialog, padding=20)
+                        frame.pack(fill="both", expand=True)
+
+                        ttk.Label(
+                            frame,
+                            text="Foi aberto o GitHub no navegador.",
+                            wraplength=420,
+                        ).pack(anchor="w")
+                        ttk.Label(
+                            frame,
+                            text="Código de autorização:",
+                            font=("TkDefaultFont", 10, "bold"),
+                        ).pack(anchor="w", pady=(16, 6))
+
+                        code_var = tk.StringVar(value=code)
+                        code_entry = tk.Entry(
+                            frame,
+                            textvariable=code_var,
+                            justify="center",
+                            width=max(16, len(code) + 2),
+                            state="readonly",
+                            readonlybackground="white",
+                            foreground="black",
+                            insertbackground="black",
+                            relief="solid",
+                            borderwidth=1,
+                        )
+                        code_entry.pack(anchor="center", pady=(0, 10))
+
+                        button_frame = ttk.Frame(frame)
+                        button_frame.pack(fill="x", pady=(0, 12))
+
+                        copied_label = ttk.Label(button_frame, text="")
+                        copied_label.pack(side="left", padx=(8, 0))
+
+                        def copy_code():
+                            self.clipboard_clear()
+                            self.clipboard_append(code)
+                            self.update()
+                            copied_label.config(text="Código copiado.")
+
+                        ttk.Button(
+                            button_frame,
+                            text="Copiar código",
+                            command=copy_code,
+                        ).pack(side="left")
+
+                        ttk.Label(
+                            frame,
+                            text=f"Se o navegador não abrir, usa: {uri}",
+                            wraplength=420,
+                        ).pack(anchor="w", pady=(4, 14))
+
+                        ttk.Button(
+                            frame,
+                            text="OK",
+                            command=dialog.destroy,
+                        ).pack(anchor="e")
+
+                        dialog.protocol("WM_DELETE_WINDOW", dialog.destroy)
+                        dialog.update_idletasks()
+                        width = dialog.winfo_reqwidth()
+                        height = dialog.winfo_reqheight()
+                        x = self.winfo_rootx() + (self.winfo_width() - width) // 2
+                        y = self.winfo_rooty() + (self.winfo_height() - height) // 2
+                        dialog.geometry(f"{width}x{height}+{max(0, x)}+{max(0, y)}")
+
+                    self.after(0, show_authorization_dialog)
 
                 self.github.authenticate_device(progress)
                 user = self.github.authenticated_user()
@@ -1370,6 +1626,11 @@ class App(tk.Tk):
                 parent=self,
             )
 
+    def update_delete_button(self):
+        self.delete_button.config(
+            state="normal" if self.selected_publication else "disabled"
+        )
+
     def clear_form(self):
         self.selected_publication = None
         self.docx = None
@@ -1382,6 +1643,7 @@ class App(tk.Tk):
         self.lang.set("pt")
         self.filelabel.config(text="Nenhum documento escolhido")
         self.publish_button.config(text="Publicar")
+        self.update_delete_button()
 
     def new_publication(self):
         self.clear_form()
@@ -1434,12 +1696,67 @@ class App(tk.Tk):
         if self.lang.get() not in translations:
             self.lang.set(next(iter(translations), "pt"))
         self.load_selected_translation()
+        self.update_delete_button()
 
     def language_changed(self, _event=None):
         if self.selected_publication:
             self.docx = None
             self.filelabel.config(text="Nenhum documento escolhido")
             self.load_selected_translation()
+
+    def delete_selected_publication(self):
+        if not self.selected_publication:
+            return
+
+        publication = self.selected_publication
+        translations = publication.get("translations", {})
+        title = next(
+            (
+                translation.get("title")
+                for translation in translations.values()
+                if translation.get("title")
+            ),
+            publication.get("slug", publication.get("id", "")),
+        )
+        languages = ", ".join(
+            lang.upper() for lang in sorted(translations)
+        ) or "sem traduções"
+
+        confirmed = messagebox.askyesno(
+            "Confirmar eliminação",
+            f"Queres mesmo apagar a publicação?\n\n"
+            f"{title}\n"
+            f"ID interno: {publication.get('id', '')}\n"
+            f"Traduções: {languages}\n\n"
+            "Esta ação é permanente e remove a publicação do GitHub.",
+            icon="warning",
+            parent=self,
+        )
+        if not confirmed:
+            return
+
+        try:
+            self.delete_button.config(state="disabled")
+            self.publish_button.config(state="disabled")
+            self.update_idletasks()
+
+            self.github.delete_publication(publication)
+
+            self.clear_form()
+            self.refresh_publications()
+            messagebox.showinfo(
+                "Publicação apagada",
+                f"{title} foi apagada com sucesso.",
+                parent=self,
+            )
+        except Exception as error:
+            self.update_delete_button()
+            self.publish_button.config(state="normal")
+            messagebox.showerror(
+                "Erro ao apagar",
+                str(error),
+                parent=self,
+            )
 
     def choose(self):
         selected = filedialog.askopenfilename(
