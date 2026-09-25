@@ -19,11 +19,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller python-docx
+          pip install pyinstaller python-docx keyring
 
       - name: Build Publisher
         run: |
-          pyinstaller --noconfirm --clean --onefile --windowed --name "Acervo Publisher" tools/acervo_publisher.py
+          pyinstaller --noconfirm --clean --onefile --windowed --name "Acervo Publisher" --hidden-import=keyring.backends.Windows tools/acervo_publisher.py
 
       - name: Upload Publisher
         uses: actions/upload-artifact@v4

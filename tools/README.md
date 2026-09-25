@@ -1,11 +1,11 @@
-# Publicador do Acervo
+# Acervo Publisher
 
-No Linux, a partir da raiz do projeto:
+O Publisher é uma aplicação independente para publicação do Acervo de Fé.
 
-```bash
-python3 tools/acervo_publisher.py
-```
+A versão atual converte documentos Word preservando a formatação e publica
+diretamente no repositório GitHub configurado, sem exigir uma cópia local do
+site ou Git no computador editorial.
 
-O publicador lê um `.docx`, usa os estilos editoriais do Acervo e preserva a formatação do documento, incluindo negritos, espaçamentos e parágrafos vazios. A primeira página é usada apenas para título e sinopse e não é publicada.
-
-O ID da publicação é interno. Para uma publicação existente, escolhe-se a publicação na lista e o publicador atualiza automaticamente a publicação correta. Para uma publicação nova, o ID é criado automaticamente.
+A autenticação usa uma GitHub App através do Device Flow. As credenciais de
+sessão são guardadas pelo sistema de credenciais do Windows através do pacote
+`keyring`.
